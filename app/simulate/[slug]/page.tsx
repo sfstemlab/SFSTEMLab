@@ -34,50 +34,52 @@ const Simulator = () => {
     };
 
     return (
-        <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-r from-black to-gray-800 p-6">
-            <div className="bg-gray-900 shadow-lg rounded-lg p-8 text-center">
-                <h1 className="text-2xl font-bold mb-4 text-gray-200">Welcome to the {setName.toUpperCase()} Simulator!</h1>
-                <select
-                    className="py-1 mb-2 text-xl bg-gray-700 text-gray-200 hover:bg-gray-600 rounded-md"
-                    value={booster}
-                    onChange={(e) => setBooster(e.target.value)}
-                >
-                    <optgroup label='Booster Products'>
-                        <option value="draft-booster">Draft Booster</option>
-                        <option value="play-booster">Play Booster</option>
-                        <option value="collector-booster">Collector Booster</option>
-                        <option value="collector-booster-box">Collector Booster Box</option>
-                        <option value="draft-booster-box">Draft Booster Box</option>
-                        <option value="play-booster-box">Play Booster Box</option>
-                        <option value="set-booster">Set Booster</option>
-                        <option value="set-booster-box">Set Booster Box</option>
-                    </optgroup>
-                </select>
-                <div className="flex space-x-3 justify-center">
-                    <Link href="/sets" className="w-1/6 inline-block bg-gray-700 hover:bg-gray-600 text-gray-200 font-bold py-2 px-4 rounded-md transition duration-300">
-                        <ArrowBigLeftDash />
-                    </Link>
-                    <button
-                        className="w-5/6 bg-gray-700 hover:bg-gray-600 text-gray-200 font-bold py-2 px-4 rounded-md transition duration-300"
-                        onClick={simulate}
+        <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-r from-indigo-950 via-indigo-900 to-indigo-950 p-6">
+            <div className="bg-[#0d0c0c] border border-gray-600 shadow-lg shadow-gray-700 rounded-lg p-8 text-center w-full max-w-4xl">
+                <h1 className="text-4xl font-bold mb-4 text-gray-200">
+                    Welcome to the <span className="text-indigo-500 border border-cyan-300/20 rounded-md px-3 bg-cyan-500/20 backdrop-blur-sm ">{setName.toUpperCase()}</span> Simulator!
+                </h1>
+                <div className="flex justify-center mb-6">
+                    <select
+                        className="py-2 px-4 text-lg bg-gray-700 text-gray-200 hover:bg-gray-600 rounded-md mr-4"
+                        value={booster}
+                        onChange={(e) => setBooster(e.target.value)}
                     >
-                        Simulate
-                    </button>
+                        <optgroup label='Booster Products'>
+                            <option value="draft-booster">Draft Booster</option>
+                            <option value="play-booster">Play Booster</option>
+                            <option value="collector-booster">Collector Booster</option>
+                            <option value="collector-booster-box">Collector Booster Box</option>
+                            <option value="draft-booster-box">Draft Booster Box</option>
+                            <option value="play-booster-box">Play Booster Box</option>
+                            <option value="set-booster">Set Booster</option>
+                            <option value="set-booster-box">Set Booster Box</option>
+                        </optgroup>
+                    </select>
+                    <Link href="/sets" className="inline-block bg-gray-700 hover:bg-gray-600 text-gray-200 font-bold py-2 px-4 rounded-md transition duration-300">
+                        <ArrowBigLeftDash className="inline-block mr-2" />Back to Sets
+                    </Link>
                 </div>
-            </div>
-            {loading && <div className="mt-4 text-gray-200">Loading...</div>}
-            {error && <div className="mt-4 text-red-500">{error}</div>}
-            <div className={`w-full overflow-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-8 mt-4 ${simulated ? 'h-full' : 'hidden'}`}>
-                {simulatedCards.map((card, index) => (
-                    <Card
-                        key={index}
-                        cardName={card.name}
-                        cardImage={card.cardImage}
-                        prices={card.prices}
-                        setCode={card.set}
-                        edhrec_link={card.related_uris.edhrec}
-                    />
-                ))}
+                <button
+                    className="w-full bg-indigo-600 hover:bg-indigo-500 text-gray-200 font-bold py-3 px-6 rounded-md transition duration-300 mb-6"
+                    onClick={simulate}
+                >
+                    Simulate
+                </button>
+                {loading && <div className="text-lg text-gray-200">Loading...</div>}
+                {error && <div className="text-lg text-red-500">{error}</div>}
+                <div className={`w-full grid grid-cols-2 md:grid-cols-3  gap-4 ${simulated ? 'mt-8' : 'hidden'}`}>
+                    {simulatedCards.map((card, index) => (
+                        <Card
+                            key={index}
+                            cardName={card.name}
+                            cardImage={card.cardImage}
+                            prices={card.prices}
+                            setCode={card.set}
+                            edhrec_link={card.related_uris.edhrec}
+                        />
+                    ))}
+                </div>
             </div>
         </div>
     );

@@ -13,7 +13,7 @@ const Card = ({ cardName, cardImage, cardArt, cardTreatment, prices, setCode, ed
     };
 
     return (
-        <div className="max-w-xs bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+        <div className="max-w-sm bg-gray-800 rounded-lg shadow-lg ">
             <CardImage
                 cardImage={cardImage}
                 cardName={cardName}

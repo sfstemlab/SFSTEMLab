@@ -6,11 +6,11 @@ import Link from "next/link";
 
 const CardImage = ({ cardImage, cardName, edhrec_link, doubleFaced, flipCard }: CardImageProps) => {
     return (
-        <div className="relative">
+        <div className="relative bg-emerald-950 backdrop-blur-sm bg-opacity-50 opacity-70 hover:opacity-100 transition duration-200 ease-linear ">
             {cardImage ? (
                 <>
                     <Link href={edhrec_link}>
-                        <img className="w-full object-cover" src={cardImage} alt={cardName} />
+                        <img className="w-full object-cover p-4 rounded-3xl" src={cardImage} alt={cardName} />
                     </Link>
                     {doubleFaced && (
                         <button
