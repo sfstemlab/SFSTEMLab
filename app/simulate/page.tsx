@@ -12,7 +12,7 @@ interface CardData {
     };
     set: string;
     related_uris: {
-        'edhrec': string;
+        edhrec: string;
     };
     rarity: string;
     cardImage: string;
@@ -20,32 +20,33 @@ interface CardData {
 
 const Simulator = () => {
     const [setName, setSetName] = useState('mh3');
-    const [booster, setBooster] = useState('draft');
+    const [booster, setBooster] = useState('draft-booster');
     const [simulated, setSimulated] = useState(false);
     const [data, setData] = useState<CardData[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [simulatedCards, setSimulatedCards] = useState<CardData[]>([]);
 
+    const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
     const fetchCardImage = async (cardName: string): Promise<string | null> => {
-        let card_name = cardName.replaceAll(' ', '');
+        let card_name = cardName.replaceAll(' ', '+');
         if (card_name.includes('/')) {
             card_name = card_name.split('/')[0];
         }
-        const link = `https://api.scryfall.com/cards/search?q=!${card_name}`;
+        const link = `https://api.scryfall.com/cards/named?exact=${card_name}`;
         try {
             const res = await fetch(link);
             if (!res.ok) {
-                throw new Error('response failed');
+                throw new Error('Response failed');
             }
             const data = await res.json();
-            const cardData = data.data[0];
-            if (cardData.card_faces && cardData.card_faces.length > 1) {
-                return cardData.card_faces[0].image_uris['normal'];
+            if (data.card_faces && data.card_faces.length > 1) {
+                return data.card_faces[0].image_uris.normal;
             }
-            return cardData.image_uris['normal'];
+            return data.image_uris.normal;
         } catch (error) {
-            console.error('Error fetching data:', error);
+            console.error('Error fetching card image:', error);
             return null;
         }
     };
@@ -55,13 +56,21 @@ const Simulator = () => {
         try {
             const res = await fetch(link);
             if (!res.ok) {
-                throw new Error('response failed');
+                throw new Error('Response failed');
             }
             const data = await res.json();
             const cards = data.data;
             const cardsWithImages = await Promise.all(cards.map(async (card: any) => {
                 const cardImage = await fetchCardImage(card.name);
-                return { ...card, cardImage };
+                await delay(75); // Delay to avoid hitting rate limits
+                return { 
+                    name: card.name,
+                    prices: card.prices,
+                    set: card.set,
+                    related_uris: card.related_uris,
+                    rarity: card.rarity,
+                    cardImage
+                };
             }));
             return cardsWithImages;
         } catch (error: any) {
@@ -82,26 +91,9 @@ const Simulator = () => {
         if (fetchedData) {
             setData(fetchedData);
             setSimulated(true);
-            const commons = fetchedData.filter(card => card.rarity === 'common');
             const uncommons = fetchedData.filter(card => card.rarity === 'uncommon');
-            const rares = fetchedData.filter(card => card.rarity === 'rare');
-            const mythics = fetchedData.filter(card => card.rarity === 'mythic');
             let boosterCards: CardData[] = [];
             boosterCards = [...boosterCards, ...getRandomCards(uncommons, 3)];
-
-            // Uncomment the following logic if you need to add more cards to the booster pack
-            /*
-            if (booster.includes('draft')) {
-                const rmCardRarity = Math.random() < 0.125 ? 'mythic' : 'rare';
-                const rmCard = fetchedData.filter(card => card.rarity === rmCardRarity);
-                const uncommonCards = getRandomCards(uncommons, 3);
-                const commonCards = getRandomCards(commons, 10);
-                boosterCards = [...boosterCards, ...rmCard, ...uncommonCards, ...commonCards];
-            } else if (booster.includes('set')) {
-                // Additional logic for set boosters
-            }
-            */
-
             setSimulatedCards(boosterCards);
         } else {
             setSimulated(false);
@@ -157,7 +149,7 @@ const Simulator = () => {
                         setCode={card.set}
                         w={230}
                         h={200}
-                        edhrec_link={card.related_uris['edhrec']}
+                        edhrec_link={card.related_uris.edhrec}
                     />
                 ))}
             </div>
