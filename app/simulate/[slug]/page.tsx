@@ -21,7 +21,7 @@ interface CardData {
 }
 
 const Simulator = () => {
-    const { slug } = useParams<string>();
+    const { slug } = useParams();
     const [setName, setSetName] = useState(slug || '');
     const [booster, setBooster] = useState('draft-booster');
     const [simulated, setSimulated] = useState(false);
@@ -29,7 +29,6 @@ const Simulator = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [simulatedCards, setSimulatedCards] = useState<CardData[]>([]);
-
     // Delay function to comply with rate limiting
     const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -57,7 +56,7 @@ const Simulator = () => {
     };
 
     // Fetch data for a specific set
-    const fetchData = async (set: string): Promise<CardData[] | null> => {
+    const fetchData = async (set: string | string[]): Promise<CardData[] | null> => {
         const link = `https://api.scryfall.com/cards/search?q=s:${set}`;
         try {
             const res = await fetch(link);
@@ -116,7 +115,7 @@ const Simulator = () => {
     return (
         <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-r from-black to-gray-800 p-6">
             <div className="bg-gray-900 shadow-lg rounded-lg p-8 text-center">
-                <h1 className="text-2xl font-bold mb-4 text-gray-200">Welcome to the {setName.toUpperCase()} Simulator!</h1>
+                <h1 className="text-2xl font-bold mb-4 text-gray-200">Welcome to the {setName} Simulator!</h1>
                 <select
                     className="py-1 mb-2 text-xl bg-gray-700 text-gray-200 hover:bg-gray-600 rounded-md"
                     value={booster}
