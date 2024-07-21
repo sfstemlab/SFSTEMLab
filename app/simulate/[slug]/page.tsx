@@ -21,7 +21,7 @@ interface CardData {
 }
 
 const Simulator = () => {
-    const { slug } = useParams();
+    const { slug } = useParams<string>();
     const [setName, setSetName] = useState(slug || '');
     const [booster, setBooster] = useState('draft-booster');
     const [simulated, setSimulated] = useState(false);
