@@ -1,117 +1,37 @@
 "use client";
-import Card from '@/components/card';
-import { ArrowBigLeftDash } from 'lucide-react';
+import { useState } from 'react';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 
-interface CardData {
-    name: string;
-    prices: {
-        usd: string;
-        eur: string;
-        tix:string;
-    };
-    set: string;
-    related_uris: {
-        edhrec: string;
-    };
-    rarity: string;
-    cardImage: string;
-}
+import { ArrowBigLeftDash } from 'lucide-react';
+
+import Card from '@/components/Card';
+import useFetchCardData from '@/hooks/useFetchCardData';
+import { CardData } from '@/types/types';
 
 const Simulator = () => {
     const { slug } = useParams();
-    const [setName, setSetName] = useState(slug || '');
+    const setName = slug as string;
+    const { data, loading, error } = useFetchCardData(setName);
     const [booster, setBooster] = useState('draft-booster');
     const [simulated, setSimulated] = useState(false);
-    const [data, setData] = useState<CardData[]>([]);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
     const [simulatedCards, setSimulatedCards] = useState<CardData[]>([]);
 
-    // Delay function to comply with rate limiting
-    const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
-
-    // Fetch card image
-    const fetchCardImage = async (cardName: string): Promise<string | null> => {
-        let formattedName = cardName.replaceAll(' ', '+');
-        if (formattedName.includes('/')) {
-            formattedName = formattedName.split('/')[0];
-        }
-        const link = `https://api.scryfall.com/cards/named?exact=${formattedName}`;
-        try {
-            const res = await fetch(link);
-            if (!res.ok) {
-                throw new Error('Response failed');
-            }
-            const data = await res.json();
-            if (data.card_faces && data.card_faces.length > 1) {
-                return data.card_faces[0].image_uris.normal;
-            }
-            return data.image_uris.normal;
-        } catch (error) {
-            console.error('Error fetching card image:', error);
-            return 'https://placehold.co/600x400';
-        }
-    };
-
-    // Fetch data for a specific set
-    const fetchData = async (set: string): Promise<CardData[] | null> => {
-        const link = `https://api.scryfall.com/cards/search?q=s:${set}`;
-        try {
-            const res = await fetch(link);
-            if (!res.ok) {
-                throw new Error('Response failed');
-            }
-            const data = await res.json();
-            const cards = data.data;
-            const cardsWithImages = await Promise.all(cards.map(async (card: any) => {
-                const cardImage = await fetchCardImage(card.name);
-                await delay(75); // Delay to avoid hitting rate limits
-                return {
-                    name: card.name,
-                    prices: card.prices,
-                    set: card.set,
-                    related_uris: card.related_uris,
-                    rarity: card.rarity,
-                    cardImage
-                };
-            }));
-            return cardsWithImages;
-        } catch (error: any) {
-            console.error('Error fetching data:', error);
-            setError(error.message);
-            return null;
-        }
-    };
-
-    // Get random cards from the fetched data
-    const getRandomCards = (cards: CardData[], count: number) => {
+    const getRandomCards = (cards: CardData[], count: number): CardData[] => {
         const shuffled = [...cards].sort(() => 0.5 - Math.random());
         return shuffled.slice(0, count);
     };
 
-    // Simulate fetching and displaying cards
-    const simulate = async () => {
-        setLoading(true);
-        const fetchedData = await fetchData(setName);
-        if (fetchedData) {
-            setData(fetchedData);
+    const simulate = () => {
+        if (data) {
             setSimulated(true);
-            const uncommons = fetchedData.filter(card => card.rarity === 'uncommon');
+            const uncommons = data.filter(card => card.rarity === 'uncommon');
             const boosterCards: CardData[] = getRandomCards(uncommons, 3);
             setSimulatedCards(boosterCards);
         } else {
             setSimulated(false);
         }
-        setLoading(false);
     };
-
-    // Fetch data when the component mounts
-    useEffect(() => {
-        simulate();
-    }, [setName]);
 
     return (
         <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-r from-black to-gray-800 p-6">
@@ -155,8 +75,6 @@ const Simulator = () => {
                         cardImage={card.cardImage}
                         prices={card.prices}
                         setCode={card.set}
-                        w={230}
-                        h={200}
                         edhrec_link={card.related_uris.edhrec}
                     />
                 ))}
