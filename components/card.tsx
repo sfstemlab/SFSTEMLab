@@ -27,7 +27,7 @@ const Card = ({ cardName, cardImage, cardArt, cardTreatment, prices, setCode, w,
     };
 
     return (                    
-        <div className={`w-${w/4} h-${h/4} bg-white/20 backdrop-blur-sm rounded-lg p-6`}>
+        <div className={`w-64 h-64 bg-white/20 backdrop-blur-sm rounded-lg p-6`}>
             {cardImage ? (
                 <div className="relative text-black">
                     <Link href={edhrec_link}>
