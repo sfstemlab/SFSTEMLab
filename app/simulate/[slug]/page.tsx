@@ -3,12 +3,14 @@ import Card from '@/components/card';
 import { ArrowBigLeftDash } from 'lucide-react';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { useParams } from 'next/navigation';
 
 interface CardData {
     name: string;
     prices: {
         usd: string;
         eur: string;
+        tix:string;
     };
     set: string;
     related_uris: {
@@ -19,7 +21,8 @@ interface CardData {
 }
 
 const Simulator = () => {
-    const [setName, setSetName] = useState('mh3');
+    const { slug } = useParams();
+    const [setName, setSetName] = useState(slug || '');
     const [booster, setBooster] = useState('draft-booster');
     const [simulated, setSimulated] = useState(false);
     const [data, setData] = useState<CardData[]>([]);
@@ -27,14 +30,16 @@ const Simulator = () => {
     const [error, setError] = useState<string | null>(null);
     const [simulatedCards, setSimulatedCards] = useState<CardData[]>([]);
 
+    // Delay function to comply with rate limiting
     const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
+    // Fetch card image
     const fetchCardImage = async (cardName: string): Promise<string | null> => {
-        let card_name = cardName.replaceAll(' ', '+');
-        if (card_name.includes('/')) {
-            card_name = card_name.split('/')[0];
+        let formattedName = cardName.replaceAll(' ', '+');
+        if (formattedName.includes('/')) {
+            formattedName = formattedName.split('/')[0];
         }
-        const link = `https://api.scryfall.com/cards/named?exact=${card_name}`;
+        const link = `https://api.scryfall.com/cards/named?exact=${formattedName}`;
         try {
             const res = await fetch(link);
             if (!res.ok) {
@@ -47,10 +52,11 @@ const Simulator = () => {
             return data.image_uris.normal;
         } catch (error) {
             console.error('Error fetching card image:', error);
-            return null;
+            return 'https://placehold.co/600x400';
         }
     };
 
+    // Fetch data for a specific set
     const fetchData = async (set: string): Promise<CardData[] | null> => {
         const link = `https://api.scryfall.com/cards/search?q=s:${set}`;
         try {
@@ -63,7 +69,7 @@ const Simulator = () => {
             const cardsWithImages = await Promise.all(cards.map(async (card: any) => {
                 const cardImage = await fetchCardImage(card.name);
                 await delay(75); // Delay to avoid hitting rate limits
-                return { 
+                return {
                     name: card.name,
                     prices: card.prices,
                     set: card.set,
@@ -80,11 +86,13 @@ const Simulator = () => {
         }
     };
 
+    // Get random cards from the fetched data
     const getRandomCards = (cards: CardData[], count: number) => {
         const shuffled = [...cards].sort(() => 0.5 - Math.random());
         return shuffled.slice(0, count);
     };
 
+    // Simulate fetching and displaying cards
     const simulate = async () => {
         setLoading(true);
         const fetchedData = await fetchData(setName);
@@ -92,8 +100,7 @@ const Simulator = () => {
             setData(fetchedData);
             setSimulated(true);
             const uncommons = fetchedData.filter(card => card.rarity === 'uncommon');
-            let boosterCards: CardData[] = [];
-            boosterCards = [...boosterCards, ...getRandomCards(uncommons, 3)];
+            const boosterCards: CardData[] = getRandomCards(uncommons, 3);
             setSimulatedCards(boosterCards);
         } else {
             setSimulated(false);
@@ -101,12 +108,13 @@ const Simulator = () => {
         setLoading(false);
     };
 
+    // Fetch data when the component mounts
     useEffect(() => {
         simulate();
-    }, []);
+    }, [setName]);
 
     return (
-        <div className="min-h-screen flex flex-col items-center bg-gradient-to-r from-black to-gray-800 p-6">
+        <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-r from-black to-gray-800 p-6">
             <div className="bg-gray-900 shadow-lg rounded-lg p-8 text-center">
                 <h1 className="text-2xl font-bold mb-4 text-gray-200">Welcome to the {setName.toUpperCase()} Simulator!</h1>
                 <select
