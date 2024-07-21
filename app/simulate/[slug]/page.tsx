@@ -110,7 +110,7 @@ const Simulator = () => {
     // Fetch data when the component mounts
     useEffect(() => {
         simulate();
-    }, [setName]);
+    }, );
 
     return (
         <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-r from-black to-gray-800 p-6">
