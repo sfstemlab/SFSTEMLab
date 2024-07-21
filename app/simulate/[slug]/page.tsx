@@ -147,7 +147,7 @@ const Simulator = () => {
             </div>
             {loading && <div className="mt-4 text-gray-200">Loading...</div>}
             {error && <div className="mt-4 text-red-500">{error}</div>}
-            <div className={`w-full overflow-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-8 mt-4 ${simulated ? 'h-full' : 'hidden'}`}>
+            <div className={`w-full overflow-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12 p-8 mt-4 ${simulated ? 'h-full' : 'hidden'}`}>
                 {simulatedCards.map((card, index) => (
                     <Card
                         key={index}

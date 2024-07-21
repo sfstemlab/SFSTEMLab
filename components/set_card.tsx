@@ -9,8 +9,8 @@ interface CardProps {
     setDesc?: string;
     setIcon: string;
     tags: string[];
-    releaseDate: string;
-    setType: string;
+    releaseDate?: string;
+    setType?: string;
 }
 
 interface Stats {
