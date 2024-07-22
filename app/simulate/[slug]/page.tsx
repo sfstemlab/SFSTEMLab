@@ -34,10 +34,12 @@ const Simulator = () => {
     };
 
     return (
-        <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-r from-indigo-950 via-indigo-900 to-indigo-950 p-6">
+        <div className="h-screen w-full p-8 flex flex-col justify-center items-center
+                bg-gradient-to-r from-indigo-950 via-indigo-900 to-indigo-950 rounded-lg"
+        >
             <div className="bg-[#0d0c0c] border border-gray-600 shadow-lg shadow-gray-700 rounded-lg p-8 text-center w-full max-w-4xl">
                 <h1 className="text-4xl font-bold mb-4 text-gray-200">
-                    Welcome to the <span className="text-indigo-500 border border-cyan-300/20 rounded-md px-3 bg-cyan-500/20 backdrop-blur-sm ">{setName.toUpperCase()}</span> Simulator!
+                    Welcome to the <span className="text-orange-500/90 border border-indigo-300/60 rounded-md px-3 bg-cyan-500/50 backdrop-blur-sm ">{setName.toUpperCase()}</span> Simulator!
                 </h1>
                 <div className="flex justify-center mb-6">
                     <select
@@ -68,7 +70,7 @@ const Simulator = () => {
                 </button>
                 {loading && <div className="text-lg text-gray-200">Loading...</div>}
                 {error && <div className="text-lg text-red-500">{error}</div>}
-                <div className={`w-full grid grid-cols-2 md:grid-cols-3  gap-4 ${simulated ? 'mt-8' : 'hidden'}`}>
+                <div className={`w-full grid grid-cols-2 md:grid-cols-3 gap-4  ${simulated ? 'mt-8' : 'hidden'}`}>
                     {simulatedCards.map((card, index) => (
                         <Card
                             key={index}

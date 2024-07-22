@@ -1,16 +1,33 @@
 'use client';
 import { useState } from 'react';
 import { Home, Eye, ShoppingCart, FileText, BarChart, Tag, Users, Layout, Plus } from 'lucide-react';
+import { usePathname } from "next/navigation";
+import Link from 'next/link';
+import { cn } from '@/lib/utils';
+
 
 const Sidebar = () => {
     const [openDropdown, setOpenDropdown] = useState(false);
+    const pathname = usePathname();
 
     const handleDropdown = () => {
         setOpenDropdown(!openDropdown);
     };
 
+    const links = [
+        { href: '/', label: 'Home', icon: Home },
+        { href: '/view', label: 'View Site', icon: Eye },
+        { href: '/marketplace', label: 'Marketplace', icon: ShoppingCart },
+        { href: '/posts', label: 'Posts', icon: FileText, dropdown: true },
+        { href: '/performance', label: 'Performance', icon: BarChart },  // Add this line
+        { href: '/tags', label: 'Tags', icon: Tag },
+        { href: '/members', label: 'Members', icon: Users },
+        { href: '/design', label: 'Design', icon: Layout },
+    ];
+
+
     return (
-        <div className="min-h-screen flex flex-col bg-indigo-950 backdrop-blur-sm filter bg-opacity-50 border-r border-gray-900 text-gray-200 w-64 z-50">
+        <div className="min-h-screen flex flex-col bg-[#1a202c] backdrop-blur-sm filter bg-opacity-50 border-r border-gray-900 text-gray-200 w-64">
             <div className="flex flex-col items-center p-4">
                 <img
                     className="w-16 h-16 rounded-full mb-4"
@@ -18,51 +35,30 @@ const Sidebar = () => {
                     alt="User Avatar"
                 />
                 <div className="flex flex-col items-start space-y-3 w-full">
-                    <button className="flex items-center p-2 w-full hover:bg-gray-700 rounded-lg">
-                        <Home className="w-6 h-6 mr-2" />
-                        <span className="hidden md:inline">Dashboard</span>
-                    </button>
-                    <button className="flex items-center p-2 w-full hover:bg-gray-700 rounded-lg">
-                        <Eye className="w-6 h-6 mr-2" />
-                        <span className="hidden md:inline">View Site</span>
-                    </button>
-                    <button className="flex items-center p-2 w-full hover:bg-gray-700 rounded-lg">
-                        <ShoppingCart className="w-6 h-6 mr-2" />
-                        <span className="hidden md:inline">Marketplace</span>
-                    </button>
-                    <button className="flex items-center p-2 w-full hover:bg-gray-700 rounded-lg" onClick={handleDropdown}>
-                        <FileText className="w-6 h-6 mr-2" />
-                        <span className="hidden md:inline">Posts</span>
-                    </button>
-                    {openDropdown && (
-                        <div className="ml-10 mt-2 bg-gray-800 rounded-lg shadow-lg w-full">
-                            <button className="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-700 w-full text-left">
-                                Create post
-                            </button>
-                            <button className="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-700 w-full text-left">
-                                Create folder
-                            </button>
-                            <button className="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-700 w-full text-left">
-                                Create project
-                            </button>
+                    {links.map(({ href, label, icon: Icon, dropdown }) => (
+                        <div key={href} className="w-full">
+                            <Link href={href} className={cn("flex items-center p-2 w-full rounded-lg", {
+                                'bg-blue-700': pathname === href,
+                                'hover:bg-gray-700': pathname !== href
+                            })}>
+                                <Icon className="w-6 h-6 mr-2" />
+                                <span className="hidden md:inline">{label}</span>
+                            </Link>
+                            {dropdown && openDropdown && pathname.startsWith('/posts') && (
+                                <div className="ml-10 mt-2 bg-gray-800 rounded-lg shadow-lg w-full">
+                                    <Link href="/posts/create" className="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-700 w-full text-left">
+                                        Create post
+                                    </Link>
+                                    <Link href="/posts/folder" className="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-700 w-full text-left">
+                                        Create folder
+                                    </Link>
+                                    <Link href="/posts/project" className="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-700 w-full text-left">
+                                        Create project
+                                    </Link>
+                                </div>
+                            )}
                         </div>
-                    )}
-                    <button className="flex items-center p-2 w-full hover:bg-gray-700 rounded-lg">
-                        <BarChart className="w-6 h-6 mr-2" />
-                        <span className="hidden md:inline">Performance</span>
-                    </button>
-                    <button className="flex items-center p-2 w-full hover:bg-gray-700 rounded-lg">
-                        <Tag className="w-6 h-6 mr-2" />
-                        <span className="hidden md:inline">Tags</span>
-                    </button>
-                    <button className="flex items-center p-2 w-full hover:bg-gray-700 rounded-lg">
-                        <Users className="w-6 h-6 mr-2" />
-                        <span className="hidden md:inline">Members</span>
-                    </button>
-                    <button className="flex items-center p-2 w-full hover:bg-gray-700 rounded-lg">
-                        <Layout className="w-6 h-6 mr-2" />
-                        <span className="hidden md:inline">Design</span>
-                    </button>
+                    ))}
                 </div>
             </div>
             <div className="flex-1 flex flex-col justify-center items-center">
@@ -75,4 +71,3 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
-
