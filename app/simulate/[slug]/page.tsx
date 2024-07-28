@@ -1,34 +1,22 @@
 "use client";
-import Card from '@/components/card';
-import { ArrowBigLeftDash } from 'lucide-react';
+import { useState } from 'react';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 
-interface CardData {
-    name: string;
-    prices: {
-        usd: string;
-        eur: string;
-        tix:string;
-    };
-    set: string;
-    related_uris: {
-        edhrec: string;
-    };
-    rarity: string;
-    cardImage: string;
-}
+import { ArrowBigLeftDash } from 'lucide-react';
+
+import Card from '@/components/Card';
+import useFetchCardData from '@/hooks/useFetchCardData';
+import { CardData } from '@/types/types';
 
 const Simulator = () => {
     const { slug } = useParams();
-    const [setName, setSetName] = useState(slug || '');
+    const setName = slug as string;
+    const { data, loading, error } = useFetchCardData(setName);
     const [booster, setBooster] = useState('draft-booster');
     const [simulated, setSimulated] = useState(false);
-    const [data, setData] = useState<CardData[]>([]);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
     const [simulatedCards, setSimulatedCards] = useState<CardData[]>([]);
+<<<<<<< HEAD
     // Delay function to comply with rate limiting
     const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -96,26 +84,26 @@ const Simulator = () => {
 
     // Get random cards from the fetched data
     const getRandomCards = (cards: CardData[], count: number) => {
+=======
+
+    const getRandomCards = (cards: CardData[], count: number): CardData[] => {
+>>>>>>> dev
         const shuffled = [...cards].sort(() => 0.5 - Math.random());
         return shuffled.slice(0, count);
     };
 
-    // Simulate fetching and displaying cards
-    const simulate = async () => {
-        setLoading(true);
-        const fetchedData = await fetchData(setName);
-        if (fetchedData) {
-            setData(fetchedData);
+    const simulate = () => {
+        if (data) {
             setSimulated(true);
-            const uncommons = fetchedData.filter(card => card.rarity === 'uncommon');
+            const uncommons = data.filter(card => card.rarity === 'uncommon');
             const boosterCards: CardData[] = getRandomCards(uncommons, 3);
             setSimulatedCards(boosterCards);
         } else {
             setSimulated(false);
         }
-        setLoading(false);
     };
 
+<<<<<<< HEAD
     // Fetch data when the component mounts
     useEffect(() => {
         simulate();
@@ -148,10 +136,58 @@ const Simulator = () => {
                     <button
                         className="w-5/6 bg-gray-700 hover:bg-gray-600 text-gray-200 font-bold py-2 px-4 rounded-md transition duration-300"
                         onClick={simulate}
+=======
+    return (
+        <div className="h-screen w-full p-8 flex flex-col justify-center items-center
+                bg-gradient-to-r from-indigo-950 via-indigo-900 to-indigo-950 rounded-lg"
+        >
+            <div className="bg-[#0d0c0c] border border-gray-600 shadow-lg shadow-gray-700 rounded-lg p-8 text-center w-full max-w-4xl">
+                <h1 className="text-4xl font-bold mb-4 text-gray-200">
+                    Welcome to the <span className="text-orange-500/90 border border-indigo-300/60 rounded-md px-3 bg-cyan-500/50 backdrop-blur-sm ">{setName.toUpperCase()}</span> Simulator!
+                </h1>
+                <div className="flex justify-center mb-6">
+                    <select
+                        className="py-2 px-4 text-lg bg-gray-700 text-gray-200 hover:bg-gray-600 rounded-md mr-4"
+                        value={booster}
+                        onChange={(e) => setBooster(e.target.value)}
+>>>>>>> dev
                     >
-                        Simulate
-                    </button>
+                        <optgroup label='Booster Products'>
+                            <option value="draft-booster">Draft Booster</option>
+                            <option value="play-booster">Play Booster</option>
+                            <option value="collector-booster">Collector Booster</option>
+                            <option value="collector-booster-box">Collector Booster Box</option>
+                            <option value="draft-booster-box">Draft Booster Box</option>
+                            <option value="play-booster-box">Play Booster Box</option>
+                            <option value="set-booster">Set Booster</option>
+                            <option value="set-booster-box">Set Booster Box</option>
+                        </optgroup>
+                    </select>
+                    <Link href="/sets" className="inline-block bg-gray-700 hover:bg-gray-600 text-gray-200 font-bold py-2 px-4 rounded-md transition duration-300">
+                        <ArrowBigLeftDash className="inline-block mr-2" />Back to Sets
+                    </Link>
                 </div>
+                <button
+                    className="w-full bg-indigo-600 hover:bg-indigo-500 text-gray-200 font-bold py-3 px-6 rounded-md transition duration-300 mb-6"
+                    onClick={simulate}
+                >
+                    Simulate
+                </button>
+                {loading && <div className="text-lg text-gray-200">Loading...</div>}
+                {error && <div className="text-lg text-red-500">{error}</div>}
+                <div className={`w-full grid grid-cols-2 md:grid-cols-3 gap-4  ${simulated ? 'mt-8' : 'hidden'}`}>
+                    {simulatedCards.map((card, index) => (
+                        <Card
+                            key={index}
+                            cardName={card.name}
+                            cardImage={card.cardImage}
+                            prices={card.prices}
+                            setCode={card.set}
+                            edhrec_link={card.related_uris.edhrec}
+                        />
+                    ))}
+                </div>
+<<<<<<< HEAD
             </div>
             {loading && <div className="mt-4 text-gray-200">Loading...</div>}
             {error && <div className="mt-4 text-red-500">{error}</div>}
@@ -168,6 +204,8 @@ const Simulator = () => {
                         edhrec_link={card.related_uris.edhrec}
                     />
                 ))}
+=======
+>>>>>>> dev
             </div>
         </div>
     );

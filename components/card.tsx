@@ -1,30 +1,18 @@
-import { Redo } from "lucide-react";
-import Link from "next/link";
 import { useState } from "react";
+import CardImage from "./CardImage";
+import CardInfo from "./CardInfo";
+import { CardProps } from "@/types/types";
 
-interface CardProps {
-    cardName: string;
-    cardImage: string | null;
-    cardArt?: string;
-    cardTreatment?: string;
-    prices: {    
-        usd: string;
-        eur: string;
-        tix:string;
-    }
-    setCode?: string;
-    w: number;
-    h: number;
-    edhrec_link: string;
-}
 
-const Card = ({ cardName, cardImage, cardArt, cardTreatment, prices, setCode, w, h, edhrec_link }: CardProps) => {
+const Card = ({ cardName, cardImage, cardArt, cardTreatment, prices, setCode, edhrec_link }: CardProps) => {
     const [doubleFaced, setDoubleFaced] = useState(false);
     const [cardFace, setCardFace] = useState(0);
+
     const flipCard = () => {
         setCardFace(cardFace === 0 ? 1 : 0);
     };
 
+<<<<<<< HEAD
     return (                    
         <div className="max-w-xs bg-gray-800 rounded-lg shadow-lg overflow-hidden">
             <div className="relative">
@@ -67,6 +55,24 @@ const Card = ({ cardName, cardImage, cardArt, cardTreatment, prices, setCode, w,
                     </div>
                 </div>
             </div>
+=======
+    return (
+        <div className="max-w-sm bg-gray-800 rounded-lg shadow-lg ">
+            <CardImage
+                cardImage={cardImage}
+                cardName={cardName}
+                edhrec_link={edhrec_link}
+                doubleFaced={doubleFaced}
+                flipCard={flipCard}
+            />
+            <CardInfo
+                cardName={cardName}
+                cardArt={cardArt}
+                cardTreatment={cardTreatment}
+                prices={prices}
+                setCode={setCode}
+            />
+>>>>>>> dev
         </div>
     );
 };
