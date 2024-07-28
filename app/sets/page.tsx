@@ -4,7 +4,6 @@ import { AlertTriangle } from 'lucide-react';
 import { useState, useEffect } from "react";
 
 interface Set {
-<<<<<<< HEAD
     card_count?: number;
     code: string; 
     icon_svg_uri: string;
@@ -13,13 +12,6 @@ interface Set {
     parent_set_code?: string;
     released_at: string;
     set_type: string; 
-=======
-    key: number;
-    name: string;
-    abbreviation: string;
-    description?: string;
-    icon: string;
->>>>>>> dev
     tags: string[];
     releaseDate: string;
     type: string;
@@ -37,7 +29,6 @@ const SetsPage = () => {
                 throw new Error('Response failed with status ' + res.status);
             }
             const data = await res.json();
-<<<<<<< HEAD
             console.log('Data received:', data);
             const badSetTypes = ['commander', 'promo', 'token', 'memorabilia', 'alchemy', 'masterpiece', 'minigame', 'funny', 'box', 'arsenal', 'duel_deck', 'spellbook', 'planechase', 'from_the_vault', 'archenemy', 'starter', 'premium_deck'];
             const date = new Date();
@@ -54,9 +45,6 @@ const SetsPage = () => {
                 released_at: set.released_at
             }));
             setSets(mappedSets);
-=======
-            setSets(data);
->>>>>>> dev
             setLoading(false);
         } catch (error: any) {
             console.error('Fetching error:', error);
@@ -98,11 +86,10 @@ const SetsPage = () => {
             <h1 className="text-2xl font-bold mb-8 text-center">
                 Welcome to my MTG pack simulator!
             </h1>
-<<<<<<< HEAD
             <div>
                 {
                     sets.map((set, index) => (
-                        <Set_Card 
+                        <SetCard 
                             key={index}
                             setName={set.name}
                             setAbbr={set.code}
@@ -113,20 +100,6 @@ const SetsPage = () => {
                         />
                     ))
                 }
-=======
-            <div className='grid grid-cols-2 gap-4'>
-                {sets.map((set, index) => (
-                    <SetCard
-                        key={index}
-                        name={set.name}
-                        abbreviation={set.abbreviation}
-                        icon={set.icon}
-                        tags={set.tags}
-                        releaseDate={set.releaseDate}
-                        type={set.type}
-                    />
-                ))}
->>>>>>> dev
             </div>
         </div>
     );
