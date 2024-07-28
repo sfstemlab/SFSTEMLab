@@ -33,7 +33,7 @@ const Simulator = () => {
     const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
     // Fetch card image
-    const fetchCardImage = async (cardName: string): Promise<string | null> => {
+    const fetchCardImage = async (cardName: string): Promise<string> => {
         let formattedName = cardName.replaceAll(' ', '+');
         if (formattedName.includes('/')) {
             formattedName = formattedName.split('/')[0];
@@ -48,7 +48,16 @@ const Simulator = () => {
             if (data.card_faces && data.card_faces.length > 1) {
                 return data.card_faces[0].image_uris.normal;
             }
-            return data.image_uris.normal;
+            if (!data.reprint){
+                return data.image_uris.normal;
+            }
+            else{
+                const res2 = await fetch(data.prints_search_uri);
+                const data2 = await res2.json();
+                console.log(data2)
+                return data2.filter((card: { set: string | string[]; }) => card.set === setName)[0].image_uris['normal']
+
+            }
         } catch (error) {
             console.error('Error fetching card image:', error);
             return 'https://placehold.co/600x400';
@@ -110,12 +119,12 @@ const Simulator = () => {
     // Fetch data when the component mounts
     useEffect(() => {
         simulate();
-    }, );
+    },[setName] );
 
     return (
         <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-r from-black to-gray-800 p-6">
             <div className="bg-gray-900 shadow-lg rounded-lg p-8 text-center">
-                <h1 className="text-2xl font-bold mb-4 text-gray-200">Welcome to the {setName} Simulator!</h1>
+                <h1 className="text-2xl font-bold mb-4 text-gray-200">Welcome to the Simulator!</h1>
                 <select
                     className="py-1 mb-2 text-xl bg-gray-700 text-gray-200 hover:bg-gray-600 rounded-md"
                     value={booster}

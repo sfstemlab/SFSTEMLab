@@ -9,8 +9,8 @@ interface CardProps {
     setDesc?: string;
     setIcon: string;
     tags: string[];
-    releaseDate?: string;
-    setType?: string;
+    releaseDate: string;
+    setType: string;
 }
 
 interface Stats {
@@ -65,56 +65,64 @@ const Set_Card = ({ setName, setAbbr, setDesc, setIcon, tags, releaseDate, setTy
         setStats({ commons, uncommons, rares, mythics, total });
         setLoading(false);
     };
-
     return (
-        <div className="bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800 rounded-lg border border-gray-600 overflow-hidden max-w-full p-6 mb-4">
-            <div className="flex items-center mb-4">
-                <img src={setIcon} alt="set icon" className="w-16 h-16 p-2 mr-4 bg-gray-600 rounded-lg shadow-lg" />
-                <div className="flex-1">
-                    <h2 className="text-xl font-bold text-white">{setName}</h2>
-                    <p className="text-gray-400">{setAbbr.toUpperCase()} • {setType}</p>
-                    <p className="text-gray-400">Released: {releaseDate}</p>
-                    {setDesc && <p className="text-gray-300 mt-2">{setDesc}</p>}
+        <div className="justify-between bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800 rounded-lg border border-gray-600 overflow-hidden max-w-full p-6 mb-4">
+            <div className="flex w-full space-x-4">
+                <div className="flex items-center">
+                    <img src={setIcon} alt="set icon" className="w-16 h-16 p-2 mr-4 bg-gray-600 rounded-lg shadow-lg" />
+                    <div className="flex space-x-4">
+                        <div>
+                            <h2 className="text-xl font-bold text-white">{setName}</h2>
+                            <p className="text-lg text-white">{setAbbr.toUpperCase()}</p>
+                        </div>
+                        <p className="text-lg text-white place-self-center">Released: {releaseDate}</p>
+                        {setDesc && <p className="text-gray-300 mt-2">{setDesc}</p>}
+                    </div>
                 </div>
-                <div className="flex space-x-3">
-                    {tags.map((tag, index) => (
-                        <span key={index} className="bg-gray-700 text-gray-300 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">
-                            {tag}
-                        </span>
-                    ))}
-                </div>
-            </div>
-            <div className="flex justify-between items-center">
-                <select className="py-2 px-3 text-xl bg-gray-700 text-gray-200 hover:bg-gray-600 rounded-md">
-                    <optgroup label='Booster Products'>
-                        <option value="collector-booster">Collector Booster</option>
-                        <option value="collector-booster-box">Collector Booster Box</option>
-                        <option value="draft-booster">Draft Booster</option>
-                        <option value="draft-booster-box">Draft Booster Box</option>
-                        <option value="play-booster">Play Booster</option>
-                        <option value="play-booster-box">Play Booster Box</option>
-                        <option value="set-booster">Set Booster</option>
-                        <option value="set-booster-box">Set Booster Box</option>
-                    </optgroup>
-                </select>
-                <div className="flex space-x-2">
-                    <button className="bg-gray-700 hover:bg-gray-800 transition duration-300 h-12 w-12 rounded-lg p-2" onClick={fetchAllStats}>
-                        <BarChart3 className="h-full w-full text-emerald-500" />
-                    </button>
-                    <Link href={`/simulate/${setAbbr.toLowerCase()}`} className="bg-gray-700 hover:bg-gray-800 transition duration-300 h-12 w-12 rounded-lg p-2 flex items-center justify-center">
-                        <Play className="h-full w-full text-emerald-500" />
-                    </Link>
+                <div className="flex justify-between items-center space-x-4">
+                    <select className="py-2 px-3 text-xl bg-gray-600 text-gray-200 rounded-md">
+                        <optgroup label='Booster Products'>
+                            <option value="collector-booster">Collector Booster</option>
+                            <option value="collector-booster-box">Collector Booster Box</option>
+                            <option value="draft-booster">Draft Booster</option>
+                            <option value="draft-booster-box">Draft Booster Box</option>
+                            <option value="play-booster">Play Booster</option>
+                            <option value="play-booster-box">Play Booster Box</option>
+                            <option value="set-booster">Set Booster</option>
+                            <option value="set-booster-box">Set Booster Box</option>
+                        </optgroup>
+                    </select>
+                    <div className="flex space-x-4">
+                        <button className="bg-gray-700 hover:bg-gray-800 transition duration-300 h-12 w-12 rounded-lg p-2" onClick={fetchAllStats}>
+                            <BarChart3 className="h-full w-full text-emerald-500" />
+                        </button>
+                        <Link href={`/simulate/${setAbbr.toLowerCase()}`} className="bg-gray-700 hover:bg-gray-800 transition duration-300 h-12 w-12 rounded-lg p-2 flex items-center justify-center">
+                            <Play className="h-full w-full text-emerald-500" />
+                        </Link>
+                    </div>
                 </div>
             </div>
             {statsVisible && (
-                <div className="mt-4 text-gray-200">
-                    <h3 className="text-lg font-bold mb-2">Set Statistics</h3>
-                    <div className="grid grid-cols-2 gap-2 text-sm">
-                        <div>Commons:</div><div>{stats.commons}</div>
-                        <div>Uncommons:</div><div>{stats.uncommons}</div>
-                        <div>Rares:</div><div>{stats.rares}</div>
-                        <div>Mythics:</div><div>{stats.mythics}</div>
-                        <div>Total:</div><div>{stats.total}</div>
+                <div className="flex">
+                    <div className="mt-4 w-1/2 text-gray-200">
+                        <h3 className="flex text-lg text-center font-bold mb-2">Statistics</h3>
+                        <div className="grid grid-cols-2 gap-2 text-sm">
+                            <div>Commons:</div><div>{stats.commons}</div>
+                            <div>Uncommons:</div><div>{stats.uncommons}</div>
+                            <div>Rares:</div><div>{stats.rares}</div>
+                            <div>Mythics:</div><div>{stats.mythics}</div>
+                            <div>Total:</div><div>{stats.total}</div>
+                        </div>
+                    </div>
+                    <div className="mt-4 w-1/2 text-gray-200">
+                        <h3 className="flex text-lg text-center font-bold mb-2">Top Cards</h3>
+                        <div className="grid grid-cols-2 gap-2 text-sm">
+                            <div>Commons:</div><div>{stats.commons}</div>
+                            <div>Uncommons:</div><div>{stats.uncommons}</div>
+                            <div>Rares:</div><div>{stats.rares}</div>
+                            <div>Mythics:</div><div>{stats.mythics}</div>
+                            <div>Total:</div><div>{stats.total}</div>
+                        </div>
                     </div>
                 </div>
             )}

@@ -31,7 +31,7 @@ const Card = ({ cardName, cardImage, cardArt, cardTreatment, prices, setCode, w,
                 {cardImage ? (
                     <>
                         <Link href={edhrec_link}>
-                            <img className="w-full object-cover" src={cardImage} alt={cardName} />
+                            <img className="w-full rounded-md" src={cardImage} alt={cardName} />
                         </Link>
                         {doubleFaced && (
                             <button 
@@ -49,10 +49,10 @@ const Card = ({ cardName, cardImage, cardArt, cardTreatment, prices, setCode, w,
                 )}
             </div>
             <div className="p-4 text-white">
-                <h2 className="text-lg font-bold mb-2">{cardName}</h2>
+                <h2 className="text-center text-lg font-bold mb-2">{cardName}</h2>
                 {cardArt && <p className="text-sm mb-2">{cardArt}</p>}
                 {cardTreatment && <p className="text-sm mb-2">{cardTreatment}</p>}
-                <div className="flex justify-between text-lg font-semibold">
+                <div className="flex justify-between text-md font-semibold">
                     <div className="text-blue-400">
                         <p>USD</p>
                         <p>${prices.usd}</p>
@@ -66,11 +66,6 @@ const Card = ({ cardName, cardImage, cardArt, cardTreatment, prices, setCode, w,
                         <p>{prices.tix}</p>
                     </div>
                 </div>
-                {setCode && (
-                    <div className="mt-4 text-sm text-gray-400">
-                        <p>Set Code: {setCode}</p>
-                    </div>
-                )}
             </div>
         </div>
     );

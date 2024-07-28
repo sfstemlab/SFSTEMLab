@@ -10,7 +10,7 @@ interface Set {
     id?: string; 
     name: string; 
     parent_set_code?: string;
-    released_at?: string;
+    released_at: string;
     set_type: string; 
     tags: string[];
 }
@@ -42,9 +42,9 @@ const SetsPage = () => {
                 name: set.name,
                 code: set.code.toUpperCase(),
                 tags: [set.set_type.replaceAll('_', ' ')],
-                icon_svg_uri: set.icon_svg_uri
+                icon_svg_uri: set.icon_svg_uri,
+                released_at: set.released_at
             }));
-            console.log('Mapped sets:', mappedSets);
             setSets(mappedSets);
             setLoading(false);
         } catch (error: any) {
@@ -53,7 +53,6 @@ const SetsPage = () => {
             setLoading(false);
         }
     };
-
     useEffect(() => {
         const fetchData = async () => {
             await delay(100); // delay 100 milliseconds between requests
@@ -92,7 +91,7 @@ const SetsPage = () => {
             <h1 className="text-2xl font-bold mb-8 text-center">
                 Welcome to my MTG pack simulator! 
             </h1>
-            <div className='grid grid-cols-2 gap-4'>
+            <div>
                 {
                     sets.map((set, index) => (
                         <Set_Card 
@@ -101,6 +100,8 @@ const SetsPage = () => {
                             setAbbr={set.code}
                             setIcon={set.icon_svg_uri}
                             tags={set.tags}
+                            releaseDate={set.released_at}
+                            setType={set.set_type}
                         />
                     ))
                 }
