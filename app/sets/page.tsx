@@ -91,12 +91,12 @@ const SetsPage = () => {
                     sets.map((set, index) => (
                         <SetCard 
                             key={index}
-                            setName={set.name}
-                            setAbbr={set.code}
-                            setIcon={set.icon_svg_uri}
+                            name={set.name}
+                            abbreviation={set.code}
+                            icon={set.icon_svg_uri}
                             tags={set.tags}
                             releaseDate={set.released_at}
-                            setType={set.set_type}
+                            type={set.set_type}
                         />
                     ))
                 }

@@ -1,7 +1,10 @@
+"use client"
 import { useState } from "react";
 import CardImage from "./CardImage";
 import CardInfo from "./CardInfo";
 import { CardProps } from "@/types/types";
+import Link from "next/link";
+import { Redo } from "lucide-react";
 
 
 const Card = ({ cardName, cardImage, cardArt, cardTreatment, prices, setCode, edhrec_link }: CardProps) => {
@@ -12,7 +15,6 @@ const Card = ({ cardName, cardImage, cardArt, cardTreatment, prices, setCode, ed
         setCardFace(cardFace === 0 ? 1 : 0);
     };
 
-<<<<<<< HEAD
     return (                    
         <div className="max-w-xs bg-gray-800 rounded-lg shadow-lg overflow-hidden">
             <div className="relative">
@@ -55,24 +57,6 @@ const Card = ({ cardName, cardImage, cardArt, cardTreatment, prices, setCode, ed
                     </div>
                 </div>
             </div>
-=======
-    return (
-        <div className="max-w-sm bg-gray-800 rounded-lg shadow-lg ">
-            <CardImage
-                cardImage={cardImage}
-                cardName={cardName}
-                edhrec_link={edhrec_link}
-                doubleFaced={doubleFaced}
-                flipCard={flipCard}
-            />
-            <CardInfo
-                cardName={cardName}
-                cardArt={cardArt}
-                cardTreatment={cardTreatment}
-                prices={prices}
-                setCode={setCode}
-            />
->>>>>>> dev
         </div>
     );
 };
