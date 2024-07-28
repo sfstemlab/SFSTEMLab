@@ -2,14 +2,16 @@ import { CardData, Stats } from "@/types/types";
 
 export const fetchStats = async (abbreviation: string, rarity: string): Promise<string> => {
   try {
-    const res = await fetch(`/api/fetchStats?setAbbr=${abbreviation}&rarity=${rarity}`);
+    console.log('fetching stats')
+    const res = await fetch(`https://api.scryfall.com/cards/search?q=s:${abbreviation}+r:${rarity}`);
+    console.log('response', res);
     if (!res.ok) {
       throw new Error('Response failed');
     }
     const data = await res.json();
     return data.total_cards;
   } catch (error: any) {
-    throw new Error(error.message);
+    throw new Error('fetching stats: ', error.message);
   }
 };
 

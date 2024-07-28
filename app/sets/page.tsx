@@ -41,7 +41,7 @@ const SetsPage = () => {
 
     if (loading) {
         return (
-            <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-gray-900 to-indigo-900 text-white">
+            <div className="flex flex-col items-center w-screen justify-center min-h-screen bg-gradient-to-r from-gray-900 to-indigo-900 text-white">
                 <div className="loader mb-4"></div>
                 <p className="text-2xl font-bold">Fetching sets...</p>
             </div>
@@ -65,7 +65,7 @@ const SetsPage = () => {
     }
 
     return (
-        <div className="pt-16 px-24 min-h-screen justify-items-center bg-gray-950">
+        <div className="pt-16 px-10 min-h-screen justify-center bg-gray-950">
             <h1 className="text-2xl font-bold mb-8 text-center">
                 Welcome to my MTG pack simulator!
             </h1>

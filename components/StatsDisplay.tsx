@@ -1,13 +1,16 @@
 import { Stats, StatsDisplayProps } from "@/types/types";
 
 
+
 const StatsDisplay = ({ stats, loading, error }: StatsDisplayProps) => {
+
   if (loading) {
     return <div>Loading...</div>;
   }
   if (error) {
     return <div className="text-red-500">{error}</div>;
   }
+
   return (
     <div className="grid grid-cols-2 gap-2 text-sm">
       <div>Commons:</div><div>{stats.commons}</div>

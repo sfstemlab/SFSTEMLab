@@ -8,7 +8,7 @@ interface ActionButtonsProps {
 
 const ActionButtons = ({ abbreviation, onClick }: ActionButtonsProps) => {
   return (
-    <div className="flex space-x-2">
+    <div className="absolute top-5 right-4 flex space-x-2">
       <button className="bg-gray-700 hover:bg-gray-800 transition duration-300 h-12 w-12 rounded-lg p-2" onClick={onClick}>
         <BarChart3 className="h-full w-full text-emerald-500" />
       </button>

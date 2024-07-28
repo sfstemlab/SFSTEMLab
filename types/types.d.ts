@@ -39,7 +39,7 @@ export interface CardData {
   cardImage: string;
 }
 
-export interface Stats {
+interface Stats {
   commons: string;
   uncommons: string;
   rares: string;
@@ -47,7 +47,7 @@ export interface Stats {
   total: string;
 }
 
-interface StatsDisplayProps {
+export interface StatsDisplayProps {
   stats: Stats;
   loading: boolean;
   error: string | null;
