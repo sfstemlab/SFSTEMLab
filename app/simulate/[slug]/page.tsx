@@ -9,6 +9,7 @@ import Card from '@/components/card';
 import useFetchCardData from '@/hooks/useFetchCardData';
 import { CardData } from '@/types/types';
 import SelectDropdown from '@/components/SelectDropdown';
+import CustomSelect from '@/components/CustomSelect';
 
 const Simulator = () => {
     const { slug } = useParams();
@@ -99,6 +100,17 @@ const Simulator = () => {
         }
     };
 
+    const slugify = (text: string) => {
+        return text
+          .toString()
+          .toLowerCase()
+          .replace(/\s+/g, '-')        // Replace spaces with -
+          .replace(/[^\w\-]+/g, '')    // Remove all non-word chars
+          .replace(/\-\-+/g, '-')      // Replace multiple - with single -
+          .replace(/^-+/, '')          // Trim - from start of text
+          .replace(/-+$/, '');         // Trim - from end of text
+      };
+
     // Fetch data when the component mounts
     useEffect(() => {
         simulate();
@@ -114,7 +126,14 @@ const Simulator = () => {
                         <ArrowBigLeftDash />
                         <p>Sets</p>
                     </Link>
-
+                    <CustomSelect 
+                        options={[]}
+                        placeholder={'Search sets'}
+                        value={''} 
+                        onChange={function (value: string): void {
+                            throw new Error('Function not implemented.');
+                        } }                    
+                    />
                 </div>
                 <button
                     className="w-full bg-indigo-600 hover:bg-indigo-500 text-gray-200 font-bold py-3 px-6 rounded-md transition duration-300 mb-6"
@@ -129,7 +148,7 @@ const Simulator = () => {
                         <Card
                             key={index}
                             cardName={card.name}
-                            cardImage={card.cardImage}
+                            cardImage={card.cardImage.slugify()}
                             prices={card.prices}
                             setCode={card.set}
                             edhrec_link={card.related_uris.edhrec}
