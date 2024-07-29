@@ -32,17 +32,19 @@ const SetsPage = () => {
             console.log('Data received:', data);
             const badSetTypes = ['commander', 'promo', 'token', 'memorabilia', 'alchemy', 'masterpiece', 'minigame', 'funny', 'box', 'arsenal', 'duel_deck', 'spellbook', 'planechase', 'from_the_vault', 'archenemy', 'starter', 'premium_deck'];
             const date = new Date();
-            const mappedSets: Set[] = data.data.filter(
-                (set: { set_type: string; digital: boolean; released_at: string; parent_set_code: string; code: string; }) => 
+            console.log(data[0].code)
+            const filteredSets: Set[] = data.filter(
+                (set: { set_type: string; digital: boolean; released_at: string;}) => 
                     !badSetTypes.includes(set.set_type) &&
                     !set.digital &&
                     new Date(set.released_at) <= date
-            ).map((set: any) => ({
+            )
+            console.log(filteredSets)
+            const mappedSets = data.map((set: {name: string; abbreviation: string; icon: string; releaseDate: string;}) => ({
                 name: set.name,
-                code: set.code.toUpperCase(),
-                tags: [set.set_type.replaceAll('_', ' ')],
-                icon_svg_uri: set.icon_svg_uri,
-                released_at: set.released_at
+                code: set.abbreviation,
+                icon_svg_uri: set.icon,
+                released_at: set.releaseDate
             }));
             setSets(mappedSets);
             setLoading(false);
@@ -67,7 +69,7 @@ const SetsPage = () => {
 
     if (error) {
         return (
-            <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-red-900 to-pink-900 text-white">
+            <div className="w-full flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-red-900 to-pink-900 text-white">
                 <AlertTriangle className="h-20 w-20 text-yellow-500 mb-4 animate-bounce" />
                 <h1 className="text-3xl font-bold mb-2">Oops! Something went wrong.</h1>
                 <p className="text-lg mb-4">{error}</p>
@@ -80,13 +82,13 @@ const SetsPage = () => {
             </div>
         );
     }
-
+    console.log(sets[0])
     return (
-        <div className="pt-16 px-10 min-h-screen justify-center bg-gray-950">
+        <div className="pt-16 px-6 min-h-screen w-screen justify-center bg-gray-950">
             <h1 className="text-2xl font-bold mb-8 text-center">
                 Welcome to my MTG pack simulator!
             </h1>
-            <div>
+            <div className="lg:grid grid-cols-2 gap-x-6">
                 {
                     sets.map((set, index) => (
                         <SetCard 

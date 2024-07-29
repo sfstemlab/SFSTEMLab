@@ -1,9 +1,10 @@
 'use client';
 import { useState } from 'react';
-import { Home, Eye, ShoppingCart, FileText, BarChart, Tag, Users, Layout, Plus } from 'lucide-react';
+import { Home, Eye, ShoppingCart, FileText, BarChart, Tag, Users, Layout, Plus, Settings, Sparkles, Swords } from 'lucide-react';
 import { usePathname } from "next/navigation";
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import Card from './card';
 
 
 const Sidebar = () => {
@@ -16,18 +17,18 @@ const Sidebar = () => {
 
     const links = [
         { href: '/', label: 'Home', icon: Home },
-        { href: '/view', label: 'View Site', icon: Eye },
-        { href: '/marketplace', label: 'Marketplace', icon: ShoppingCart },
+        { href: '/games', label: 'Games', icon: Swords },
         { href: '/posts', label: 'Posts', icon: FileText, dropdown: true },
-        { href: '/performance', label: 'Performance', icon: BarChart },  // Add this line
-        { href: '/tags', label: 'Tags', icon: Tag },
+        { href: '/marketplace', label: 'Marketplace', icon: ShoppingCart },
         { href: '/members', label: 'Members', icon: Users },
-        { href: '/design', label: 'Design', icon: Layout },
+        { href: '/design', label: 'Design', icon: Sparkles },
+        { href: '/settings', label: 'Settings', icon: Settings },
+
     ];
 
 
     return (
-        <div className="min-h-screen flex flex-col bg-[#1a202c] backdrop-blur-sm filter bg-opacity-50 border-r border-gray-900 text-gray-200 w-64">
+        <div className="min-h-screen flex flex-col bg-[#1a202c] backdrop-blur-sm filter bg-opacity-50 border-r border-gray-900 text-gray-200 w-72">
             <div className="flex flex-col items-center p-4">
                 <img
                     className="w-16 h-16 rounded-full mb-4"
@@ -61,10 +62,18 @@ const Sidebar = () => {
                     ))}
                 </div>
             </div>
-            <div className="flex-1 flex flex-col justify-center items-center">
-                <button className="p-2 bg-gray-700 hover:bg-gray-600 rounded-full">
-                    <Plus className="w-6 h-6 text-white" />
-                </button>
+            <div className="flex flex-col text-center py-2 px-12 m-3 rounded-lg bg-gray-600">
+                <p>Card of the Day</p>
+                <Card 
+                    cardName={'Dandân'} 
+                    cardImage={'https://api.https://cards.scryfall.io/normal/front/a/c/ac2e32d0-f172-4934-9d73-1bc2ab86586e.jpg?1562781784'} 
+                    prices={{
+                        usd: '',
+                        eur: '',
+                        tix: ''
+                    }}
+                    edhrec_link={''} 
+                />
             </div>
         </div>
     );

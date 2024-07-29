@@ -21,7 +21,7 @@ const Card = ({ cardName, cardImage, cardArt, cardTreatment, prices, setCode, ed
                 {cardImage ? (
                     <>
                         <Link href={edhrec_link}>
-                            <img className="w-full rounded-md" src={cardImage} alt={cardName} />
+                            <img className="w-full rounded-md bg-black" src={cardImage} alt={cardName} />
                         </Link>
                         {doubleFaced && (
                             <button 

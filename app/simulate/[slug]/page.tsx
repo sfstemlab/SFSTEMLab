@@ -8,6 +8,7 @@ import { ArrowBigLeftDash } from 'lucide-react';
 import Card from '@/components/card';
 import useFetchCardData from '@/hooks/useFetchCardData';
 import { CardData } from '@/types/types';
+import SelectDropdown from '@/components/SelectDropdown';
 
 const Simulator = () => {
     const { slug } = useParams();
@@ -104,28 +105,14 @@ const Simulator = () => {
     },[setName] );
 
     return (
-        <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-r from-black to-gray-800 p-6">
+        <div className="min-h-screen w-screen flex flex-col justify-center items-center bg-gradient-to-r from-black to-gray-800 p-6">
             <div className="bg-gray-900 shadow-lg rounded-lg p-8 text-center">
                 <h1 className="text-2xl font-bold mb-4 text-gray-200">Welcome to the Simulator!</h1>
-                <select
-                    className="py-1 mb-2 text-xl bg-gray-700 text-gray-200 hover:bg-gray-600 rounded-md"
-                    value={booster}
-                    onChange={(e) => setBooster(e.target.value)}
-                >
-                    <optgroup label='Booster Products'>
-                        <option value="draft-booster">Draft Booster</option>
-                        <option value="play-booster">Play Booster</option>
-                        <option value="collector-booster">Collector Booster</option>
-                        <option value="collector-booster-box">Collector Booster Box</option>
-                        <option value="draft-booster-box">Draft Booster Box</option>
-                        <option value="play-booster-box">Play Booster Box</option>
-                        <option value="set-booster">Set Booster</option>
-                        <option value="set-booster-box">Set Booster Box</option>
-                    </optgroup>
-                </select>
                 <div className="flex space-x-3 justify-center">
-                    <Link href="/sets" className="w-1/6 inline-block bg-gray-700 hover:bg-gray-600 text-gray-200 font-bold py-2 px-4 rounded-md transition duration-300">
+                    <SelectDropdown />
+                    <Link href="/sets" className="flex w-1/6 h-[33px] bg-gray-700 hover:bg-gray-600 text-gray-200 font-bold py-1 px-4 rounded-md transition duration-300">
                         <ArrowBigLeftDash />
+                        <p>Sets</p>
                     </Link>
 
                 </div>
