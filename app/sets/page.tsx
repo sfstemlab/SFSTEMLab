@@ -88,7 +88,7 @@ const SetsPage = () => {
             <h1 className="text-2xl font-bold mb-8 text-center">
                 Welcome to my MTG pack simulator!
             </h1>
-            <div className="lg:grid grid-cols-2 gap-x-6">
+            <div className="">
                 {
                     sets.map((set, index) => (
                         <SetCard 

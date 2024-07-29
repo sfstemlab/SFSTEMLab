@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { fetchCardData } from '@/utils/api';
 import { CardData } from '@/types/types';
 
-const useFetchCardData = (setName: string) => {
+const useFetchCardData = (set: string) => {
   const [data, setData] = useState<CardData[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -10,7 +10,7 @@ const useFetchCardData = (setName: string) => {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      const fetchedData = await fetchCardData(setName);
+      const fetchedData = await fetchCardData(set);
       if (fetchedData) {
         setData(fetchedData);
       } else {
@@ -20,7 +20,7 @@ const useFetchCardData = (setName: string) => {
     };
 
     fetchData();
-  }, [setName]);
+  }, [set]);
 
   return { data, loading, error };
 };

@@ -48,8 +48,18 @@ const fetchCardImage = async (cardName: string): Promise<string | null> => {
 
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
-export const fetchCardData = async (set: string): Promise<CardData[] | null> => {
-  const link = `https://api.scryfall.com/cards/search?q=s:${set}`;
+export const fetchCardData = async (set?: string, name?:string, rarity?:string): Promise<CardData[] | null> => {
+  let link = `https://api.scryfall.com/cards/search?q=`
+  if (set) {
+    link += `s:${set}`
+  }
+  if (name) {
+    link += `&!${name}`
+  }
+  if (rarity) {
+    link += `r:${rarity}`
+  }
+
   try {
     const res = await fetch(link);
     if (!res.ok) {

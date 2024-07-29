@@ -16,7 +16,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { CheckIcon } from "lucide-react";
+import { CheckIcon, Search } from "lucide-react";
 
 interface CustomSelectProps {
   options: { value: string; label: string }[];
@@ -35,12 +35,9 @@ const CustomSelect: React.FC<CustomSelectProps> = ({ options, placeholder, value
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between"
+          className="mb-2 bg-gray-700 hover:bg-gray-600 justify-between"
         >
-          {value
-            ? options.find((option) => option.value === value)?.label
-            : placeholder}
-          {/* <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" /> */}
+        <Search />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0">

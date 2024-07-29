@@ -13,8 +13,8 @@ import CustomSelect from '@/components/CustomSelect';
 
 const Simulator = () => {
     const { slug } = useParams();
-    const setName = slug as string;
-    const { data, loading, error } = useFetchCardData(setName);
+    const set = slug as string;
+    const { data, loading, error } = useFetchCardData(set);
     const [booster, setBooster] = useState('draft-booster');
     const [simulated, setSimulated] = useState(false);
     const [simulatedCards, setSimulatedCards] = useState<CardData[]>([]);
@@ -44,42 +44,12 @@ const Simulator = () => {
                 const res2 = await fetch(data.prints_search_uri);
                 const data2 = await res2.json();
                 console.log(data2)
-                return data2.filter((card: { set: string | string[]; }) => card.set === setName)[0].image_uris['normal']
+                return data2.filter((card: { set: string | string[]; }) => card.set === set)[0].image_uris['normal']
 
             }
         } catch (error) {
             console.error('Error fetching card image:', error);
             return 'https://placehold.co/600x400';
-        }
-    };
-
-    // Fetch data for a specific set
-    const fetchData = async (set: string | string[]): Promise<CardData[] | null> => {
-        const link = `https://api.scryfall.com/cards/search?q=s:${set}`;
-        try {
-            const res = await fetch(link);
-            if (!res.ok) {
-                throw new Error('Response failed');
-            }
-            const data = await res.json();
-            const cards = data.data;
-            const cardsWithImages = await Promise.all(cards.map(async (card: any) => {
-                const cardImage = await fetchCardImage(card.name);
-                await delay(75); // Delay to avoid hitting rate limits
-                return {
-                    name: card.name,
-                    prices: card.prices,
-                    set: card.set,
-                    related_uris: card.related_uris,
-                    rarity: card.rarity,
-                    cardImage
-                };
-            }));
-            return cardsWithImages;
-        } catch (error: any) {
-            console.error('Error fetching data:', error);
-            // setError(error.message);
-            return null;
         }
     };
 
@@ -114,21 +84,21 @@ const Simulator = () => {
     // Fetch data when the component mounts
     useEffect(() => {
         simulate();
-    },[setName] );
+    },[set] );
 
     return (
         <div className="min-h-screen w-screen flex flex-col justify-center items-center bg-gradient-to-r from-black to-gray-800 p-6">
             <div className="bg-gray-900 shadow-lg rounded-lg p-8 text-center">
                 <h1 className="text-2xl font-bold mb-4 text-gray-200">Welcome to the Simulator!</h1>
                 <div className="flex space-x-3 justify-center">
-                    <SelectDropdown />
-                    <Link href="/sets" className="flex w-1/6 h-[33px] bg-gray-700 hover:bg-gray-600 text-gray-200 font-bold py-1 px-4 rounded-md transition duration-300">
+                    <Link href="/sets" className="flex h-10 items-center bg-gray-700 hover:bg-gray-600 text-gray-200 font-bold py-1 px-4 rounded-md transition duration-300">
                         <ArrowBigLeftDash />
                         <p>Sets</p>
                     </Link>
+                    <SelectDropdown />
                     <CustomSelect 
                         options={[]}
-                        placeholder={'Search sets'}
+                        placeholder={'Sets'}
                         value={''} 
                         onChange={function (value: string): void {
                             throw new Error('Function not implemented.');
@@ -148,7 +118,7 @@ const Simulator = () => {
                         <Card
                             key={index}
                             cardName={card.name}
-                            cardImage={card.cardImage.slugify()}
+                            cardImage={card.cardImage}
                             prices={card.prices}
                             setCode={card.set}
                             edhrec_link={card.related_uris.edhrec}

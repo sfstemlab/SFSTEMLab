@@ -9,7 +9,7 @@ const Banner = () => {
         <p className="text-2xl mb-4">Discover the newest staples!</p>
         <div className="flex space-x-3 justify-center">
           <Link href="/sets"
-							className="px-6 py-3 bg-white/70 text-black rounded-md hover:bg-indigo-600 transition duration-300 ease-in-out">
+							className="px-6 py-3 bg-white/70 text-black rounded-md hover:bg-indigo-600 hover:text-white transition duration-300 ease-in-out">
               Explore Sets
 
           </Link>
