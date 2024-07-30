@@ -20,14 +20,14 @@ const Navbar = () => {
 
 
     return (
-        <div>
-            <div className="z-20 sticky top-0 min-w-screen flex bg-gradient-to-r saturate-50 from-purple-800 to-indigo-900 backdrop-blur-sm filter bg-opacity-60 text-black h-18 shadow-xl shadow-purple-500/30">
+        <div className='sticky top-0 z-20'>
+            <div className="z-20 sticky top-0 min-w-screen flex bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800 backdrop-blur-sm filter text-black h-18 shadow-2xl shadow-purple-500/30">
                 <div className="flex tems-center justify-around m-4 w-full">
                     {links.map(({ href, label, icon: Icon }) => (
                         <div key={href} className="z-40">
-                            <Link href={href} className={cn("flex items-center p-2 w-full rounded-lg transition duration-300 hover:drop-shadow shadow-inherit", {
+                            <Link href={href} className={cn("z-30 flex items-center p-2 w-full rounded-lg transition duration-300 hover:drop-shadow shadow-inherit", {
                                 'bg-emerald-500 hover:bg-emerald-400': pathname === href,
-                                'bg-gray-400 hover:bg-gray-300': pathname !== href
+                                'bg-gray-700 hover:bg-gray-600 text-emerald-500': pathname !== href
                             })}>
                                 <Icon className="w-6 h-6 md:mr-2" />
                                 <span className="hidden md:inline">{label}</span>
