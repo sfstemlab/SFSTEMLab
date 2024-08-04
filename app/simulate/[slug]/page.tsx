@@ -18,40 +18,7 @@ const Simulator = () => {
     const [booster, setBooster] = useState('draft-booster');
     const [simulated, setSimulated] = useState(false);
     const [simulatedCards, setSimulatedCards] = useState<CardData[]>([]);
-    // Delay function to comply with rate limiting
-    const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
-    // Fetch card image
-    const fetchCardImage = async (cardName: string): Promise<string> => {
-        let formattedName = cardName.replaceAll(' ', '+');
-        if (formattedName.includes('/')) {
-            formattedName = formattedName.split('/')[0];
-        }
-        const link = `https://api.scryfall.com/cards/named?exact=${formattedName}`;
-        try {
-            const res = await fetch(link);
-            if (!res.ok) {
-                throw new Error('Response failed');
-            }
-            const data = await res.json();
-            if (data.card_faces && data.card_faces.length > 1) {
-                return data.card_faces[0].image_uris.normal;
-            }
-            if (!data.reprint){
-                return data.image_uris.normal;
-            }
-            else{
-                const res2 = await fetch(data.prints_search_uri);
-                const data2 = await res2.json();
-                console.log(data2)
-                return data2.filter((card: { set: string | string[]; }) => card.set === set)[0].image_uris['normal']
-
-            }
-        } catch (error) {
-            console.error('Error fetching card image:', error);
-            return 'https://placehold.co/600x400';
-        }
-    };
 
     // Get random cards from the fetched data
     const getRandomCards = (cards: CardData[], count: number) => {
@@ -88,7 +55,7 @@ const Simulator = () => {
 
     return (
         <div className="min-h-screen w-screen flex flex-col justify-center items-center bg-gradient-to-r from-black to-gray-800 p-6">
-            <div className="bg-gray-900 shadow-lg rounded-lg p-8 text-center">
+            <div className="bg-gray-900 w-2/3 shadow-lg rounded-lg p-8 text-center">
                 <h1 className="text-2xl font-bold mb-4 text-gray-200">Welcome to the Simulator!</h1>
                 <div className="flex space-x-3 justify-center">
                     <Link href="/sets" className="flex h-10 items-center bg-gray-700 hover:bg-gray-600 text-gray-200 font-bold py-1 px-4 rounded-md transition duration-300">
@@ -113,7 +80,7 @@ const Simulator = () => {
                 </button>
                 {loading && <div className="text-lg text-gray-200">Loading...</div>}
                 {error && <div className="text-lg text-red-500">{error}</div>}
-                <div className={`w-full grid grid-cols-2 md:grid-cols-3 gap-4  ${simulated ? 'mt-8' : 'hidden'}`}>
+                <div className={`w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4  ${simulated ? 'mt-8' : 'hidden'}`}>
                     {simulatedCards.map((card, index) => (
                         <Card
                             key={index}
