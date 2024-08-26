@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+
+
 interface Booster {
 	slots: number; 
 	available_sets: string[];
@@ -16,6 +18,7 @@ interface Rarity {
 }
 
 interface Slot {
+	// represents chance from each set
 	set: {
 		main: number;
 		spg?: number;
@@ -100,7 +103,7 @@ const SelectDropdown = () => {
 	return (
 		<div>
 			<select
-				className="py-1 mb-2 text-xl bg-gray-700 text-gray-200 hover:bg-gray-600 rounded-md"
+				className="py-2 mb-2 text-xl bg-gray-700 text-gray-200 hover:bg-gray-600 rounded-md"
 				value={booster}
 				onChange={(e) => setBooster(e.target.value)}
 			>
@@ -115,13 +118,6 @@ const SelectDropdown = () => {
 					<option value="setbooster-box">Set Booster Box</option>
 				</optgroup>
 			</select>
-
-			<div>
-				<h2>{boosterData[booster].slots}</h2>
-				<p>
-					{boosterData[booster].available_sets}
-				</p> 
-			</div>
 		</div>
 	);
 };
