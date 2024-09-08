@@ -86,6 +86,48 @@ const outcomes: Outcomes = {
         { commons: 0, uncommons: 6, chance: 2 },
       ],
     },
+    {
+      slot: 2,
+      set: [{set: 'main', chance: 100}],
+      chances: [
+        {commons: 1, chance: 50},
+        {uncommons: 1, chance: 50}
+      ],
+    },
+    {
+      slot: 3,
+      set: [{ set: "main", chance: 100 }],
+      chances: [
+        {commons: 2, chance: 49},
+        {commons: 1, uncommons: 1, chance: 24.5},
+        {commons: 1, rares: 1, chance: 8.75},
+        {commons: 1, mythics: 1, chance: 8.75},
+        {uncommons: 2, chance: 3.1},
+        {uncommons: 1, rares: 1, chance: 2.15},
+        {uncommons: 1, mythics: 1, chance: 2.15},
+        {rares: 2, chance: 0.8},
+        {mythics: 2, chance: 0.8}
+      ]
+    },
+    {
+      slot: 4,
+      set: [{ set: "main", chance: 100 }],
+      chances: [
+        {rares: 1, chance: 86.5},
+        {mythics: 1, chance: 13.5}
+      ]
+    },
+    {
+      slot: 5,
+      set: [{ set: "main", chance: 100 }],
+      chances: [
+        {commons: 1, chance: 25},
+        {uncommons: 1, chance: 25},
+        {rares: 1, chance: 25},
+        {mythics: 1, chance: 25},
+      ]
+    }
+
   ],
   playbooster: [
     {
