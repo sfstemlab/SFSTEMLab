@@ -103,7 +103,7 @@ const SelectDropdown = () => {
 	return (
 		<div>
 			<select
-				className="py-2 mb-2 text-xl bg-gray-700 text-gray-200 hover:bg-gray-600 rounded-md"
+				className="py-2 mb-2 text-xl bg-gray-700 text-gray-200 hover:bg-gray-600 rounded-md text-center"
 				value={booster}
 				onChange={(e) => setBooster(e.target.value)}
 			>

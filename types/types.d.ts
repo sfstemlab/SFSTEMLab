@@ -37,7 +37,7 @@ export interface CardData {
   };
   rarity: string;
   cardImage: string;
-  color: string; 
+  colors: string; 
   type: string;
 }
 
