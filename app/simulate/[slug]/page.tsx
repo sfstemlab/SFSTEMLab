@@ -8,7 +8,7 @@ import { ArrowBigLeftDash } from "lucide-react";
 import Card from "@/components/card";
 import useFetchCardData from "@/hooks/useFetchCardData";
 import { CardData } from "@/types/types";
-import SelectDropdown from "@/components/SelectDropdown";
+// import SelectDropdown from "@/components/SelectDropdown";
 import CustomSelect from "@/components/CustomSelect";
 
 import {
@@ -183,7 +183,7 @@ const Simulator = () => {
   const set = slug as string;
   const { data, loading, error } = useFetchCardData(set);
 
-  const [booster, setBooster] = useState<keyof Outcomes>("setbooster");
+  const [booster, setBooster] = useState<keyof Outcomes>("playbooster");
   const [simulated, setSimulated] = useState(false);
   const [simulatedCards, setSimulatedCards] = useState<CardData[]>([]);
   const [selectedOutcomes, setSelectedOutcomes] = useState<Outcome[] | null>(
@@ -266,6 +266,30 @@ const Simulator = () => {
     simulate();
   }, [set]);
 
+  const SelectDropdown = () => {
+
+	return (
+		<div>
+			<select
+				className="py-2 mb-2 text-xl bg-gray-700 text-gray-200 hover:bg-gray-600 rounded-md text-center"
+				value={booster}
+				onChange={(e) => setBooster(e.target.value as keyof Outcomes)}
+			>
+				<optgroup label='Booster Products'>
+					<option value="playbooster">Play Booster</option>
+					<option value="draftbooster">Draft Booster</option>
+					<option value="collectorbooster">Collector Booster</option>
+					<option value="collectorbooster-box">Collector Booster Box</option>
+					<option value="draftbooster-box">Draft Booster Box</option>
+					<option value="playbooster-box">Play Booster Box</option>
+					<option value="setbooster">Set Booster</option>
+					<option value="setbooster-box">Set Booster Box</option>
+				</optgroup>
+			</select>
+		</div> 
+		);
+};
+
   return (
     <div className="min-h-screen w-screen flex flex-col justify-center items-center bg-gradient-to-r from-black to-gray-800 p-6">
       	<div className="w-full max-w-5xl bg-gradient-to-r from-gray-800 via-gray-900 to-white/5 border border-gray-700 shadow-lg rounded-lg p-6">
@@ -315,7 +339,7 @@ const Simulator = () => {
 								</div>
 							);
 						})()}
-						<div className='flex  justify-center gap-4'>
+						<div className='flex justify-center gap-4'>
 							<select className='bg-gray-700/60 rounded-lg backdrop-blur-lg shadow-md py-2 pl-2'>
 								<optgroup label='Sort By'>
 									<option value='price'>Price</option>
