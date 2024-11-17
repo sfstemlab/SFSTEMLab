@@ -3,25 +3,38 @@ import { Set } from "@/types/types";
 import useFetchStats from '@/hooks/useFetchStats';
 import StatsDisplay from './StatsDisplay';
 import SetCardHeader from './SetCardHeader';
-import SelectDropdown from './SelectDropdown';
 import ActionButtons from './ActionButtons';
+import Tag from "./tag";
 
 const SetCard = ({ abbreviation, description, icon, name, releaseDate, tags, type }: Set) => {
   const { stats, loading, error, statsVisible, handleFetchAllStats } = useFetchStats(abbreviation);
   // console.log('abbr: ', abbreviation); 
 
+  const isNew = (() => {
+    const releaseDateObj = new Date(releaseDate); 
+    const currentDate = new Date(); 
+    const timeDiff = currentDate.getTime() - releaseDateObj.getTime(); 
+    const daysDiff = timeDiff / (1000 * 60 * 60 * 24) // convert milliseconds to days
+    return daysDiff <= 30;
+  })();
+
   return (
     <div className="grid grid-cols-8 relative bg-gradient-to-r from-gray-800 via-gray-700 to-gray-900 rounded-lg border border-gray-600 overflow-scroll max-w-full p-4 mb-4">
       <div className="col-span-6">
-      <SetCardHeader
-        abbreviation={abbreviation}
-        description={description}
-        icon={icon}
-        name={name}
-        releaseDate={releaseDate}
-        tags={tags}
-        type={type}
-      />
+        <SetCardHeader
+          abbreviation={abbreviation}
+          description={description}
+          icon={icon}
+          name={name}
+          releaseDate={releaseDate}
+          tags={tags}
+          type={type}
+        />
+        {isNew && (
+          <Tag value = 'New' color = 'green-500'/>
+        )}
+        <Tag value = {type} color = 'blue-500' />
+
       </div>
       <ActionButtons abbreviation={abbreviation} onClick={handleFetchAllStats} />
       {/* <SelectDropdown /> */}

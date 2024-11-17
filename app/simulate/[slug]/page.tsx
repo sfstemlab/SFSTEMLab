@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 
-import { ArrowBigLeftDash } from "lucide-react";
+import { ArrowBigLeftDash, EllipsisVertical } from "lucide-react";
 
 import Card from "@/components/card";
 import useFetchCardData from "@/hooks/useFetchCardData";
@@ -46,6 +46,12 @@ import { Input } from "@/components/ui/input";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
+// TODO: Make sideways/double-sided/flip cards work
+// TODO:Finish collector booster construction
+// TODO:Make function for sorting
+// TODO:Add function for menu btn to open options popup with options zoom, show chances (of getting this combination of rarity or a certain card), search for card, buy product, quick switch set
+// TODO:
+
 // Define interfaces for Outcome and Booster types
 interface SetChance {
 	set: string;
@@ -69,6 +75,7 @@ interface BoosterType {
 interface Outcomes {
 	setbooster: BoosterType[];
 	playbooster: BoosterType[];
+	collectorbooster: BoosterType[];
 }
 
 // Sample data for outcomes
@@ -128,6 +135,7 @@ const outcomes: Outcomes = {
       ]
     },
   ],
+
   playbooster: [
     {
       slot: 1,
@@ -176,6 +184,13 @@ const outcomes: Outcomes = {
 		  ]
 	},
   ],
+
+  collectorbooster: [
+	// {
+	// 	slot: 1
+	// 	set: [{}]
+	// }
+  ],
 };
 
 const Simulator = () => {
@@ -189,6 +204,31 @@ const Simulator = () => {
   const [selectedOutcomes, setSelectedOutcomes] = useState<Outcome[] | null>(
     null
   ); // Store all selected outcomes
+  const [sortCriteria, setSortCriteria] = useState('price');
+  const [sortDirection, setSortDirection] = useState('desc')
+
+  const sortSimulatedCards = (cards: CardData[]) => {
+	return cards.sort((a,b) => {
+		let comparison = 0;
+
+		// sort by price
+		if(sortCriteria === 'price') {
+			const priceA = parseFloat(a.prices?.usd || "0")
+			const priceB = parseFloat(b.prices?.usd || "0")
+			comparison = priceA - priceB;
+		}
+
+		// sort by name
+		if(sortCriteria === 'name') {
+			comparison = a.name.localeCompare(b.name);
+		}
+
+		//handle ascending/descending order 
+		return sortDirection === 'asc' ? comparison : -comparison
+	})
+
+
+  }
 
   // Get the selected outcomes for all slots based on booster type
   const getSelectedOutcome = (boosterType: keyof Outcomes): Outcome[] => {
@@ -228,6 +268,8 @@ const Simulator = () => {
 		setSimulated(true);
 		const outcomesForAllSlots = getSelectedOutcome(booster);
 		setSelectedOutcomes(outcomesForAllSlots);
+		const sortedCards = sortSimulatedCards([...simulatedCards])
+		setSimulatedCards(sortedCards)
 
 		// Fetch cards based on the selected outcomes
 		const commons = data.filter((card) => card.rarity === "common");
@@ -265,6 +307,8 @@ const Simulator = () => {
   useEffect(() => {
     simulate();
   }, [set]);
+
+  // TODO: add useEffect for when sorting priority changes
 
   const SelectDropdown = () => {
 
@@ -305,6 +349,11 @@ const Simulator = () => {
 						<ArrowBigLeftDash />
 					</Link>
 					<SelectDropdown />
+					<button 
+					className = "flex h-10 items-center bg-gray-700 hover:bg-gray-600 text-gray-200 font-bold py-1 px-4 rounded-md transition duration-300"
+					>
+						<EllipsisVertical />
+					</button>
 				</div>
 				<button
 					className="w-full bg-indigo-600 hover:bg-indigo-500 text-gray-200 font-bold py-3 px-6 rounded-md transition duration-300 mb-4"
@@ -312,10 +361,10 @@ const Simulator = () => {
 				>
 					Simulate
 				</button>
-				<p className='mb-3 text-white/75'><strong>Note: </strong>The simulator does not show basic land slots, tokens, ad cards, play aides, or art cards, although it can randomly generate lands.</p>
+				<p className='mb-3 text-white/75 text-[18px] text-balance'><strong>Note: </strong>The simulator does not show basic land slots, tokens, ad cards, play aides, or art cards, although it can randomly generate lands. (including basics)</p>
 				{loading && <div className="text-lg text-gray-200">Loading...</div>}
 				{error && <div className="text-lg text-red-500">{error}</div>}
-				{selectedOutcomes && simulated && (
+				{selectedOutcomes && (
 					<div className="text-gray-200 text-xl mb-4 items-center gap-8 justify-center ">
 						<p className="">
 							<strong>Stats:</strong>
@@ -339,8 +388,10 @@ const Simulator = () => {
 								</div>
 							);
 						})()}
-						<div className='flex justify-center gap-4'>
-							<select className='bg-gray-700/60 rounded-lg backdrop-blur-lg shadow-md py-2 pl-2'>
+						<div className = 'flex justify-center gap-4'>
+							<select
+							onChange = {(event) => setSortCriteria(event.target.value)}
+							className = 'bg-gray-700/60 rounded-lg backdrop-blur-lg shadow-md py-2 pl-2'>
 								<optgroup label='Sort By'>
 									<option value='price'>Price</option>
 									<option value='name'>Name</option>
@@ -349,7 +400,9 @@ const Simulator = () => {
 									<option value='type'>Type</option>
 								</optgroup>
 							</select>
-							<select className='bg-gray-700/60 rounded-lg backdrop-blur-lg shadow-md py-2 pl-2'>
+							<select 
+							onChange = {(event) => setSortDirection(event.target.value)}
+							className='bg-gray-700/60 rounded-lg backdrop-blur-lg shadow-md py-2 pl-2'>
 								<optgroup label='Sort Order'>
 									<option value='descending'>Desc.</option>
 									<option value='ascending'>Asc.</option>
@@ -426,7 +479,7 @@ const Simulator = () => {
 										{card.rarity}
 									</TableCell>
 									<TableCell className="text-gray-400">
-										{card.colors.length > 0? card.colors : "C"}
+										{card.colors || "C"}
 									</TableCell>
 									<TableCell className="text-gray-400">
 										{card.type || "N/A"}

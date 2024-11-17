@@ -64,7 +64,7 @@ const fetchCardImage = async (
     }
 
     if (correctCard.card_faces && correctCard.card_faces.length > 1) {
-      return correctCard.card_faces[0].image_uris.normal;
+      return correctCard.card_faces[0].image_uris? correctCard.card_faces[0].image_uris.normal : correctCard.image_uris.normal
     }
     return correctCard.image_uris.normal;
   } catch (error) {
