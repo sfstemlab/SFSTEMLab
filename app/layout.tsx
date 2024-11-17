@@ -3,6 +3,11 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import Navbar from "@/components/navbar";
+import { ClerkProvider, SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
+import { dark, shadesOfPurple } from '@clerk/themes'
+
+
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,12 +22,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className="dark">
-        <Navbar />
-        {children}
+    <ClerkProvider 
+      afterSignOutUrl={'/sign-in'}
+	    appearance={{
+        baseTheme: dark,
+      }}
+    >
+      <html lang="en">
+        <body className="dark">
+          <Navbar />
+          {children}
 
-      </body>
-    </html>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
