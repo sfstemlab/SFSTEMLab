@@ -1,9 +1,12 @@
-import { Stats, StatsDisplayProps } from "@/types/types";
+import { CardData, CardProps, Stats, StatsDisplayProps } from "@/types/types";
+import Card from "./card";
+import { fetchCardData } from "@/utils/api";
 
 
 
-const StatsDisplay = ({ stats, loading, error }: StatsDisplayProps) => {
-
+const StatsDisplay = ({ set, stats, loading, error }: StatsDisplayProps) => {
+	const valuableCards = fetchCardData(set)
+	console.log(valuableCards)
 	if (loading) {
 		return <div>Loading...</div>;
 	}
@@ -19,6 +22,12 @@ const StatsDisplay = ({ stats, loading, error }: StatsDisplayProps) => {
 				<div>Rares:</div><div>{stats.rares}</div>
 				<div>Mythics:</div><div>{stats.mythics}</div>
 				<div>Total:</div><div>{stats.total}</div>
+			</div>
+			<div>
+				<p className='font-bold text-xl'>Most Valuable Cards</p>
+				<div className='grid grid-cols-5 gap-2'>
+					{/* <Card cardName={valuableCards[0].name} cardImage={valuableCards[0].image} prices={valuableCards[0].prices} edhrec_link={valuableCards[0].echrec_link} //TODO: Make this work */}
+				</div>
 			</div>
 		</div>
 		);

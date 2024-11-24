@@ -25,7 +25,9 @@ export async function GET(request: NextRequest) {
       abbreviation: set.code.toUpperCase(),
       description: set.description,
       icon: set.icon_svg_uri,
-      tags: [set.set_type.replaceAll('_', ' ')],
+      tags: [set.set_type.replaceAll('_', ' ').split(' ').map((w:string) => (
+        w.charAt(0).toUpperCase() + w.slice(1)
+      )).join(' ')],
       releaseDate: set.released_at,
       type: set.set_type
     }));

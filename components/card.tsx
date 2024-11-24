@@ -1,7 +1,5 @@
 "use client"
 import { useState } from "react";
-import CardImage from "./CardImage";
-import CardInfo from "./CardInfo";
 import { CardProps } from "@/types/types";
 import Link from "next/link";
 import { Redo } from "lucide-react";

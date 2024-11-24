@@ -1,11 +1,12 @@
 // app/users/[id]/page.tsx (server-side)
+import { getUserById } from '@/database/getUsers';
 import { unstable_cache } from 'next/cache';
-import getUserById from "@/lib/db";
 
-export default async function Page({ params }: { params: { id: string } }) {
+
+export default async function Page({ params }: { params: { id: any } }) {
   // Create a cache per user ID to avoid caching the wrong data
   const getUser = unstable_cache(
-    async (id: string) => {
+    async (id: number) => {
       const user = await getUserById(id);
       return user;
     },
@@ -22,7 +23,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   return (
     <div>
-      <h1>{user.name}</h1>
+      <h1>{user.username}</h1>
       <p>{user.email}</p>
     </div>
   );
