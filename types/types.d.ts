@@ -50,6 +50,7 @@ interface Stats {
 }
 
 export interface StatsDisplayProps {
+  set: string;
   stats: Stats;
   loading: boolean;
   error: string | null;
@@ -80,9 +81,8 @@ export interface CardInfoProps {
 export interface SetCardHeaderProps {
   name: string;
   abbreviation: string;
-  type: string;
   releaseDate: string;
   description?: string;
   icon: string;
-  tags: string[];
+  type: string;
 }

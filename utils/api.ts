@@ -64,7 +64,9 @@ const fetchCardImage = async (
     }
 
     if (correctCard.card_faces && correctCard.card_faces.length > 1) {
-      return correctCard.card_faces[0].image_uris? correctCard.card_faces[0].image_uris.normal : correctCard.image_uris.normal
+      return correctCard.card_faces[0].image_uris
+        ? correctCard.card_faces[0].image_uris.normal
+        : correctCard.image_uris.normal;
     }
     return correctCard.image_uris.normal;
   } catch (error) {
@@ -94,34 +96,37 @@ export const fetchCardData = async (
   try {
     const res = await fetch(link);
     if (!res.ok) {
-    	throw new Error("Response failed");
+      	throw new Error("Response failed");
     }
     const data = await res.json();
     const cards = data.data;
     const cardsWithImages = await Promise.all(
-		cards.map( async (card: any) => {
-			const cardImage = await fetchCardImage(card.name, card.set);
-			await delay(75); // Delay to avoid hitting rate limits
-			let type = ''
-			if (card.type_line.split(' ')[0] === 'Legendary' || card.type_line.split(' ')[0] === 'Basic' || card.type_line.split(' ')[0] === 'Snow'){
-				type = card.type_line.split(' ')[0]+' '+card.type_line.split(' ')[1]
-			}
-			else {
-				type = card.type_line.split(' ')[0]
-			}
-			return {
-				name: card.name,
-				prices: card.prices,
-				set: card.set,
-				related_uris: card.related_uris,
-				rarity: card.rarity,
-				colors: card.colors,
-				type: type,
-				cardImage,
-			};
-		})
+      cards.map(async (card: any) => {
+        const cardImage = await fetchCardImage(card.name, card.set);
+        await delay(75); // Delay to avoid hitting rate limits
+        let type = "";
+        if (
+			card.type_line.split(" ")[0] === "Legendary" ||
+			card.type_line.split(" ")[0] === "Basic" ||
+			card.type_line.split(" ")[0] === "Snow"
+        ) {
+          	type = card.type_line.split(" ")[0] + " " + card.type_line.split(" ")[1];
+        } else {
+			type = card.type_line.split(" ")[0];
+        }
+        return {
+			name: card.name,
+			prices: card.prices,
+			set: card.set,
+			related_uris: card.related_uris,
+			rarity: card.rarity,
+			colors: card.colors,
+			type: type,
+			cardImage,
+        };
+      })
     );
-	console.log(cardsWithImages[0].colors, cardsWithImages[0].type)
+    console.log(cardsWithImages[0].colors, cardsWithImages[0].type);
     return cardsWithImages;
   } catch (error: any) {
     console.error("Error fetching data:", error);

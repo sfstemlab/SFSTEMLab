@@ -5,15 +5,14 @@ import { useState, useEffect } from "react";
 
 interface Set {
     card_count?: number;
-    code: string; 
-    icon_svg_uri: string;
+    abbreviation: string; 
+    icon: string;
     id?: string; 
     name: string; 
     parent_set_code?: string;
-    released_at: string;
+    releaseDate: string;
     set_type: string; 
     tags: string[];
-    releaseDate: string;
     type: string;
 }
 
@@ -25,8 +24,8 @@ const SetsPage = () => {
     const [sortedSets, setSortedSets] = useState<Set[]>([]);
     const [searchTerm, setSearchTerm] = useState<string>('');
 
-    const [sortOption, setSortOption] = useState<'name' | 'releaseDate'>('name');
-    const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+    const [sortOption, setSortOption] = useState<'name' | 'releaseDate'>('releaseDate');
+    const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
 
     const fetchSets = async () => {
         try {
@@ -35,24 +34,22 @@ const SetsPage = () => {
                 throw new Error('Response failed with status ' + res.status);
             }
             const data = await res.json();
-            console.log('Data received:', data);
+            // console.log('Data received:', data);
             const badSetTypes = ['commander', 'promo', 'token', 'memorabilia', 'alchemy', 'masterpiece', 'minigame', 'funny', 'box', 'arsenal', 'duel_deck', 'spellbook', 'planechase', 'from_the_vault', 'archenemy', 'starter', 'premium_deck'];
             const date = new Date();
             console.log(data[0].code)
-            const filteredSets: Set[] = data.filter(
-                (set: { set_type: string; digital: boolean; released_at: string;}) => 
+            const mappedSets = data.map((set: Set) => ({
+                name: set.name,
+                abbreviation: set.abbreviation,
+                icon: set.icon,
+                releaseDate: set.releaseDate,
+                type: set.tags[0],
+            })).filter(
+                (set: { set_type: string; digital: boolean; releaseDate: string;}) => 
                     !badSetTypes.includes(set.set_type) &&
                     !set.digital &&
-                    new Date(set.released_at) <= date
-            )
-            console.log(filteredSets)
-            const mappedSets = data.map((set: {name: string; abbreviation: string; icon: string; releaseDate: string; set_type:string}) => ({
-                name: set.name,
-                code: set.abbreviation,
-                icon_svg_uri: set.icon,
-                released_at: set.releaseDate,
-                type: set.set_type,
-            }));
+                    new Date(set.releaseDate) <= date
+            );
             console.log('mapped: '+ mappedSets[0])
             setSets(mappedSets);
             setSortedSets(mappedSets);
@@ -72,7 +69,7 @@ const SetsPage = () => {
         setSearchTerm(term)
         const lowercaseTerm = term.toLowerCase()
         const filtered = sets.filter(set => 
-            set.name.toLowerCase().includes(lowercaseTerm) || set.code.toLowerCase().includes(lowercaseTerm)
+            set.name.toLowerCase().includes(lowercaseTerm) || set.abbreviation.toLowerCase().includes(lowercaseTerm)
         )
         setSortedSets(filtered)
     }
@@ -87,7 +84,7 @@ const SetsPage = () => {
             if (option === 'name') {
                 comparison = a.name.localeCompare(b.name)
             } else {
-                comparison = new Date(a.released_at).getTime() -  new Date(b.released_at).getTime()
+                comparison = new Date(a.releaseDate).getTime() -  new Date(b.releaseDate).getTime()
             }
             return order === 'asc' ? comparison : -comparison
         })
@@ -161,11 +158,11 @@ const SetsPage = () => {
                         <SetCard 
                             key={index}
                             name={set.name}
-                            abbreviation={set.code}
-                            icon={set.icon_svg_uri}
+                            abbreviation={set.abbreviation}
+                            icon={set.icon}
                             tags={set.tags}
-                            releaseDate={set.released_at}
-                            type={set.set_type}
+                            releaseDate={set.releaseDate}
+                            type={set.type}
                         />
                     ))
                 }
