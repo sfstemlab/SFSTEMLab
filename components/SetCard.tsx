@@ -15,13 +15,15 @@ const SetCard = ({ abbreviation, description, icon, name, releaseDate, tags, typ
 		<div className="grid grid-cols-8 relative bg-gradient-to-r from-gray-800 via-gray-700 to-gray-900 rounded-lg border border-gray-600 overflow-scroll max-w-full p-4 mb-4">
 		<div className="col-span-8 md:col-span-6 flex">
 			<SetCardHeader
-			abbreviation={abbreviation}
-			description={description}
-			icon={icon}
-			name={name}
-			releaseDate={releaseDate}
-			type={type}
-			/>
+                abbreviation={abbreviation}
+                description={description}
+                icon={icon}
+                name={name}
+                releaseDate={releaseDate}
+                type={type} 
+                key={0} 
+                tags={[]}			
+            />
 
 		</div>
 		<ActionButtons
