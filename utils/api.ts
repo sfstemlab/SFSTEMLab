@@ -18,7 +18,7 @@ interface Card {
   image_uris: { normal: string };
   rarity: string;
   colors: string[];
-  type_line: string;
+  typeline: string;
   related_uris: {
     edhrec: string;
   };
@@ -132,7 +132,7 @@ export const fetchCardData = async (set?: string, name?: string, rarity?: string
             },
             rarity: card.rarity,
             colors: card.colors,
-            type: type,
+            typeline: type,
             cardImage,
         });
         

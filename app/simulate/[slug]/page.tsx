@@ -439,11 +439,14 @@ const Simulator = () => {
 					{simulatedCards.map((card, index) => (
 						<Card
 						key={index}
-						cardName={card.name}
+						name={card.name}
 						cardImage={card.cardImage}
 						prices={card.prices}
-						setCode={card.set}
-						edhrec_link={card.related_uris.edhrec}
+						set={card.set}
+						related_uris={card.related_uris}
+                        rarity={card.rarity}
+                        colors={card.colors}
+                        typeline={card.typeline}
 						/>
 					))}
 					</div>
@@ -482,7 +485,7 @@ const Simulator = () => {
 										{card.colors || "C"}
 									</TableCell>
 									<TableCell className="text-gray-400">
-										{card.type || "N/A"}
+										{card.typeline || "N/A"}
 									</TableCell>
 								</TableRow>
 							))}
