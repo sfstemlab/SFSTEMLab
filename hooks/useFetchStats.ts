@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { fetchAllStats } from '@/utils/api';
-import { Stats } from '@/types/types';
 
+import { Stats } from '@/types/types';
+import { fetchCardData } from '@/utils/api';
 const useFetchStats = (abbreviation: string) => {
   const initialStats: Stats = {
     commons: '...',
@@ -11,7 +11,7 @@ const useFetchStats = (abbreviation: string) => {
     total: '...',
   };
 
-  const [stats, setStats] = useState<Stats>(initialStats);
+  const [stats, setStats] = useState<any>(initialStats);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [statsVisible, setStatsVisible] = useState(false);
@@ -24,8 +24,14 @@ const useFetchStats = (abbreviation: string) => {
     setLoading(true);
     setStatsVisible(true);
     try {
-      const fetchedStats = await fetchAllStats(abbreviation);
-      setStats(fetchedStats);
+        const fetchedStats = await fetchCardData(abbreviation);
+        const formattedStats = stats
+        formattedStats.commons = fetchedStats?.filter((card) => card.rarity === 'common').length
+        formattedStats.uncommons = fetchedStats?.filter((card) => card.rarity === 'uncommon').length
+        formattedStats.rares = fetchedStats?.filter((card) => card.rarity === 'rare').length
+        formattedStats.mythics = fetchedStats?.filter((card) => card.rarity === 'mythic').length || 0
+        formattedStats.total = formattedStats.commons + formattedStats.uncommons + formattedStats.rares + formattedStats.mythics
+        setStats(formattedStats);
     } catch (error: any) {
       setError(error.message);
     } finally {
