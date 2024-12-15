@@ -9,36 +9,22 @@ export interface Set {
   type: string;
 }
 
-export interface CardProps {
-  rarity?: string;
-  cardName: string;
-  cardImage: string | null;
-  cardArt?: string;
-  cardTreatment?: string;
-  prices: {
-      usd: string;
-      eur: string;
-      tix: string;
-  };
-  setCode?: string;
-  edhrec_link: string;
-}
-
 export interface CardData {
   name: string;
   prices: {
       usd: string;
       eur: string;
-      tix: string;
+      tix?: string;
   };
   set: string;
   related_uris: {
       edhrec: string;
   };
   rarity: string;
-  cardImage: string;
+  cardImage: string | null;
   colors: string; 
   type: string;
+  doubleFaced?: boolean;
 }
 
 interface Stats {
@@ -54,35 +40,4 @@ export interface StatsDisplayProps {
   stats: Stats;
   loading: boolean;
   error: string | null;
-}
-
-
-
-export interface CardImageProps {
-  cardImage: string | null;
-  cardName: string;
-  edhrec_link: string;
-  doubleFaced: boolean;
-  flipCard: () => void;
-}
-
-export interface CardInfoProps {
-  cardName: string;
-  cardArt?: string;
-  cardTreatment?: string;
-  prices: {
-      usd: string;
-      eur: string;
-      tix: string;
-  };
-  setCode?: string;
-}
-
-export interface SetCardHeaderProps {
-  name: string;
-  abbreviation: string;
-  releaseDate: string;
-  description?: string;
-  icon: string;
-  type: string;
 }

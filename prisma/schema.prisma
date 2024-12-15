@@ -1,6 +1,6 @@
 generator client {
     provider = "prisma-client-js"
-    seed     = "ts-node ./prisma/seed.ts"
+    seed     = "ts-node ./prisma/seed2.ts"
 }
 
 datasource db {
@@ -9,147 +9,33 @@ datasource db {
     relationMode = "foreignKeys"
 }
 
-model CardSet {
-    id          Int        @id @default(autoincrement())
-    name        String
-    code        String     @unique
-    releaseDate DateTime
-    cards       Card[] // One CardSet has multiple Cards
-    packTypes   PackType[] // One CardSet has multiple PackTypes that you can buy of that set
-    packs       Pack[]
-}
-
 model Card {
-    id          Int     @id @default(autoincrement())
-    name        String
-    price       Float
-    cmc         Int
-    power       Int?
-    toughness   Int?
-    oracle_text String?
-    flavor_text String?
-
-    // Relations
-    rarityId   Int
-    rarity     Rarity          @relation(fields: [rarityId], references: [id])
-    cardSetId  Int
-    cardSet    CardSet         @relation(fields: [cardSetId], references: [id])
-    colors     CardColor[]
-    types      CardType[]
-    supertypes CardSupertype[]
-    subtypes   CardSubtype[]
-    userCards  UserCard[]
-}
-
-model PackType {
-    id         Int       @id @default(autoincrement())
-    sets       CardSet[]
-    numOfCards Int
-	name	   String
-	buyPrice  Float
-	packs		Pack[]
-}
-
-model Pack {
-    id        Int      @id @default(autoincrement())
-    setId     Int
-    set       CardSet  @relation(fields: [setId], references: [id])
-    userId    Int
-    user      User     @relation(fields: [userId], references: [id])
-    sellPrice Float
-   	simulatedAt DateTime @default(now())
-
-	packTypeId Int
-	packType PackType @relation(fields: [packTypeId], references: [id])
-}
-
-model Rarity {
-    id    Int    @id @default(autoincrement())
-    level String @unique
-    cards Card[]
-}
-
-model Color {
-    id         Int         @id @default(autoincrement())
-    name       String      @unique
-    cardColors CardColor[]
-}
-
-model User {
-    id         Int        @id @default(autoincrement())
-    email      String     @unique
-    password   String
-    username   String?
-    packs      Pack[]
-    collection UserCard[]
-    createdAt  DateTime   @default(now())
-    updatedAt  DateTime   @updatedAt
-    avatarUrl  String?
-}
-
-// Join table for Card and Color (Many-to-Many)
-model CardColor {
-    cardId  Int
-    colorId Int
-    card    Card  @relation(fields: [cardId], references: [id])
-    color   Color @relation(fields: [colorId], references: [id])
-
-    @@id([cardId, colorId])
-}
-
-// Join table for User and Card (Many-to-Many)
-model UserCard {
-    userId Int
-    cardId Int
-    user   User @relation(fields: [userId], references: [id])
-    card   Card @relation(fields: [cardId], references: [id])
-
-    @@id([userId, cardId])
-}
-
-// Additional models for types, supertypes, and subtypes
-model Type {
-    id        Int        @id @default(autoincrement())
-    name      String     @unique
-    cardTypes CardType[]
-}
-
-model Supertype {
-    id             Int             @id @default(autoincrement())
-    name           String          @unique
-    cardSupertypes CardSupertype[]
-}
-
-model Subtype {
-    id           Int           @id @default(autoincrement())
-    name         String        @unique
-    cardSubtypes CardSubtype[]
-}
-
-// Join tables for types
-model CardType {
-    cardId Int
-    typeId Int
-    card   Card @relation(fields: [cardId], references: [id])
-    type   Type @relation(fields: [typeId], references: [id])
-
-    @@id([cardId, typeId])
-}
-
-model CardSupertype {
-    cardId      Int
-    supertypeId Int
-    card        Card      @relation(fields: [cardId], references: [id])
-    supertype   Supertype @relation(fields: [supertypeId], references: [id])
-
-    @@id([cardId, supertypeId])
-}
-
-model CardSubtype {
-    cardId    Int
-    subtypeId Int
-    card      Card    @relation(fields: [cardId], references: [id])
-    subtype   Subtype @relation(fields: [subtypeId], references: [id])
-
-    @@id([cardId, subtypeId])
+    id             Int      @id @default(autoincrement())
+    released_at    DateTime
+    image_uris     Json
+    mana_cost      String?
+    cmc            Int
+    type_line      String
+    oracale_text   String //TODO: fix this misspelling
+    power          Int
+    toughness      Int?
+    colors         String[]
+    color_identity String[]
+    legalities     Json
+    games          String[]
+    finishes       String[]
+    reprint        Boolean
+    booster Boolean? @default(true)
+    set            String
+    set_name       String
+    set_type       String
+    set_uri        String
+    rulings_uri    String
+    digital        Boolean
+    rarity         String
+    layout         String
+    edhrec_rank    Int?
+    prices         Json
+    related_uris   Json
+    purchase_uris  Json
 }
