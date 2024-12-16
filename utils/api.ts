@@ -132,7 +132,7 @@ export const fetchCardData = async (set?: string, name?: string, rarity?: string
             },
             rarity: card.rarity,
             colors: card.colors,
-            typeline: type,
+            type_line: type,
             cardImage,
         });
         

@@ -23,7 +23,7 @@ export interface CardData {
   rarity: string;
   cardImage: string | null;
   colors: string; 
-  typeline: string;
+  type_line: string;
   doubleFaced?: boolean;
 }
 
