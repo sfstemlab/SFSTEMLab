@@ -446,7 +446,7 @@ const Simulator = () => {
 						related_uris={card.related_uris}
                         rarity={card.rarity}
                         colors={card.colors}
-                        typeline={card.typeline}
+                        type_line={card.type_line}
 						/>
 					))}
 					</div>
@@ -485,7 +485,7 @@ const Simulator = () => {
 										{card.colors || "C"}
 									</TableCell>
 									<TableCell className="text-gray-400">
-										{card.typeline || "N/A"}
+										{card.type_line || "N/A"}
 									</TableCell>
 								</TableRow>
 							))}

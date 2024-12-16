@@ -99,7 +99,7 @@ const StatsDisplay: React.FC<StatsDisplayProps> = ({
                 set={card.set}
                 rarity={card.rarity}
                 colors={card.colors}
-                typeline={card.typeline}
+                type_line={card.type_line}
               />
             ))}
           </div>
