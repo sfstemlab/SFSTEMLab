@@ -11,6 +11,9 @@
 
 import { CardData, Set, Stats } from "@/types/types";
 
+import { PrismaClient } from "@prisma/client";
+const db = new PrismaClient();
+
 interface Card {
   set: string;
   name: string;
@@ -135,7 +138,9 @@ export const fetchCardData = async (set?: string, name?: string, rarity?: string
             type_line: type,
             cardImage,
         });
-        
+        await db.card.create({
+            data: cards, //TODO: Not sure it this is the correct variable, but it's the only type ti'll accept
+          });
         await delay(100)
         
         };
