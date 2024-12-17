@@ -5,6 +5,8 @@ interface TagProps {
   const Tag = ({ value }: TagProps) => {
 	const typesToColors: { [key: string]: string } = {
 	  'Draft Innovation': 'red',
+      'Modern Horizons': 'amber',
+      Jumpstart: 'cyan',
 	  Core: 'blue',
 	  Expansion: 'orange',
 	  Masters: 'green',

@@ -9,8 +9,8 @@ const config = {
     './src/**/*.{ts,tsx}',
 	],
   safelist: [
-    'bg-red-500/80', 'bg-blue-500/80', 'bg-orange-500/80', 'bg-green-500/80', 'bg-yellow-500/80', // Add all the colors you use dynamically
-    'shadow-red-500/50', 'shadow-blue-500/50', 'shadow-orange-500/50', 'shadow-green-500/50', 'shadow-yellow-500/50',
+    'bg-red-500/80', 'bg-blue-500/80', 'bg-orange-500/80', 'bg-green-500/80', 'bg-yellow-500/80', 'bg-amber-500/80','bg-cyan-500/80', // Add all the colors you use dynamically
+    'shadow-red-500/50', 'shadow-blue-500/50', 'shadow-orange-500/50', 'shadow-green-500/50', 'shadow-yellow-500/50', 'shadow-amber-500/50','shadow-cyan-500/50'
     // If you have more colors or shades, add them here...
   ],
   prefix: "",
