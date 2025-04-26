@@ -1,61 +1,132 @@
-"use client"
-import { useState } from "react";
-import Link from "next/link";
-import { Redo } from "lucide-react";
-import { CardData } from "@/types/types";
+"use client";
+import Image from "next/image";
+import React, { useEffect, useId, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useOutsideClick } from "../hooks/use-outside-click";
+import Tag from "./tag";
 
+interface EventProps {
+    title: string;
+    day: number;
+    month: string;
+    desc: string;
+    tags?: string[];
+    expandedContent: any;
+  }
 
-const Card = ({ name, cardImage, prices, related_uris }: CardData) => {
-    const [doubleFaced, setDoubleFaced] = useState(false);
-    const [cardFace, setCardFace] = useState(0);
+export function Card(event:EventProps) {
+    const [active, setActive] = useState<
+        (typeof event) | boolean | null
+    >(null);
+    const id = useId();
+    const ref = useRef<HTMLDivElement>(null);
 
-    const flipCard = () => {
-        setCardFace(cardFace === 0 ? 1 : 0);
-    };
+    useEffect(() => {
+        function onKeyDown(event: KeyboardEvent) {
+            if (event.key === "Escape") {
+                setActive(false);
+            }
+        }
 
-    return (                    
-        <div className="max-w-xs bg-gray-800 rounded-lg shadow-lg overflow-hidden">
-            <div className="relative">
+        if (active && typeof active === "object") {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "auto";
+        }
 
-                {cardImage ? (
-                    <>
-                        {/* <Link href={related_uris.edhrec}> */}
-                            <img className="w-full rounded-md bg-black" src={cardImage} alt={name} />
-                        {/* </Link> */}
-                        {doubleFaced && (
-                            <button 
-                                className="absolute top-4 right-4 bg-blue-700 hover:bg-blue-800 p-2 rounded-full"
-                                onClick={flipCard}
-                            >
-                                <Redo className="text-white" />
-                            </button>
-                        )}
-                    </>
-                ) : (
-                    <div className="h-96 bg-gray-500 flex items-center justify-center">
-                        Loading...
-                    </div>
+        window.addEventListener("keydown", onKeyDown);
+        return () => window.removeEventListener("keydown", onKeyDown);
+    }, [active]);
+
+    useOutsideClick(ref, () => setActive(null));
+
+    return (
+        <>
+            <AnimatePresence>
+                {active && typeof active === "object" && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 bg-black/30 h-full w-full z-10 backdrop-blur-sm"
+                    />
                 )}
+            </AnimatePresence>
+            <AnimatePresence>
+                {active && typeof active === "object" ? (
+                    <div className="fixed inset-0 grid place-items-center z-[100]">
+                        <motion.div
+                            // layoutId={`card-${active.title}-${id}`}
+                            ref={ref}
+                            className="absolute top-[-200px] w-full max-w-[500px]  h-96 flex flex-col bg-[#b1d5e6]/75 border-2 border-[#b1d5e6] backdrop-blur-lg sm:rounded-2xl"
+                        >
+                            <div className="items-center p-4">
+                                <motion.h3
+                                    // layoutId={`title-${active.title}-${id}`}
+                                    className="w-full font-extrabold underline text-[#cc1616] text-2xl text-center"
+                                >
+                                    {active.title}
+                                </motion.h3>
+                                <div className="pt-4 relative px-4">
+                                    <motion.div
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        className="h-96 md:h-fit pb-20 flex flex-col items-start gap-4 overflow-auto [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]"
+                                    >
+                                        {active.expandedContent()}
+                                        <div className="pb-6 flex space-x-2 items-center w-full justify-center">
+                                            {
+                                                event.tags &&
+                                                event.tags.length > 0 &&
+                                                event.tags.map((tag, index) => (
+                                                    <Tag key={index} value={tag} />
+                                                ))
+                                            }
+                                        </div>
+                                    </motion.div>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </div>
+                ) : null}
+            </AnimatePresence>
+            <div className="mx-auto w-full grid grid-cols-1 md:grid-cols-2 items-start gap-4">
+                <motion.div
+                // layoutId={`card-${event.title}-${id}`}
+                    key={event.title}
+                    onClick={() => setActive(event)}
+                    className="text-white w-[330px] rounded-md py-2 px-1 items-center border-2 border-[#b1d5e6] bg-[#b1d5e6]/50 hover:bg-[#8db5e3]/90 transition duration-700 ease-in-out cursor-pointer"
+                >
+                    <div className="flex w-full">
+                        <div className="flex justify-center items-center flex-col">
+                            <motion.h3
+                                // layoutId={`title-${event.title}-${id}`}
+                                className="font-bold underline text-xl text-[#cc1616] text-left flex"
+                            >
+                                {event.title}
+                            </motion.h3>
+                            <motion.p
+                                // layoutId={`description-${event.desc}-${id}`}
+                                className="text-white text-center md:text-left text-base px-2"
+                            >
+                                {event.desc}
+                            </motion.p>
+                            <div className="p-2 flex space-x-2">
+                                {event.tags &&
+                                event.tags.length > 0 &&
+                                event.tags.map((tag, index) => (
+                                    <Tag key={index} value={tag} />
+                                ))}
+                            </div>
+                        </div>
+                        <div className="mx-1 rounded-sm bg-[#b1d5e6]/60  text-[#cc1616] py-1 pb-2 px-3 items-center text-center h-5/6">
+                            <h2 className="font-black text-lg">{event.month}</h2>
+                            <h3 className="font-black text-5xl">{event.day}</h3>
+                        </div>
+                    </div>
+                </motion.div>
             </div>
-            <div className="p-4 text-white">
-                <h2 className="text-center text-lg font-bold mb-2">{name}</h2>
-                <div className="flex justify-between text-md font-semibold">
-                    <div className="text-blue-400">
-                        <p>USD</p>
-                        <p>${prices.usd}</p>
-                    </div>
-                    <div className="text-red-400">
-                        <p>EUR</p>
-                        <p>€{prices.eur}</p>
-                    </div>
-                    <div className="text-orange-400">
-                        <p>TIX</p>
-                        <p>{prices.tix}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </>
     );
-};
-
-export default Card;
+}

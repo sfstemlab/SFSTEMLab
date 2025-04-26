@@ -1,0 +1,32 @@
+The Alien Circuit
+You are an intergalactic engineer hired to repair an alien spaceship's malfunctioning logic gate circuit. The circuit is supposed to decide whether the ship can launch based on three input signals: A, B, and C.
+
+Input Signals:
+A: Indicates whether the ship's fuel system is operational (1 for operational, 0 for non-operational).
+B: Indicates whether the navigation system is ready (1 for ready, 0 for not ready).
+C: Indicates whether the crew is onboard (1 for onboard, 0 for absent).
+
+
+Output Signal (Launch Decision):
+L: The spaceship launches if the output signal is 1, and it does not launch if the output signal is 0.
+The Logic Gate Circuit
+The logic gate circuit is designed with the following rules:
+
+The spaceship can launch only if at least two of the three systems (fuel, navigation, or crew) are ready.
+If all three systems are ready (A = 1, B = 1, C = 1), the spaceship will not launch (failsafe mechanism).
+Challenge
+Design a circuit using only AND, OR, and NOT gates that satisfies the above rules and outputs the correct launch decision L.
+Provide a truth table showing the outputs for all possible combinations of inputs A, B, and C.
+Optional: Explain how your circuit works!
+Example Truth Table
+To get you started, here’s the structure of the truth table (you need to fill in the output L based on the rules):
+
+A	B	C	L (Output)
+0	0	0	0
+0	0	1	0
+0	1	0	0
+0	1	1	L
+1	0	0	0
+1	0	1	L
+1	1	0	L
+1	1	1	0
