@@ -1,5 +1,6 @@
 // lib/db.ts
-import { Card, PrismaClient } from '@prisma/client';
+import { PrismaClient } from '.prisma/client';
+import { scoutedTeam, scoutingTeam } from '@prisma/client';
 
 const globalForPrisma = global as unknown as { db?: PrismaClient };
 
@@ -7,90 +8,74 @@ export const db = globalForPrisma.db || new PrismaClient();
 
 if (process.env.NODE_ENV !== 'production') globalForPrisma.db = db;
 
-// export async function to getAllCards
-export async function getAllCards(): Promise<Card[]>{
-  try {
-    const cards = await db.card.findMany({
-        select: {
-            id: true,
-            released_at: true,
-            image_uris: true,
-            mana_cost: true,
-            cmc: true,
-            type_line: true,
-            oracale_text: true,
-            power: true,
-            toughness: true,
-            colors: true,  // Simple string array
-            color_identity: true,
-            legalities: true,
-            games: true,
-            finishes: true,
-            reprint: true,
-            booster: true,
-            set: true,  // Simple string field
-            set_name: true,
-            set_type: true,
-            set_uri: true,
-            rulings_uri: true,
-            digital: true,
-            rarity: true,  // Simple string field
-            layout: true,
-            edhrec_rank: true,
-            prices: true,
-            related_uris: true,
-            purchase_uris: true,
-        },
-    });
-    return cards
-  } catch (error) {
-    console.error("Error fetching all cards", error);
-    throw new Error("unable to fetch cards")
-  }
-}
-// Export a function to fetch cards by rarity 
-export async function getCardsByRarity(rarityLevel: string): Promise<Card[]> {
-  try {
-    const cards = await db.card.findMany({
-      where: {
-        rarity: rarityLevel,
-      },
-      select: {
-        // these are the columns that i want back
-        id: true,
-        released_at: true,
-        image_uris: true,
-        mana_cost: true,
-        cmc: true,
-        type_line: true,
-        oracale_text: true,
-        power: true,
-        toughness: true,
-        colors: true,  // Simple string array
-        color_identity: true,
-        legalities: true,
-        games: true,
-        finishes: true,
-        reprint: true,
-        booster: true,
-        set: true,  // Simple string field
-        set_name: true,
-        set_type: true,
-        set_uri: true,
-        rulings_uri: true,
-        digital: true,
-        rarity: true,  // Simple string field
-        layout: true,
-        edhrec_rank: true,
-        prices: true,
-        related_uris: true,
-        purchase_uris: true,
-      }
-    });
-    return cards;
-  } catch (error) {
-    console.error("Error fetching cards by rarity", error); 
-    throw new Error("unable to fetch cards"); 
-  }
+// Export a function to get data from ALL teams in the database
+export async function getAllTeams(): Promise<scoutingTeam[]> {
+    try {
+        // Fetch all teams including their scoutedTeams relation
+        const teams = await db.scoutingTeam.findMany({
+            include: { scoutedTeams: true }
+        });
+        return teams;
+    } catch (error) {
+        console.error("Error fetching all teams", error);
+        throw new Error("Unable to fetch teams");
+    }
 }
 
+// Export a function to fetch a specific team's data from the database
+export async function getTeamData(team: number): Promise<scoutingTeam | null> {
+    return db.scoutingTeam.findUnique({
+        where: { teamNumber: team },
+        include: { scoutedTeams: true }, // Ensuring scoutedTeams are included in the result
+    });
+}
+
+export async function submitDataToDatabase(
+    yourTeamNumber: number,
+    scoutedData: scoutedTeam
+) {
+    let yourTeamsData = await getTeamData(yourTeamNumber);
+
+    // If no data for the team, create a new scoutingTeam entry
+    if (!yourTeamsData) {
+        await db.scoutingTeam.create({
+            data: { teamNumber: yourTeamNumber },
+        });
+        // Re-fetch to get the scoutedTeams relation included
+        yourTeamsData = await getTeamData(yourTeamNumber);
+    }
+
+    // Check if the team has already scouted the target team
+    if (
+        yourTeamsData?.scoutedTeams &&
+        yourTeamsData.scoutedTeams.find(
+            (team) => team.teamNumber === scoutedData.teamNumber
+        )
+    ) {
+        // Team already scouted — handle accordingly
+        console.log(`Team ${yourTeamNumber} has already scouted team ${scoutedData.teamNumber}`);
+    } else {
+        // Team not yet scouted — proceed with necessary actions
+        console.log(`Team ${yourTeamNumber} has not scouted team ${scoutedData.teamNumber}`);
+        // Here, you can insert logic for adding the scouted team if needed
+        await db.scoutedTeam.create({
+            data: {
+                teamNumber: scoutedData.teamNumber,
+                scoutingTeamId: yourTeamsData.id,
+                // Other necessary fields from scoutedData
+                coralScoringId: scoutedData.coralScoringId,
+                coralIntakeId: scoutedData.coralIntakeId,
+                algaeScoringId: scoutedData.algaeScoringId,
+                algaeIntakeId: scoutedData.algaeIntakeId,
+                climb: scoutedData.climb,
+                autoId: scoutedData.autoId,
+                driverExpComps: scoutedData.driverExpComps,
+                driverExpYears: scoutedData.driverExpYears,
+            },
+        });
+    }
+}
+
+
+    // Create an instance of coralScoring in the database (to later be linked to the scoutedTeam)
+    // const coralScoring

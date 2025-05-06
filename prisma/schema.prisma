@@ -1,0 +1,139 @@
+generator client {
+    provider    = "prisma-client-js"
+    seed        = "./prisma/seed2.js"
+}
+
+datasource db {
+    provider    = "postgresql"
+    url         = env("DATABASE_URL")
+    directUrl   = env("DIRECT_URL")
+  relationMode  = "foreignKeys"
+}
+
+
+enum climb {
+    deep
+    shallwo
+    none
+}
+
+enum autoStart {
+    left
+    center
+    right
+}
+
+
+model scoutingTeam { // 5700
+    id              Int             @id @default(autoincrement())
+    teamNumber      Int             @unique
+    scoutedTeams     scoutedTeam[]   @relation("teamScouted")
+}
+
+model scoutedTeam {
+    id              Int             @id @default(autoincrement())
+    teamNumber      Int
+
+    scoutingTeamId  Int
+    scoutingTeam    scoutingTeam    @relation("teamScouted", fields: [scoutingTeamId], references: id)
+
+    coralScoringId  Int?
+    coralScoring    coralScoring?    @relation(fields: [coralScoringId], references: id)
+
+    coralIntakeId   Int?
+    coralIntake     coralIntake?    @relation(fields: [coralIntakeId], references: id)
+
+    algaeScoringId  Int?
+    algaeScoring    algaeScoring?    @relation(fields: [algaeScoringId], references: id)
+
+    algaeIntakeId   Int?
+    algaeIntake     algaeIntake?    @relation(fields: [algaeIntakeId], references: id)
+
+    climb           climb
+
+    autoId          Int?
+    auto            auto?           @relation(fields: [autoId], references: id)
+
+    driverExpComps  Int?
+    driverExpYears  Int?
+
+}
+
+model coralScoring {
+    id              Int             @id @default(autoincrement())
+    L1              Boolean
+    L2              Boolean
+    L3              Boolean
+    L4              Boolean
+
+    scoutedTeam scoutedTeam[]
+}
+
+model coralIntake {
+    id              Int             @id @default(autoincrement())
+    floor           Boolean
+    source          Boolean
+
+    scoutedTeam scoutedTeam[]
+}
+
+model algaeScoring {
+    id              Int             @id @default(autoincrement())
+    processor       Boolean
+    net             Boolean
+
+    scoutedTeam scoutedTeam[]
+}
+
+model algaeIntake {
+    id              Int             @id @default(autoincrement())
+    reef            Boolean
+    floor           Boolean
+    dealgify        Boolean
+
+    scoutedTeam scoutedTeam[]
+}
+
+model auto {
+    id              Int             @id @default(autoincrement())
+    start           autoStart
+    L1              Int
+    L2              Int
+    L3              Int
+    L4              Int
+    processor       Int
+    net             Int
+
+    scoutedTeam scoutedTeam[]
+}
+
+// model Card {
+//   id             Int      @id @default(autoincrement())
+//   cmc            Int
+//   power          Int
+//   toughness      Int?
+//   booster        Boolean
+//   color_identity String[]
+//   colors         String[]
+//   digital        Boolean
+//   edhrec_rank    Int?
+//   finishes       String[]
+//   games          String[]
+//   image_uris     Json
+//   layout         String
+//   legalities     Json
+//   mana_cost      String?
+//   oracale_text   String
+//   prices         Json
+//   purchase_uris  Json
+//   rarity         String
+//   related_uris   Json
+//   released_at    DateTime
+//   reprint        Boolean
+//   rulings_uri    String
+//   set            String
+//   set_name       String
+//   set_type       String
+//   set_uri        String
+//   type_line      String
+// }
