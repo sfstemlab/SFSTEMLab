@@ -1,3 +1,41 @@
+
+export interface Answers {
+  teamNumber: number;
+  coralScoring?: {
+    L1: boolean;
+    L2: boolean;
+    L3: boolean;
+    L4: boolean;
+  };
+  coralIntake?: {
+    floor: boolean;
+    source: boolean;
+  };
+  algaeScoring?: {
+    processor: boolean;
+    net: boolean;
+  };
+  algaeIntake?: {
+    reef: boolean;
+    floor: boolean;
+    dealgify: boolean;
+  };
+  climb?: "deep" | "shallow" | "none";
+  auto: {
+    start: 'left' | 'center' | 'right',
+    L1?: number,
+    L2?: number,
+    L3?: number,
+    L4?: number,
+    processor?: number,
+    net?: number
+  },
+  driverExp: {
+    comps?: number,
+    years: number,
+  }
+}
+
 interface MatchResults extends Record<Team, teamResults> {
   matchNumber: number | null;
   matchType: string;
@@ -6,7 +44,7 @@ interface MatchResults extends Record<Team, teamResults> {
 }
 
 interface teamResults {
-  name: string;
+  number: string;
   auto: {
     move: number; // move is a number so that it is easy to add together with other things when calculating score (and so that I don't have to know how many points it is)
     L1: number;

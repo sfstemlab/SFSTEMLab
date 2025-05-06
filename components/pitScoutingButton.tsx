@@ -5,12 +5,16 @@ import { DropdownMenuCheckboxes } from "./ui/dropdown-menu-checkboxes";
 
 interface PitScoutingQuestionProps {
   content: string;
-  inputType: 'text' | 'number' | 'select' | 'multi-select';
+  inputType: 'number' | 'select' | 'multi-select';
   options?: string[]; // Options for multi-select
   onChange: any;
 }
 
-const PitScoutingQuestion: React.FC<PitScoutingQuestionProps> = ({content, inputType, options = [''], onChange }) => {
+const PitScoutingQuestion = ({
+    content, 
+    inputType, 
+    options = [], 
+    onChange}: PitScoutingQuestionProps) => {
     if (inputType === 'select') {
         console.log(options)
     }
@@ -20,17 +24,11 @@ const PitScoutingQuestion: React.FC<PitScoutingQuestionProps> = ({content, input
             {inputType === 'number' && 
                 <input 
                     className="p-1 text-center bg-[#b1d5e6]/75 rounded-md w-full hover:bg-[#b1d5e6]/90 transition duration-500 ease-in-out placeholder-gray-500"
-                    type={inputType}
+                    type="number"
                     onChange={onChange}
                     placeholder='0000'
                     />
             }            
-            {inputType === 'text' && 
-                <textarea 
-                    className="p-1 text-center bg-[#b1d5e6]/75 rounded-md w-full h-[32px] hover:bg-[#b1d5e6]/90 transition duration-500 ease-in-out placeholder-gray-500"
-                    placeholder={content}>
-                </textarea>
-            }
             {inputType === 'select' && 
                 <select  
                     className='p-1 text-center bg-[#b1d5e6]/75 rounded-md w-full h-auto hover:bg-[#b1d5e6]/90 transition duration-500 ease-in-out placeholder-gray-500'
