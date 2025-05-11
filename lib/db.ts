@@ -1,6 +1,6 @@
 // lib/db.ts
 import { PrismaClient } from '.prisma/client';
-import { Answers } from '@/types/types';
+import { Answers, PitScoutedTeam } from '@/types/types';
 import { pitScoutedTeam, pitScoutingTeam, matchScoutedTeam, matchScoutingTeam } from '@prisma/client';
 
 const globalForPrisma = global as unknown as { db?: PrismaClient };
@@ -38,7 +38,7 @@ export async function getAllMatchScoutingTeams(): Promise<matchScoutingTeam[]> {
 }
 
 // Export a function to fetch a specific team's data from the database
-export async function getTeamData(team: number, dataType: 'match' | 'pit'): Promise<pitScoutingTeam | matchScoutingTeam> {
+export async function getTeamData(team: number, dataType: 'match' | 'pit'): Promise<any> {
     console.log('getTeamData running')
     let teamData = null
     // get different data based on the dataType -- either data from pit scouting or match scouting
@@ -82,7 +82,7 @@ export async function getTeamData(team: number, dataType: 'match' | 'pit'): Prom
 
 export async function submitPitDataToDatabase(
     yourTeamNumber: number,
-    scoutedData: pitScoutedTeam,
+    scoutedData: any,
 ) {
     let yourTeamsData = await getTeamData(yourTeamNumber, 'pit')
     console.log(typeof yourTeamsData)
