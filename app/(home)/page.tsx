@@ -6,7 +6,7 @@ import { useRef, useState, useEffect } from "react";
 import { Variants, Transition } from "framer-motion";
 import Navbar from '@/components/navbar'
 import Section2 from "@/components/section2";
-const Section1 = dynamic(() => import("@/components/section1"), { ssr: false });
+import Section1 from "@/components/section1";
 
 type BackgroundVariants = Variants & {
   hidden: { backgroundPosition: string };
