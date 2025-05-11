@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import Navbar from "@/components/navbar";
-import { ClerkProvider, SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
+// import { ClerkProvider, SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 import { dark, shadesOfPurple } from '@clerk/themes'
 
 
@@ -23,19 +23,19 @@ export default function RootLayout({
 }>) {
   return (
 
-    <ClerkProvider 
-    afterSignOutUrl={'/sign-in'}
-        appearance={{
-        baseTheme: dark,
-    }}
-    >
+    // <ClerkProvider 
+    // afterSignOutUrl={'/sign-in'}
+    //     appearance={{
+    //     baseTheme: dark,
+    // }}
+    // >
     <html lang="en">
         <body className="dark bg-white">
         {children}
 
         </body>
     </html>
-    </ClerkProvider>
+    // </ClerkProvider>
 
   );
 }
