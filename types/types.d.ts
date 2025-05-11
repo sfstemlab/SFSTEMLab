@@ -36,7 +36,7 @@ export interface Answers {
   }
 }
 
-interface MatchResults extends Record<Team, teamResults> {
+interface MatchResults {
   matchNumber: number | null;
   matchType: string;
   event: string;

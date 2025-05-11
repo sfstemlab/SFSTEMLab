@@ -11,9 +11,9 @@ datasource db {
 }
 
 
-enum climb {
+enum climbEnum {
     deep
-    shallwo
+    shallow
     none
 }
 
@@ -23,80 +23,160 @@ enum autoStart {
     right
 }
 
+enum fieldPlacement {
+    r1
+    r2
+    r3
+    b1
+    b2
+    b3
+}
 
-model scoutingTeam { // 5700
+
+model pitScoutingTeam { // 5700
     id              Int             @id @default(autoincrement())
     teamNumber      Int             @unique
-    scoutedTeams     scoutedTeam[]   @relation("teamScouted")
+    scoutedTeams    pitScoutedTeam[]   @relation("teamScouted")
 }
 
-model scoutedTeam {
+model matchScoutingTeam { // 5700
     id              Int             @id @default(autoincrement())
-    teamNumber      Int
+    teamNumber      Int             @unique
+    scoutedTeams    matchScoutedTeam[]   @relation("teamScouted")
+}
 
-    scoutingTeamId  Int
-    scoutingTeam    scoutingTeam    @relation("teamScouted", fields: [scoutingTeamId], references: id)
+model pitScoutedTeam {
+    id                  Int             @id @default(autoincrement())
+    teamNumber          Int
+
+    scoutingTeamId      Int
+    scoutingTeam        pitScoutingTeam    @relation("teamScouted", fields: [scoutingTeamId], references: id)
 
     coralScoringId  Int?
-    coralScoring    coralScoring?    @relation(fields: [coralScoringId], references: id)
+    coralScoring    coralScoringPit?    @relation(fields: [coralScoringId], references: id)
 
     coralIntakeId   Int?
-    coralIntake     coralIntake?    @relation(fields: [coralIntakeId], references: id)
+    coralIntake     coralIntakePit?    @relation(fields: [coralIntakeId], references: id)
 
     algaeScoringId  Int?
-    algaeScoring    algaeScoring?    @relation(fields: [algaeScoringId], references: id)
+    algaeScoring    algaeScoringPit?    @relation(fields: [algaeScoringId], references: id)
 
     algaeIntakeId   Int?
-    algaeIntake     algaeIntake?    @relation(fields: [algaeIntakeId], references: id)
+    algaeIntake     algaeIntakePit?     @relation(fields: [algaeIntakeId], references: id)
 
-    climb           climb
+    climb           climbEnum?
 
     autoId          Int?
-    auto            auto?           @relation(fields: [autoId], references: id)
+    auto            auto?            @relation(fields: [autoId], references: id)
 
-    driverExpComps  Int?
-    driverExpYears  Int?
+    driverExpId     Int?
+    driverExp       driverExpPit?       @relation(fields: [driverExpId], references: id)
 
 }
 
-model coralScoring {
+model matchScoutedTeam {
+    id                  Int             @id @default(autoincrement())
+    teamNumber          Int
+    fieldPlacement      fieldPlacement
+
+    scoutingTeamId      Int
+    scoutingTeam        matchScoutingTeam    @relation("teamScouted", fields: [scoutingTeamId], references: id)
+
+    coralScoringId  Int
+    coralScoring    coralScoringMatch    @relation(fields: [coralScoringId], references: id)
+
+    coralIntakeId   Int
+    coralIntake     coralIntakeMatch    @relation(fields: [coralIntakeId], references: id)
+
+    algaeScoringId  Int
+    algaeScoring    algaeScoringMatch    @relation(fields: [algaeScoringId], references: id)
+
+    algaeIntakeId   Int
+    algaeIntake     algaeIntakeMatch     @relation(fields: [algaeIntakeId], references: id)
+
+    climb           climbEnum
+
+    autoId          Int
+    auto            auto            @relation(fields: [autoId], references: id)
+
+    driverExpId     Int
+    driverExp       driverExpMatch       @relation(fields: [driverExpId], references: id)
+
+}
+
+model coralScoringPit {
     id              Int             @id @default(autoincrement())
     L1              Boolean
     L2              Boolean
     L3              Boolean
     L4              Boolean
 
-    scoutedTeam scoutedTeam[]
+    scoutedTeam     pitScoutedTeam[]
 }
 
-model coralIntake {
+model coralScoringMatch {
+    id              Int             @id @default(autoincrement())
+    L1              Int
+    L2              Int
+    L3              Int
+    L4              Int
+
+    scoutedTeam     matchScoutedTeam[]
+}
+
+model coralIntakePit {
     id              Int             @id @default(autoincrement())
     floor           Boolean
     source          Boolean
 
-    scoutedTeam scoutedTeam[]
+    scoutedTeam     pitScoutedTeam[]
 }
 
-model algaeScoring {
+model coralIntakeMatch {
+    id              Int             @id @default(autoincrement())
+    floor           Boolean
+    source          Boolean
+
+    scoutedTeam     matchScoutedTeam[]
+}
+
+model algaeScoringPit {
     id              Int             @id @default(autoincrement())
     processor       Boolean
     net             Boolean
 
-    scoutedTeam scoutedTeam[]
+    scoutedTeam     pitScoutedTeam[]
 }
 
-model algaeIntake {
+model algaeScoringMatch {
+    id              Int             @id @default(autoincrement())
+    processor       Int
+    net             Int
+    scoutedTeam     matchScoutedTeam[]
+}
+
+model algaeIntakePit {
     id              Int             @id @default(autoincrement())
     reef            Boolean
     floor           Boolean
-    dealgify        Boolean
+    dealgifyOnly    Boolean
 
-    scoutedTeam scoutedTeam[]
+    scoutedTeam     pitScoutedTeam[]
+}
+
+model algaeIntakeMatch {
+    id              Int             @id @default(autoincrement())
+    reef            Boolean
+    floor           Boolean
+    dealgifyOnly    Boolean
+
+    scoutedTeam     matchScoutedTeam[]
 }
 
 model auto {
     id              Int             @id @default(autoincrement())
     start           autoStart
+    move            Boolean
     L1              Int
     L2              Int
     L3              Int
@@ -104,36 +184,32 @@ model auto {
     processor       Int
     net             Int
 
-    scoutedTeam scoutedTeam[]
+    pitScoutedTeam     pitScoutedTeam[]
+    matchScoutedTeam    matchScoutedTeam[]
 }
 
-// model Card {
-//   id             Int      @id @default(autoincrement())
-//   cmc            Int
-//   power          Int
-//   toughness      Int?
-//   booster        Boolean
-//   color_identity String[]
-//   colors         String[]
-//   digital        Boolean
-//   edhrec_rank    Int?
-//   finishes       String[]
-//   games          String[]
-//   image_uris     Json
-//   layout         String
-//   legalities     Json
-//   mana_cost      String?
-//   oracale_text   String
-//   prices         Json
-//   purchase_uris  Json
-//   rarity         String
-//   related_uris   Json
-//   released_at    DateTime
-//   reprint        Boolean
-//   rulings_uri    String
-//   set            String
-//   set_name       String
-//   set_type       String
-//   set_uri        String
-//   type_line      String
-// }
+
+
+model driverExpPit {
+    id              Int             @id @default(autoincrement())
+    comps           Int?
+    years           Int?
+
+    scoutedTeam     pitScoutedTeam[]
+
+}
+
+model driverExpMatch {
+    id              Int             @id @default(autoincrement())
+    defense         Boolean
+    drivePrecision  Int?             //1-5
+    driveSpeed      Int?             //1-5
+    maneuvering     Int?             //1-5
+    consistency     Int?            //1-5 (not used if defense)
+    fouls           String[]
+    defenseImpact   Int?            //1-5 (only used in defense)
+    brickTime       Float?
+    comments        String?
+    scoutedTeam     matchScoutedTeam[]
+}
+
