@@ -115,12 +115,12 @@ const Navbar = () => {
               </motion.div>
             ))}
 
-            <motion.button
+            {/* <motion.button
               whileHover={{ scale: 1.05 }}
               className="flex items-center px-4 py-2 rounded-lg text-gray-600 hover:bg-blue-500 transition duration-500 text-sm font-medium"
             >
               <UserButton userProfileUrl="/account" afterSignOutUrl="/" />
-            </motion.button>
+            </motion.button> */}
           </div>
 
           {/* Mobile Menu Button */}
@@ -169,7 +169,7 @@ const Navbar = () => {
                     </Link>
                   </motion.div>
                 ))}
-                <motion.div
+                {/* <motion.div
                   variants={mobileLinkVariants}
                   className="px-4 py-2"
                 >
@@ -177,7 +177,7 @@ const Navbar = () => {
                     <UserButton userProfileUrl="/account" afterSignOutUrl="/" />
                     <span className="ml-3">Account</span>
                   </button>
-                </motion.div>
+                </motion.div> */}
               </div>
             </motion.div>
           )}
