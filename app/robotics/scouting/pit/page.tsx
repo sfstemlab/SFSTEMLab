@@ -11,7 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { submitPitDataToDatabase } from "@/lib/db";
+// import { submitPitDataToDatabase } from "@/lib/db";
 import { Answers, PitScoutedTeam } from "@/types/types";
 import React, { useState } from "react";
 
@@ -101,7 +101,7 @@ const PitScoutingPage = () => {
         
         setLiveAnswers(structuredClone(draftAnswers));
 
-        await submitPitDataToDatabase(yourTeamNumber, structuredClone(draftAnswers));
+        // await submitPitDataToDatabase(yourTeamNumber, structuredClone(draftAnswers));
 
     };
 
