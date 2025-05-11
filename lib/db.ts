@@ -101,6 +101,7 @@ export async function submitPitDataToDatabase(
         await db.pitScoutedTeam.create({
             data: {
                 teamNumber: scoutedData.teamNumber,
+                event: scoutedData.event,
                 scoutingTeamId: yourTeamsData.id,
                 coralScoringId: scoutedData.coralScoringId,
                 coralIntakeId: scoutedData.coralIntakeId,
