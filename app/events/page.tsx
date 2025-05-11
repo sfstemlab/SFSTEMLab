@@ -39,16 +39,7 @@ const Events = () => {
           expandedContent: () => {
             return (
               <p className="text-white">
-                Join us for an exciting, hands-on workshop that introduces
-                middle school students to the world of STEM through the creative
-                power of CNC machining, 3D printing, and computer-aided design
-                (CAD). In this beginner-friendly session, students will learn
-                the fundamentals of digital design and manufacturing by creating
-                their own custom projects from start to finish. They'll explore
-                how ideas go from screen to physical object, gain confidence
-                using real engineering tools, and spark curiosity about the
-                technology shaping our future. No prior experience is
-                needed—just curiosity and a willingness to learn and build!
+                Join us for an exciting, hands-on workshop that introduces middle school students to the world of STEM through the creative power of CNC machining, 3D printing, and computer-aided design (CAD). In this beginner-friendly session, students will learn the fundamentals of digital design and manufacturing by creating their own custom projects from start to finish. They'll explore how ideas go from screen to physical object, gain confidence using real engineering tools, and spark curiosity about the technology shaping our future. No prior experience is needed—just curiosity and a willingness to learn and build!
               </p>
             );
           },
