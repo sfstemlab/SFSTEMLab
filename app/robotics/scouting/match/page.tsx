@@ -10,18 +10,11 @@ import { cn } from '@/lib/utils';
 const MatchScoutingPage = () => {
 
     // Default values
-    const createDefaultTeam = (): matchScoutedTeam & {
-        scoutingTeam: matchScoutingTeam;
-        coralScoring: coralScoringMatch;
-        coralIntake: coralIntakeMatch;
-        algaeScoring: algaeScoringMatch;
-        algaeIntake: algaeIntakeMatch;
-        auto: auto;
-        driverExp: driverExpMatch;
-    } => ({
+    const createDefaultTeam = () => ({
         id: 0,
         teamNumber: 0,
         fieldPlacement: "r1",
+        event: '',
         scoutingTeamId: 0,
         scoutingTeam: {
             id: 0,
@@ -129,7 +122,7 @@ const MatchScoutingPage = () => {
         );
     };
 
-    const calculateEndgameScore = (team: matchScoutedTeam):number => {
+    const calculateEndgameScore = (team: any):number => {
         if (team.climb == 'deep') {
             return 12
         } else if (team.climb == 'shallow') {
@@ -140,11 +133,11 @@ const MatchScoutingPage = () => {
         }
     }
 
-    const calculateTotalScore = (team: matchScoutedTeam) => {
+    const calculateTotalScore = (team: any) => {
         return calculateAutoScore(team) + calculateTeleopScore(team) + calculateEndgameScore(team)
     };
 
-    const isThereCoopertition = (teams: matchScoutedTeam[]):boolean => {
+    const isThereCoopertition = (teams: any[]):boolean => {
         const redAlliance = teams.filter(team => team.fieldPlacement.includes('r'))
         const blueAlliance = teams.filter(team => team.fieldPlacement.includes('b'))
 
@@ -182,7 +175,7 @@ const MatchScoutingPage = () => {
             //     teamData.totalScore = totalScore;
             //     changed = true;
             // } TODO: make a version of this using the models from the database
-            
+
         });
         setMatchResults(updatedResults);
         // eslint-disable-next-line react-hooks/exhaustive-deps
