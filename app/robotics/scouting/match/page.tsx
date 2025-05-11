@@ -10,9 +10,9 @@ import { cn } from '@/lib/utils';
 const MatchScoutingPage = () => {
 
     // Default values
-    const createDefaultTeam = () => ({
+    const createDefaultTeam = (teamNumber: number) => ({
         id: 0,
-        teamNumber: 0,
+        teamNumber: teamNumber,
         fieldPlacement: "r1",
         event: '',
         scoutingTeamId: 0,
@@ -75,9 +75,9 @@ const MatchScoutingPage = () => {
         },
     });
 
-    const teams = Array(6)
-      .fill(null)
-      .map(() => createDefaultTeam());
+    const teams = [ 1, 2, 3, 4, 5, 6 ].map(teamNumber => 
+      createDefaultTeam(teamNumber)
+    )
 
         // copy that data to create the list of all teams
     
