@@ -1,6 +1,7 @@
+import { GamePart, MatchScoutingButtonProps, teamResults } from "@/types/types";
 import React from "react";
 
-const MatchScoutingButton = <T extends GamePart>({match, setMatch, team, content, gamePart}: MatchScoutingButtonProps<T>) => {
+const MatchScoutingButton = <T extends GamePart>({match, setMatch, team, content, gamePart}: any) => {
     const changeTeamAttribute = (
         attribute:
             | keyof teamResults["auto"]
