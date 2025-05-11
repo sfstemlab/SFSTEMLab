@@ -1,3 +1,38 @@
+export type PitScoutedTeam = {
+  teamNumber: number;
+  event: string;
+  coralScoring: {
+    L1: boolean;
+    L2: boolean;
+    L3: boolean;
+    L4: boolean;
+  };
+  coralIntake: {
+    floor: boolean;
+    source: boolean;
+  };
+  algaeScoring: {
+    processor: boolean;
+    net: boolean;
+  };
+  algaeIntake: {
+    reef: boolean;
+    floor: boolean;
+    dealgifyOnly: boolean;
+  };
+  climb: "none" | "deep" | "shallow";
+  auto: {
+    start: "left" | "center" | "right";
+    L1?: number;
+    L2?: number;
+    L3?: number;
+    L4?: number;
+    processor?: number;
+    net?: number;
+  };
+  driverExp: { comps?: number; years?: number };
+};
+
 
 export interface Answers {
   teamNumber: number;

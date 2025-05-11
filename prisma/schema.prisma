@@ -48,6 +48,7 @@ model matchScoutingTeam { // 5700
 model pitScoutedTeam {
     id                  Int             @id @default(autoincrement())
     teamNumber          Int
+    event               String
 
     scoutingTeamId      Int
     scoutingTeam        pitScoutingTeam    @relation("teamScouted", fields: [scoutingTeamId], references: id)
@@ -78,6 +79,9 @@ model matchScoutedTeam {
     id                  Int             @id @default(autoincrement())
     teamNumber          Int
     fieldPlacement      fieldPlacement
+    matchNumber         Int
+    matchType           String
+    event               String
 
     scoutingTeamId      Int
     scoutingTeam        matchScoutingTeam    @relation("teamScouted", fields: [scoutingTeamId], references: id)
