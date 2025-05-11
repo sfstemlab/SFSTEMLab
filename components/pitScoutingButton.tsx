@@ -16,7 +16,7 @@ const PitScoutingQuestion = ({
     options = [], 
     onChange}: PitScoutingQuestionProps) => {
     if (inputType === 'select') {
-        console.log(options)
+        // console.log(options)
     }
     return (
         <div className="rounded-md bg-[#b1d5e6]/65 px-2 pt-3 pb-2 hover:bg-[#b1d5e6]/70 transition duration-500 ease-in-out items-center justify-center ">

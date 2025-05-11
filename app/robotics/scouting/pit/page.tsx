@@ -299,7 +299,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { submitDataToDatabase } from "@/lib/db";
+import { submitPitDataToDatabase } from "@/lib/db";
 import { Answers } from "@/types/types";
 import { PrismaClient } from "@prisma/client";
 import React, { useState } from "react";
@@ -387,7 +387,7 @@ const PitScoutingPage = () => {
         console.log(data)
         setLiveAnswers(structuredClone(draftAnswers));
 
-        submitDataToDatabase(yourTeamNumber)
+        submitPitDataToDatabase(yourTeamNumber, structuredClone(draftAnswers));
 
     };
 
