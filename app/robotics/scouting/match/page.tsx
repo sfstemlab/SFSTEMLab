@@ -101,7 +101,7 @@ const MatchScoutingPage = () => {
 
     const calculateAutoScore = (team: any):number => {
         return (
-        team.autoMatch.move? 2 : 0 +
+        team.autoMatch?.move? 2 : 0 +
         team.auto.L1 * 3 +
         team.auto.L2 * 4 +
         team.auto.L3 * 6 +

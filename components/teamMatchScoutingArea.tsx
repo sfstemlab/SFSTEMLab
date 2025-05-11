@@ -2,7 +2,7 @@ import React from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs'
 import MatchScoutingButton from './matchScoutingButton';
 
-const TeamMatchScoutingArea: React.FC<MatchScoutingProps> = ({ match, setMatch, team }) => {
+const TeamMatchScoutingArea: React.FC<any> = ({ match, setMatch, team }) => {
     return (
         <div>
             <Tabs defaultValue='auto' className=''>

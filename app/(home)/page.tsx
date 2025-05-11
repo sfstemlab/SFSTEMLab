@@ -96,50 +96,58 @@ export default function Home() {
         },
     };
     const [svgWidth, setSvgWidth] = useState(0);
+    // const ORIGINAL_SIZE = [svgWidth, window.innerHeight]; 
+    const [originalSize, setOriginalSize] = useState<[number, number]>([0,0]); 
+    // console.log(ORIGINAL_SIZE);
     const svgHeight = 1100
     const heroImageHeight = 1000
-    useEffect(() => {
-        const handleResize = () => {
-            setSvgWidth(window.innerWidth);
-            console.log('window: '+window.innerWidth)
-        };
+    const imageTop = `top-[${svgHeight - 200 + heroImageHeight}px]`;
 
-        // Set initial size
-        handleResize();
-        // Update size on window resize
-        window.addEventListener("resize", handleResize);
 
-        // Cleanup on unmount
-        return () => {
-            window.removeEventListener("resize", handleResize);
-        };
-    }, []);
+  
+    
+    // useEffect(() => {
+    //     const handleResize = () => {
+    //         setSvgWidth(window.innerWidth);
+    //         setOriginalSize([window.innerWidth, window.innerHeight])
+    //         // console.log('window: '+window.innerWidth)
+    //     };
+
+    //     // Set initial size
+    //     handleResize();
+    //     // Update size on window resize
+    //     window.addEventListener("resize", handleResize);
+
+    //     // Cleanup on unmount
+    //     return () => {
+    //         window.removeEventListener("resize", handleResize);
+    //     };
+    // }, []);
+    
     const ref = useRef(null);
     const [isInView, setIsInView] = useState(false);
 
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-        ([entry]) => {
-            if (entry.isIntersecting) {
-            setIsInView(true);
-            }
-        },
-        { threshold: 0.5 }
-        );
+    // useEffect(() => {
+    //     const observer = new IntersectionObserver(
+    //     ([entry]) => {
+    //         if (entry.isIntersecting) {
+    //         setIsInView(true);
+    //         }
+    //     },
+    //     { threshold: 0.5 }
+    //     );
 
-        if (ref.current) {
-        observer.observe(ref.current);
-        }
+    //     if (ref.current) {
+    //     observer.observe(ref.current);
+    //     }
 
-        return () => {
-        if (ref.current) {
-            observer.unobserve(ref.current);
-        }
-        };
-    }, []);
-    const ORIGINALSIZE = [svgWidth,window.innerHeight];
-    const imageTop = `top-[${svgHeight-200+heroImageHeight}px]`
-    console.log(ORIGINALSIZE)
+    //     return () => {
+    //     if (ref.current) {
+    //         observer.unobserve(ref.current);
+    //     }
+    //     };
+    // }, []);
+
     return (
         <motion.div
             className="w-full bg-white min-h-screen justify-center text-black relative"
@@ -148,7 +156,12 @@ export default function Home() {
             animate="visible"
             >
                 <Navbar />
-                <img src='@/../images/HomePage_HeroSection.png' alt='Home Page Hero Section'  width={1190} className={`w-screen h-${ORIGINALSIZE[1]} z-0`}></img>
+                <img 
+                    src='@/../images/HomePage_HeroSection.png' 
+                    alt='Home Page Hero Section'  
+                    width={1190} 
+                    className={`w-screen h-screen z-0`} 
+                />
                 
                 { info &&
                     <motion.div variants={sectionVariants} className='z-40 bg-red-500'>
