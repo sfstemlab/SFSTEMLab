@@ -51,7 +51,7 @@ const Section1 = (info:any) => {
             <p className="text-xl text-center">{desc2}</p>
             <Link href={"/about"} className="items-center justify-center">
                 <button
-                    className="bg-white text-[#1e439d] px-6 py-2 rounded-lg flex items-center gap-2"
+                    className="bg-white text-[#1e439d] px-6 py-2 rounded-lg flex items-center"
                 >
                     Learn More
                     <MoveRight className="w-5 h-5" />
