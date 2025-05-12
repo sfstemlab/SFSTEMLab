@@ -5,7 +5,6 @@ import dynamic from "next/dynamic";
 import { useRef, useState, useEffect } from "react";
 import { Variants, Transition } from "framer-motion";
 import Navbar from '@/components/navbar'
-import Section2 from "@/components/section2";
 import Section1 from "@/components/section1";
 
 type BackgroundVariants = Variants & {
@@ -110,29 +109,6 @@ export default function Home() {
                 />
                 <motion.div variants={sectionVariants} className='z-40 absolute top-[675px]'>
                     <Section1 />
-                </motion.div>
-                <div>
-                    <img 
-                        src="/images/homePage_Image2.png"
-                        // x={0}
-                        width={svgWidth*2/3}
-                        height={svgWidth*2/3}
-                        // preserveAspectRatio="xMidYMid slice"
-                        className={`z-10 absolute top-[1675px]`}
-                    />
-                    <img 
-                        src="/images/homePage_Image1.png"
-                        // x={600-150}
-                        // y={1100}
-                        width={svgWidth*2/3}
-                        height={svgWidth*2/3}
-                        // height="150"
-                        // preserveAspectRatio="xMidYMid slice"
-                        className={`z-10 absolute top-[1542px] right-0`}
-                    />
-                </div>
-                <motion.div variants={sectionVariants} className='z-50 bg-red-500'>
-                    <Section2 width={svgWidth} height={svgHeight} />
                 </motion.div>
         </motion.div>
     );
