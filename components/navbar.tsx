@@ -32,7 +32,7 @@ const Navbar = () => {
   };
 
   const linkVariants = {
-    hidden: { opacity: 0, x: -20 },
+    hidden: { opacity: 1, x: -20 },
     visible: (i: number) => ({
       opacity: 1,
       x: 0,
