@@ -395,7 +395,7 @@ const About = () => {
                     className="w-full object-cover min-h-[600px]"
                     height={6000}
                 ></img>
-                <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
+                <div className="absolute top-[100px] md:inset-0 flex flex-col items-center justify-center text-center px-4">
                     <h1 className="font-extrabold text-4xl md:text-5xl text-white mb-4 underline">
                         Welcome to the SF STEM Lab
                     </h1>
@@ -410,7 +410,7 @@ const About = () => {
                 <div className="">
                     {/* Mentors section */}
                     <div className="flex items-center space-x-4">
-                        <div className="space-x-2 my-2 w-1/6">
+                        <div className="space-x-2 my-2 w-1/3 md:w-1/6">
                             <button
                                 className="py-1 px-3 rounded-2xl items-center border-2 border-[#b1d5e6] bg-[#b1d5e6]/15 hover:bg-[#8db5e3]/60 transition duration-700 ease-in-out"
                                 onClick={() =>
@@ -434,7 +434,7 @@ const About = () => {
                                 <MoveRight />
                             </button>
                         </div>
-                        <h2 className="font-extrabold text-4xl mb-2 w-4/6">Our Team</h2>
+                        <h2 className="font-extrabold text-4xl mb-2 w-1/2 md:w-4/6">Our Team</h2>
                     </div>
                     <div
                         className="rounded-md flex overflow-x-scroll no-scrollbar gap-3"
@@ -514,8 +514,8 @@ const About = () => {
                 </div>
                 <div className="m-3 py-2">
                     {/* Our vision */}
-                    <div className="flex items-center justify-center space-x-4 w-full">
-                        <div className="w-2/3">
+                    <div className="md:flex items-center justify-center space-x-4 w-full">
+                        <div className="md:w-2/3">
                             <h3 className="font-extrabold text-4xl mb-2">Our Mission</h3>
                             <p className="text-xl text-[#b1d5e6]">
                                 Our mission is to provide a community STEM hub by hosting
@@ -527,7 +527,7 @@ const About = () => {
                                 environment that benefits both mentors and mentees.
                             </p>
                         </div>
-                        <div className="w-1/3">
+                        <div className="md:w-1/3">
                             <h3 className="font-extrabold text-4xl mb-2">Our Vision</h3>
                             <p className="text-xl text-[#b1d5e6]">
                                 Our vision is for a long term space that students can rely on for

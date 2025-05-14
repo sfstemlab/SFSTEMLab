@@ -79,30 +79,30 @@ const Events = () => {
         },
     };
 
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-          ([entry]) => {
-            if (entry.isIntersecting) {
-              setIsInView(true);
-            }
-          },
-          { threshold: 0.5 }
-        );
+    // useEffect(() => {
+    //     const observer = new IntersectionObserver(
+    //       ([entry]) => {
+    //         if (entry.isIntersecting) {
+    //           setIsInView(true);
+    //         }
+    //       },
+    //       { threshold: 0.5 }
+    //     );
     
-        if (ref.current) {
-          observer.observe(ref.current);
-        }
+    //     if (ref.current) {
+    //       observer.observe(ref.current);
+    //     }
     
-        return () => {
-          if (ref.current) {
-            observer.unobserve(ref.current);
-          }
-        };
-      }, []);
+    //     return () => {
+    //       if (ref.current) {
+    //         observer.unobserve(ref.current);
+    //       }
+    //     };
+    //   }, []);
 
     return (
         <motion.div
-            className="relative w-full bg-white min-h-screen justify-center text-black"
+            className="relative w-full bg-white min-h-screen justify-center items-center text-[#b1d5e6]"
             variants={backgroundVariants}
             initial="hidden"
             animate="visible"
@@ -113,8 +113,8 @@ const Events = () => {
                 alt="Events Page Hero Section"
                 className="sticky top-0 z-0 w-full"
             />
-            <div className="absolute top-[280px] left-[500px] flex flex-col items-center justify-center text-center px-4">
-                <h1 className="font-extrabold text-4xl md:text-5xl text-white mb-4 underline">
+            <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
+                <h1 className="text-white font-extrabold text-4xl md:text-5xl mb-4 underline">
                     Upcoming Events
                 </h1>
             </div>
@@ -122,11 +122,11 @@ const Events = () => {
                 className="bg-[#1e439d] z-20 w-full p-4 text-center absolute top-[305px] bottom-0 md:top-[675px]"
                 variants={containerVariants}
                 initial="hidden"
-                animate={isInView ? 'visible' : 'hidden'}
+                animate="visible"
                 ref={ref}
             >
                 {/* TODO: Add a calendar showing all of the events */}
-                <h1 className="text-white text-center font-extrabold text-2xl mb-2">
+                <h1 className=" text-center font-extrabold text-2xl mb-2">
                     All Events
                 </h1>
                 <div className="rounded-md md:mx-20 p-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-4">
