@@ -99,9 +99,9 @@ export default function Home() {
                     src='@/../images/HomePage_HeroSection.png' 
                     alt='Home Page Hero Section'  
                     width={1190} 
-                    className='w-full h-full z-0 sticky top-0' 
+                    className='w-screen h-full z-0 sticky top-0' 
                 />
-                <motion.div variants={sectionVariants} className='z-40 absolute top-[675px]'>
+                <motion.div variants={sectionVariants} className='z-40 absolute top-[305px] md:top-[675px]'>
                     <Section1 />
                 </motion.div>
         </motion.div>

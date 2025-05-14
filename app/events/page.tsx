@@ -119,7 +119,7 @@ const Events = () => {
                 </h1>
             </div>
             <motion.div
-                className="bg-[#1e439d] z-20 w-full p-4 text-center"
+                className="bg-[#1e439d] z-20 w-full p-4 text-center absolute top-[305px] md:top-[675px]"
                 variants={containerVariants}
                 initial="hidden"
                 animate={isInView ? 'visible' : 'hidden'}

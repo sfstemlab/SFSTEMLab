@@ -92,7 +92,7 @@ const Navbar = () => {
           </motion.div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex md:justify-between w-1/2 items-center">
+          <div className="hidden md:flex md:justify-between w-3/5 lg:w-1/2 items-center">
             {links.map(({ href, label, icon: Icon }, i) => (
               <motion.div
                 key={href}

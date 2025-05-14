@@ -402,7 +402,7 @@ const About = () => {
                 </div>
             </div>
             <motion.div
-                className="bg-[#1e439d] w-full p-4 text-center"
+                className="bg-[#1e439d] w-full p-4 text-center absolute top-[305px] md:top-[675px]"
                 variants={containerVariants}
                 initial="visible"
                 ref={ref}

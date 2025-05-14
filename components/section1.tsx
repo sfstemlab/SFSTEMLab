@@ -30,7 +30,7 @@ const Section1 = (info:any) => {
     and problem-solvers.`).split("\n");
 
     return (
-      <div className="bg-[#1e439d] text-white px-12 py-10 items-center justify-center grid grid-cols-2 gap-12">
+      <div className="bg-[#1e439d] text-white px-12 py-10 items-center justify-center grid grid-cols-1 lg:grid-cols-2 gap-12">
         <div className="">
           <p className="text-4xl font-extrabold text-center text-white mb-3">
             Explore Hands-on STEM Workshops
