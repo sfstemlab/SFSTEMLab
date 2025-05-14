@@ -113,23 +113,23 @@ const Events = () => {
                 alt="Events Page Hero Section"
                 className="sticky top-0 z-0 w-full"
             />
-            <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
+            <div className="absolute top-[280px] left-[500px] flex flex-col items-center justify-center text-center px-4">
                 <h1 className="font-extrabold text-4xl md:text-5xl text-white mb-4 underline">
                     Upcoming Events
                 </h1>
             </div>
             <motion.div
-                className="bg-[#1e439d] z-20 w-full p-4 text-center absolute top-[305px] md:top-[675px]"
+                className="bg-[#1e439d] z-20 w-full p-4 text-center absolute top-[305px] bottom-0 md:top-[675px]"
                 variants={containerVariants}
                 initial="hidden"
                 animate={isInView ? 'visible' : 'hidden'}
                 ref={ref}
             >
                 {/* TODO: Add a calendar showing all of the events */}
-                <h1 className="text-white font-extrabold text-2xl mb-2 underline underline-offset-4">
+                <h1 className="text-white text-center font-extrabold text-2xl mb-2">
                     All Events
                 </h1>
-                <div className="rounded-md mx-20 p-4 grid grid-cols-3 gap-x-6 gap-4">
+                <div className="rounded-md md:mx-20 p-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-4">
                     {events.length > 0 &&
                         events.map((event, index) => (
                             <Card
