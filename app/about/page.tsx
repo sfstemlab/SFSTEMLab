@@ -382,28 +382,23 @@ const About = () => {
 
     return (
         <motion.div
-        className="relative w-full bg-white min-h-screen items-center justify-center text-[#b1d5e6]"
-        variants={backgroundVariants}
-        initial="hidden"
-        animate="visible"
+            className="relative w-full bg-white min-h-screen items-center justify-center text-[#b1d5e6]"
+            variants={backgroundVariants}
+            initial="hidden"
+            animate="visible"
         >
             <Navbar />
             <div className="relative w-full max-h-[500px] overflow-visible">
                 <img
-                src="@/../images/aboutPage_HeroSection.png"
-                alt="About Page Hero Section"
-                className="w-full object-cover min-h-[600px]"
-                height={6000}
+                    src="@/../images/aboutPage_HeroSection.png"
+                    alt="About Page Hero Section"
+                    className="w-full object-cover min-h-[600px]"
+                    height={6000}
                 ></img>
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
                     <h1 className="font-extrabold text-4xl md:text-5xl text-white mb-4 underline">
                         Welcome to the SF STEM Lab
                     </h1>
-                    <p className="text-white max-w-2xl">
-                        SF STEM Lab is a non-profit organization devoted to educating
-                        children about the wonders of STEM: from learning how to use a
-                        3D-printer to building fully functional robots.
-                    </p>
                 </div>
             </div>
             <motion.div
@@ -414,47 +409,64 @@ const About = () => {
             >
                 <div className="">
                     {/* Mentors section */}
-                    <div className='flex items-center space-x-4'>
-                        <div className='space-x-2 my-2 w-1/6'>
-                            <button 
-                                className='py-1 px-3 rounded-2xl items-center border-2 border-[#b1d5e6] bg-[#b1d5e6]/15 hover:bg-[#8db5e3]/60 transition duration-700 ease-in-out'
-                                onClick={() => teamContainerRef.current?.scrollBy({left: -300, behavior: 'smooth'})}
-                                >
+                    <div className="flex items-center space-x-4">
+                        <div className="space-x-2 my-2 w-1/6">
+                            <button
+                                className="py-1 px-3 rounded-2xl items-center border-2 border-[#b1d5e6] bg-[#b1d5e6]/15 hover:bg-[#8db5e3]/60 transition duration-700 ease-in-out"
+                                onClick={() =>
+                                    teamContainerRef.current?.scrollBy({
+                                        left: -300,
+                                        behavior: 'smooth',
+                                    })
+                                }
+                            >
                                 <MoveLeft />
                             </button>
-                            <button 
-                                className='py-1 px-3 rounded-2xl items-center border-2 border-[#b1d5e6] bg-[#b1d5e6]/15 hover:bg-[#8db5e3]/60 hover:text-white transition duration-700 ease-in-out'
-                                onClick = {() => teamContainerRef.current?.scrollBy({left: 300, behavior:'smooth'})}
-                                >
+                            <button
+                                className="py-1 px-3 rounded-2xl items-center border-2 border-[#b1d5e6] bg-[#b1d5e6]/15 hover:bg-[#8db5e3]/60 hover:text-white transition duration-700 ease-in-out"
+                                onClick={() =>
+                                    teamContainerRef.current?.scrollBy({
+                                        left: 300,
+                                        behavior: 'smooth',
+                                    })
+                                }
+                            >
                                 <MoveRight />
                             </button>
                         </div>
-                        <h2 className="font-extrabold text-2xl mb-2 w-4/6">Our Team</h2>
+                        <h2 className="font-extrabold text-4xl mb-2 w-4/6">Our Team</h2>
                     </div>
-                    <div className="rounded-md flex overflow-x-scroll no-scrollbar gap-3" ref={teamContainerRef}>
+                    <div
+                        className="rounded-md flex overflow-x-scroll no-scrollbar gap-3"
+                        ref={teamContainerRef}
+                    >
                         {people.length > 0 &&
-                        people.map((person, index) => (
-                            <button
-                            key={index}
-                            className={cn('min-w-[400px] items-center space-x-5 py-2 px-1 rounded-md bg-[#b1d5e6]/15 border-2 border-[#b1d5e6] mb-2 flex hover:bg-[#8db5e3] hover:text-white transition duration-700 ease-in-out', 
-                                expandedProfile === person ? 'bg-[#cc1616] text-white' 
-                                : ''
-                            )}
-                            onClick={() => toggleExpandedProfile(person)}
-                            >
-                                <div className=" overflow-visible text-white">
-                                    <img width={100} src={person.picture} alt={person.name}></img>
-                                </div>
-                                <div className="">
-                                    <h3 className="font-bold text-lg text-left">
-                                        {person.name}
-                                    </h3>
-                                    <h4 className="text-sm text-left">
-                                        {person.titles?.join(", ")}
-                                    </h4>
-                                </div>
-                            </button>
-                        ))}
+                            people.map((person, index) => (
+                                <button
+                                    key={index}
+                                    className={cn(
+                                        'min-w-[400px] items-center space-x-5 py-2 px-1 rounded-md bg-[#b1d5e6]/25 mb-2 flex hover:bg-[#8db5e3] hover:text-white transition duration-700 ease-in-out',
+                                        expandedProfile === person ? 'bg-[#cc1616] text-white' : ''
+                                    )}
+                                    onClick={() => toggleExpandedProfile(person)}
+                                >
+                                    <div className=" overflow-visible text-white">
+                                        <img
+                                            width={100}
+                                            src={person.picture}
+                                            alt={person.name}
+                                        ></img>
+                                    </div>
+                                    <div className="">
+                                        <h3 className="font-bold text-lg text-left">
+                                            {person.name}
+                                        </h3>
+                                        <h4 className="text-sm text-left">
+                                            {person.titles?.join(', ')}
+                                        </h4>
+                                    </div>
+                                </button>
+                            ))}
                     </div>
                     {expandedProfile !== undefined && expandedProfile.bio && (
                         /* Expanded Profile Section */
@@ -468,56 +480,75 @@ const About = () => {
                 </div>
                 <div className="m-3 py-2">
                     {/* Collaborators section */}
-                    <div className='flex items-center justify-center flex-col space-x-4 w-full'>
-                        {/* <div className='space-x-2 my-2 w-1/6'>
-                            <button 
-                                className='py-1 px-3 rounded-2xl items-center border-2 border-[#b1d5e6] bg-[#b1d5e6]/15 hover:bg-[#8db5e3]/60 transition duration-700 ease-in-out'
-                                onClick={() => collaboratorsContainerRef.current?.scrollBy({left: -300, behavior: 'smooth'})}
-                                >
-                                <MoveLeft />
-                            </button>
-                            <button 
-                                className='py-1 px-3 rounded-2xl items-center border-2 border-[#b1d5e6] bg-[#b1d5e6]/15 hover:bg-[#8db5e3]/60 hover:text-white transition duration-700 ease-in-out'
-                                onClick = {() => collaboratorsContainerRef.current?.scrollBy({left: 300, behavior:'smooth'})}
-                                >
-                                <MoveRight />
-                            </button>
-                        </div> */}
-                        <h2 className="font-extrabold text-2xl mb-2">Our Collaborators</h2>
+                    <div className="flex items-center justify-center flex-col space-x-4 w-full">
+                        <h2 className="font-extrabold text-4xl mb-2">Our Collaborators</h2>
                     </div>
-                    <div className="rounded-md flex overflow-x-scroll no-scrollbar" ref={collaboratorsContainerRef}>
+                    <div
+                        className="rounded-md flex overflow-x-scroll no-scrollbar"
+                        ref={collaboratorsContainerRef}
+                    >
                         {collaborators.length > 0 &&
-                        collaborators.map((collaborator, index) => (
-                            <button
-                            key={index}
-                            className="min-w-[305px] items-center space-x-5 px-5 rounded-md bg-[#b1d5e6]/15 border-2 border-[#b1d5e6] m-2 p-2 flex hover:bg-[#8db5e3] hover:text-white transition duration-700 ease-in-out"
-                            onClick={() => toggleExpandedProfile(collaborator)}
-                            >
-                            <div className="w-1/6 overflow-visible">
-                                <img
-                                src={collaborator.picture}
-                                alt={collaborator.name}
-                                ></img>
-                            </div>
-                            <div className="w-5/6">
-                                <h3 className="font-semibold text-lg text-left">
-                                {collaborator.name}
-                                </h3>
-                                <h4 className="text-xs mb-2 text-left">
-                                {collaborator.titles?.join(", ")}
-                                </h4>
-                            </div>
-                            </button>
-                            /*
-                                                            TODO: add an extended bit at the bottom that shows the bio for the 
-                                                            person and make it show when the element is hovered over 
-                                                            */
-                        ))}
+                            collaborators.map((collaborator, index) => (
+                                <button
+                                    key={index}
+                                    className="min-w-[305px] items-center space-x-5 px-5 rounded-md bg-[#b1d5e6]/25 m-2 p-2 flex hover:bg-[#8db5e3] hover:text-white transition duration-700 ease-in-out"
+                                    onClick={() => toggleExpandedProfile(collaborator)}
+                                >
+                                    <div className="w-1/6 overflow-visible">
+                                        <img
+                                            src={collaborator.picture}
+                                            alt={collaborator.name}
+                                        ></img>
+                                    </div>
+                                    <div className="w-5/6">
+                                        <h3 className="font-semibold text-lg text-left">
+                                            {collaborator.name}
+                                        </h3>
+                                        <h4 className="text-xs mb-2 text-left">
+                                            {collaborator.titles?.join(', ')}
+                                        </h4>
+                                    </div>
+                                </button>
+                            ))}
+                    </div>
+                </div>
+                <div className="m-3 py-2">
+                    {/* Our vision */}
+                    <div className="flex items-center justify-center space-x-4 w-full">
+                        <div className="w-2/3">
+                            <h3 className="font-extrabold text-4xl mb-2">Our Mission</h3>
+                            <p className="text-xl text-[#b1d5e6]">
+                                Our mission is to provide a community STEM hub by hosting
+                                interactive robotics demonstrations and hands-on workshops that
+                                promote STEM education, drawing interest from students, families,
+                                and the broader community. The SF STEM Lab enables high school
+                                students to mentor younger students (particularly those underserved
+                                in STEM education, robotics, and engineering), fostering a learning
+                                environment that benefits both mentors and mentees.
+                            </p>
+                        </div>
+                        <div className="w-1/3">
+                            <h3 className="font-extrabold text-4xl mb-2">Our Vision</h3>
+                            <p className="text-xl text-[#b1d5e6]">
+                                Our vision is for a long term space that students can rely on for
+                                free STEM enrichment and education. We want to foster a space that
+                                local robotics teams can use for practice, collaboration, and
+                                comunity service.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div className="m-3 py-2">
+                    {/* Our need */}
+                    <div className="flex items-center justify-center flex-col space-x-4 w-full">
+                        <h2 className="font-extrabold text-4xl mb-2">Our Need</h2>
+						<p className="text-xl text-[#b1d5e6]">
+							The SF STEM Lab has a need for a large space, capable of hosting events and demonstrations, and an area in which to organize workshops for hands-on learning activities. We&apos;re hoping to aquire an area that is around 3100 sq ft, so that we can accomodate both of these spaces. 
+						</p>
                     </div>
                 </div>
                 <Timeline data={data} />
             </motion.div>
-          
         </motion.div>
     );
 };

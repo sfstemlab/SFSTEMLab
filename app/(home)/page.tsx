@@ -63,13 +63,7 @@ export default function Home() {
         },
         },
     };
-    const [svgWidth, setSvgWidth] = useState(0);
-    // const ORIGINAL_SIZE = [svgWidth, window.innerHeight]; 
-    const [originalSize, setOriginalSize] = useState<[number, number]>([0,0]); 
-    // console.log(ORIGINAL_SIZE);
-    const svgHeight = 1100
-    const heroImageHeight = 1000
-    const imageTop = `top-[${svgHeight - 200 + heroImageHeight}px]`;
+
 
 
   
@@ -105,7 +99,7 @@ export default function Home() {
                     src='@/../images/HomePage_HeroSection.png' 
                     alt='Home Page Hero Section'  
                     width={1190} 
-                    className='w-screen h-screen z-0 sticky top-0' 
+                    className='w-full h-full z-0 sticky top-0' 
                 />
                 <motion.div variants={sectionVariants} className='z-40 absolute top-[675px]'>
                     <Section1 />

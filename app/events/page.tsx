@@ -100,27 +100,39 @@ const Events = () => {
         };
       }, []);
 
-  return (
-    <motion.div
-        className="relative w-full bg-white min-h-screen justify-center text-black"
-        variants={backgroundVariants}
-        initial="hidden"
-        animate="visible"
+    return (
+        <motion.div
+            className="relative w-full bg-white min-h-screen justify-center text-black"
+            variants={backgroundVariants}
+            initial="hidden"
+            animate="visible"
         >
             <Navbar />
-            <img src='@/../images/eventsPage_HeroSection.png' alt='Events Page Hero Section' className='sticky top-0 z-0 w-full'></img>
+            <img
+                src="@/../images/eventsPage_HeroSection.png"
+                alt="Events Page Hero Section"
+                className="sticky top-0 z-0 w-full"
+            />
+            <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
+                <h1 className="font-extrabold text-4xl md:text-5xl text-white mb-4 underline">
+                    Upcoming Events
+                </h1>
+            </div>
             <motion.div
                 className="bg-[#1e439d] z-20 w-full p-4 text-center"
                 variants={containerVariants}
                 initial="hidden"
-                animate={isInView ? "visible" : "hidden"}
+                animate={isInView ? 'visible' : 'hidden'}
                 ref={ref}
-                >
-                    <h1 className="text-white font-extrabold text-2xl mb-2 underline underline-offset-4">Upcoming Events</h1>
-                    <div className="rounded-md mx-20 p-4 grid grid-cols-3 gap-x-6 gap-4">
-                        {events.length > 0 &&
+            >
+                {/* TODO: Add a calendar showing all of the events */}
+                <h1 className="text-white font-extrabold text-2xl mb-2 underline underline-offset-4">
+                    All Events
+                </h1>
+                <div className="rounded-md mx-20 p-4 grid grid-cols-3 gap-x-6 gap-4">
+                    {events.length > 0 &&
                         events.map((event, index) => (
-                            <Card 
+                            <Card
                                 key={index}
                                 title={event.title}
                                 day={event.day}
@@ -130,10 +142,10 @@ const Events = () => {
                                 expandedContent={event.expandedContent}
                             />
                         ))}
-                    </div>
+                </div>
             </motion.div>
-    </motion.div>
-  )
+        </motion.div>
+    );
 }
 
 export default Events
