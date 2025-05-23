@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import { useRef, useState, useEffect } from "react";
 import { Variants, Transition } from "framer-motion";
 import Navbar from '@/components/navbar'
-import Section1 from "@/components/section1";
+import Link from "next/link";
 
 type BackgroundVariants = Variants & {
   hidden: { backgroundPosition: string };
@@ -64,9 +64,28 @@ export default function Home() {
         },
     };
 
+    const desc1 = `SF STEM Lab offers hands-on workshops designed for elementary and middle\n 
+        schoolstudents, welcoming all skill levels — even beginners with little to\n
+        no prior STEM experience. The workshops are structured to help students dive\n
+        into a variety of engaging activities, from building robots to mastering \n
+        coding, 3D printing, and CAD design. Through these interactive sessions,\n
+        students gainpractical experience and a deeper understanding of how the\n
+        technology works, encouraging curiosity and creativity.`.split('\n');
 
+    const desc2 = `At SF STEM Lab, our focus is on mentorship and collaborativelearning.\n
+        Experienced student mentors and professionals from the community\n
+        play a key role in teaching the workshops, sharing their expertise and\n
+        guiding students through the process of building and creating. This\n
+        environment provides students with valuable skills and teaches the\n
+        importance of teamwork, problem-solving, and working wtih others\n
+        toward a common goal.`.split('\n');
 
-  
+    const desc3 = `SF STEM Lab's workshops are entirely free and open to all. We \n
+    are commited to ensuring that students from all backgrounds have \n
+    the opportunity to explore and create with STEM. SF STEM Lab aims \n
+    to make high-quality STEM education available to a wider audience, \n
+    helping to inspire the next generation of innovators, thinkers, \n
+    and problem-solvers.`.split('\n');
     
     // useEffect(() => {
     //     const handleResize = () => {
@@ -102,7 +121,56 @@ export default function Home() {
                     className='w-screen h-full z-0 sticky top-0' 
                 />
                 <motion.div variants={sectionVariants} className='z-40 absolute top-[305px] md:top-[675px]'>
-                    <Section1 />
+                    <div className="bg-[#1e439d] text-white px-12 py-10 items-center justify-center grid grid-cols-1 lg:grid-cols-2 gap-12">
+                        <div className="">
+                            <p className="text-4xl font-extrabold text-center text-white mb-3">
+                                Explore Hands-on STEM Workshops
+                            </p>
+                            <p className="text-xl text-center">{desc1}</p>
+                            <Link href={"/events"}>
+                                <motion.button
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    className="bg-white text-[#1e439d] px-6 py-2 rounded-lg flex items-center gap-2"
+                                >
+                                    Sign Up Now
+                                    <MoveRight className="w-5 h-5" />
+                                </motion.button>
+                            </Link>
+                        </div>
+
+                        <div className="items-center justify-center">
+                            <p className="text-4xl font-extrabold text-center text-white mb-3">
+                                Mentorship and Collaborative Learning
+                            </p>
+
+                            <p className="text-xl text-center">{desc2}</p>
+                            <Link href={"/about"} className="items-center justify-center">
+                                <button className="bg-white text-[#1e439d] px-6 py-2 rounded-lg flex items-center">
+                                    Learn More
+                                    <MoveRight className="w-5 h-5" />
+                                </button>
+                            </Link>
+                        </div>
+
+                        <div className="items-center justify-center">
+                            <p className="text-4xl font-extrabold text-center text-white mb-3">
+                                Free and Accesible for All
+                            </p>
+
+                            <p className="text-xl text-center">{desc3}</p>
+                            <Link href={"/events"}>
+                                <motion.button
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    className="bg-white text-[#1e439d] px-6 py-2 rounded-lg flex items-center gap-2"
+                                >
+                                    Donate
+                                    <MoveRight className="w-5 h-5" />
+                                </motion.button>
+                            </Link>
+                        </div>
+                    </div>
                 </motion.div>
         </motion.div>
     );
