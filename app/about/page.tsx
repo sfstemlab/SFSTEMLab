@@ -514,9 +514,9 @@ const About = () => {
                 </div>
                 <div className="m-3 py-2">
                     {/* Our vision */}
-                    <div className="md:flex items-center justify-center space-x-4 w-full">
+                    <div className="md:flex items-center justify-between space-x-4 w-full">
                         <div className="md:w-2/3">
-                            <h3 className="font-extrabold text-4xl mb-2">Our Mission</h3>
+                            <h3 className="font-extrabold text-4xl mb-2 md:mb-0">Our Mission</h3>
                             <p className="text-xl text-[#b1d5e6]">
                                 Our mission is to provide a community STEM hub by hosting
                                 interactive robotics demonstrations and hands-on workshops that
@@ -527,7 +527,7 @@ const About = () => {
                                 environment that benefits both mentors and mentees.
                             </p>
                         </div>
-                        <div className="md:w-1/3">
+                        <div className="md:w-1/3 mt-6 md:mt-0">
                             <h3 className="font-extrabold text-4xl mb-2">Our Vision</h3>
                             <p className="text-xl text-[#b1d5e6]">
                                 Our vision is for a long term space that students can rely on for
@@ -538,7 +538,7 @@ const About = () => {
                         </div>
                     </div>
                 </div>
-                <div className="m-3 py-2">
+                <div className="mx-3 py-2">
                     {/* Our need */}
                     <div className="flex items-center justify-center flex-col space-x-4 w-full">
                         <h2 className="font-extrabold text-4xl mb-2">Our Need</h2>

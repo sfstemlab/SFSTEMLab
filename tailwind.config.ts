@@ -25,6 +25,7 @@ const config = {
     extend: {
       colors: {
         custommuted: '#6b7280',
+        brand: '#b1d5e6',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

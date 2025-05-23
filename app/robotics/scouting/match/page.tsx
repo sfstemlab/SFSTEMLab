@@ -3,17 +3,21 @@ import React, { useEffect, useMemo, useState } from 'react';
 import Navbar from '@/components/navbar';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import TeamMatchScoutingArea from '@/components/teamMatchScoutingArea';
-import { climbEnum, matchScoutedTeam, matchScoutingTeam, coralScoringMatch , coralIntakeMatch, algaeScoringMatch, algaeIntakeMatch, auto, driverExpMatch} from '@prisma/client';
-import { MatchResults } from '@/types/types';
+import { fieldPlacement, MatchResults, teamResults } from '@/types/types';
 import { cn } from '@/lib/utils';
+
+interface TeamState {
+  team: teamResults; 
+}
 
 const MatchScoutingPage = () => {
 
     // Default values
-    const createDefaultTeam = (teamNumber: number) => ({
-        id: 0,
+    const createDefaultTeam = (teamNumber: number, fieldPlacement:fieldPlacement
+    ):teamResults => ({
+        id: teamNumber,
         teamNumber: teamNumber,
-        fieldPlacement: "r1",
+        fieldPlacement: fieldPlacement,
         event: '',
         scoutingTeamId: 0,
         scoutingTeam: {
@@ -47,7 +51,8 @@ const MatchScoutingPage = () => {
             reef: false,
             dealgifyOnly: false,
         },
-        climb: "none",
+        climb: 'none',
+        climbTime: 0,
         autoId: 0,
         auto: {
             id: 0,
@@ -75,11 +80,43 @@ const MatchScoutingPage = () => {
         },
     });
 
-    const teams = [ 1, 2, 3, 4, 5, 6 ].map(teamNumber => 
-      createDefaultTeam(teamNumber)
+    type Team = ReturnType<typeof createDefaultTeam>;
+
+
+    const teamConfig: [number, fieldPlacement][] = [
+      [1, 'r1'],
+      [2, 'r2'],
+      [3, 'r3'],
+      [4, 'b1'],
+      [5, 'b2'],
+      [6, 'b3']
+    ]
+
+    const initialTeams = teamConfig.map(([teamNumber, fieldPlacement]) => 
+      createDefaultTeam( teamNumber, fieldPlacement)
     )
 
-        // copy that data to create the list of all teams
+    
+    const [r1, setR1] = useState(() => createDefaultTeam(1, 'r1'))
+    const [r2, setR2] = useState(() => createDefaultTeam(2, 'r2'))
+    const [r3, setR3] = useState(() => createDefaultTeam(3, 'r3'))
+    const [b1, setB1] = useState(() => createDefaultTeam(4, 'b1'))
+    const [b2, setB2] = useState(() => createDefaultTeam(5, 'b2'))
+    const [b3, setB3] = useState(() => createDefaultTeam(6, 'b3'))
+
+    // bundle teams into a single array 
+    const teams: {
+        team: ReturnType<typeof createDefaultTeam>;
+        setTeam: React.Dispatch<React.SetStateAction<ReturnType<typeof createDefaultTeam>>>;
+    }[] = [
+        { team: r1, setTeam: setR1 },
+        { team: r2, setTeam: setR2 },
+        { team: r3, setTeam: setR3 },
+        { team: b1, setTeam: setB1 },
+        { team: b2, setTeam: setB2 },
+        { team: b3, setTeam: setB3 },
+    ];
+    console.log('test structure: ' + teams); 
     
     const [matchResults, setMatchResults] = useState<MatchResults>({
         matchNumber: null,
@@ -99,26 +136,27 @@ const MatchScoutingPage = () => {
         }));
     };
 
-    const calculateAutoScore = (team: any):number => {
+    const calculateAutoScore = (teamProp: teamResults):number => {
+        const team = teamProp;
         return (
-        team.autoMatch?.move? 2 : 0 +
+        team.auto?.move? 3 : 0 +
         team.auto.L1 * 3 +
         team.auto.L2 * 4 +
         team.auto.L3 * 6 +
         team.auto.L4 * 7 +
-        team.auto.processo * 6 +
-        team.auto.barge * 4
+        team.auto.processor * 6 +
+        team.auto.net * 4
         );
     }; // calculate the team's score in auto by adding all of the scoring methods together
 
     const calculateTeleopScore = (team: any):number => {
         return (
-        team.coralScoring.L1 +
-        team.coralScoring.L2 +
-        team.coralScoring.L3 +
-        team.coralScoring.L4 +
-        team.algaeScoring.Processor +
-        team.algaeScoring.Barge
+        team.coralScoring.L1 * 2 +
+        team.coralScoring.L2 * 3 +
+        team.coralScoring.L3 * 4 +
+        team.coralScoring.L4 * 5 +
+        team.algaeScoring.processor * 6 +
+        team.algaeScoring.net * 4
         );
     };
 
@@ -133,22 +171,22 @@ const MatchScoutingPage = () => {
         }
     }
 
-    const calculateTotalScore = (team: any) => {
+    const calculateTotalScore = (team: any):number => {
         return calculateAutoScore(team) + calculateTeleopScore(team) + calculateEndgameScore(team)
     };
 
-    const isThereCoopertition = (teams: any[]):boolean => {
-        const redAlliance = teams.filter(team => team.fieldPlacement.includes('r'))
-        const blueAlliance = teams.filter(team => team.fieldPlacement.includes('b'))
+    const isThereCoopertition = ():boolean => {
+        const redAlliance = teams.filter(({ team, setTeam }) => team.fieldPlacement.includes('r'));
+        const blueAlliance = teams.filter(({ team, setTeam }) => team.fieldPlacement.includes('b'));
 
         let redAllianceProcessor = 0
-        redAlliance.forEach((team: any) => {
+        redAlliance.forEach(({team, setTeam}) => {
             redAllianceProcessor += team.algaeScoring.processor
         })
 
         let blueAllianceProcessor = 0;
-        blueAlliance.forEach((team: any) => {
-          blueAllianceProcessor += team.algaeScoring.processor;
+        blueAlliance.forEach(({ team, setTeam }) => {
+            blueAllianceProcessor += team.algaeScoring.processor;
         });
 
         if (blueAllianceProcessor >= 2 && redAllianceProcessor >= 2) {
@@ -161,9 +199,9 @@ const MatchScoutingPage = () => {
         // let changed = false;
 
         teams.forEach((team) => {
-            const autoScore = calculateAutoScore(team);
-            const teleopScore = calculateTeleopScore(team);
-            const totalScore = calculateTotalScore(team);
+            // const autoScore = calculateAutoScore(team);
+            // const teleopScore = calculateTeleopScore(team);
+            // const totalScore = calculateTotalScore(team);
 
             // if (
             //     teamData.auto.score !== autoScore ||
@@ -190,7 +228,7 @@ const MatchScoutingPage = () => {
           </h1>
           <div className="flex space-x-4 justify-center mt-4 px-4 items-center">
             <input
-              className="my-4 placeholder-white text-white rounded-md py-2 px-4 w-64 border-2 border-[#b1d5e6] bg-[#b1d5e6]/50 hover:bg-[#8db5e3]/90 transition duration-700 ease-in-out"
+              className="my-4 placeholder-white text-white rounded-md py-2 px-4 w-64 border-2 border-brand bg-brand/50 hover:bg-[#8db5e3]/90 transition duration-700 ease-in-out"
               type="number"
               placeholder="   Your Team Number"
               onChange={(e) => {
@@ -198,19 +236,19 @@ const MatchScoutingPage = () => {
               }}
             />
             <input
-              className="my-4 placeholder-white text-white rounded-md py-2 px-4 w-64 border-2 border-[#b1d5e6] bg-[#b1d5e6]/50 hover:bg-[#8db5e3]/90 transition duration-700 ease-in-out"
+              className="my-4 placeholder-white text-white rounded-md py-2 px-4 w-64 border-2 border-brand bg-brand/50 hover:bg-[#8db5e3]/90 transition duration-700 ease-in-out"
               type="text"
               placeholder="   Match Type"
               onChange={(e) => handleInputChange("matchType", e.target.value)}
             />
             <input
-              className="my-4 placeholder-white text-white rounded-md py-2 px-4 w-64 border-2 border-[#b1d5e6] bg-[#b1d5e6]/50 hover:bg-[#8db5e3]/90 transition duration-700 ease-in-out"
+              className="my-4 placeholder-white text-white rounded-md py-2 px-4 w-64 border-2 border-brand bg-brand/50 hover:bg-[#8db5e3]/90 transition duration-700 ease-in-out"
               type="number"
               placeholder="   Match Number"
               onChange={(e) => handleInputChange("matchNumber", e.target.value)}
             />
             <input
-              className="my-4 placeholder-white text-white rounded-md py-2 px-4 w-64 border-2 border-[#b1d5e6] bg-[#b1d5e6]/50 hover:bg-[#8db5e3]/90 transition duration-700 ease-in-out"
+              className="my-4 placeholder-white text-white rounded-md py-2 px-4 w-64 border-2 border-brand bg-brand/50 hover:bg-[#8db5e3]/90 transition duration-700 ease-in-out"
               type="text"
               placeholder="   Event"
               onChange={(e) => handleInputChange("event", e.target.value)}
@@ -224,10 +262,10 @@ const MatchScoutingPage = () => {
               <h3 className="py-1 rounded-md text-center text-xl text-white w-[150px]">
                 Team Name
               </h3>
-              {teams.map((team) => (
+              {teams.map(({team}) => (
                 <h3
                   key={team.id}
-                  className="py-1 rounded-md text-center text-xl bg-[#b1d5e6]/50 text-white hover:bg-[#b1d5e6]/65 transition duration-300 ease-in-out"
+                  className="py-1 rounded-md text-center text-xl bg-brand/50 text-white hover:bg-brand/65 transition duration-300 ease-in-out"
                 >
                   {team.teamNumber}
                 </h3>
@@ -236,7 +274,7 @@ const MatchScoutingPage = () => {
                 Auto Score
               </h3>
               {/* map over teams and give them blue or red bgs based on alliance */}
-              {teams.map((team) => (
+              {teams.map(({team}) => (
                 <h3
                   key={team.id}
                   className={cn(
@@ -253,7 +291,7 @@ const MatchScoutingPage = () => {
               <h3 className="py-1 rounded-md text-center text-xl text-white w-[150px]">
                 Teleop Score
               </h3>
-              {teams.map((team) => (
+              {teams.map(({team}) => (
                 <h3
                   key={team.id}
                   className={cn(
@@ -269,7 +307,7 @@ const MatchScoutingPage = () => {
               <h3 className="py-1 rounded-md text-center text-xl text-white w-[150px]">
                 Climb
               </h3>
-              {teams.map((team) => (
+              {teams.map(({team}) => (
                 <h3
                   key={team.id}
                   className={cn(
@@ -285,7 +323,7 @@ const MatchScoutingPage = () => {
               <h3 className="py-1 rounded-md text-center text-xl text-white w-[150px]">
                 Team Total
               </h3>
-              {teams.map((team) => (
+              {teams.map(({team}) => (
                 <h3
                   key={team.id}
                   className={cn(
@@ -301,10 +339,10 @@ const MatchScoutingPage = () => {
             </div>
             {/* Score table */}
             <div className="flex space-x-2 items-center justify-center">
-              <h2 className="text-2xl font-bold text-white text-left pl-4 w-1/2 py-1 rounded-md bg-[#b1d5e6]/50 hover:bg-[#b1d5e6]/65 transition duration-300 ease-in-out">
+              <h2 className="text-2xl font-bold text-white text-left pl-4 w-1/2 py-1 rounded-md bg-brand/50 hover:bg-brand/65 transition duration-300 ease-in-out">
                 WINNER: {matchResults.winner}
               </h2>
-              {isThereCoopertition(teams) && ( // If coopertition is acheived, show coopertition button
+              {isThereCoopertition() && ( // If coopertition is acheived, show coopertition button
                   <h2 className="text-2xl font-bold text-black text-center w-1/5 py-1 px-2 rounded-md bg-yellow-400/75 hover:bg-yellow-400/85 transition duration-300 ease-in-out">
                     COOPERTITION
                   </h2>
@@ -313,24 +351,25 @@ const MatchScoutingPage = () => {
           </div>
           <div className="mt-2">
             <Tabs defaultValue="r1" className="">
-              <TabsList className="w-[500px] justify-around">
-                {teams.map(
-                  (team) => (
-                    <TabsTrigger key={team.id} value={String(team.id)}>
-                      {team.teamNumber}
-                    </TabsTrigger>
-                  )
-                )}
-              </TabsList>
-              {teams.map((team) => (
-                <TabsContent key={team.id} value={String(team.id)}>
-                  <TeamMatchScoutingArea
-                    match={matchResults}
-                    setMatch={setMatchResults}
-                    team={team}
-                  />
-                </TabsContent>
-              ))}
+                <TabsList className="w-[500px] justify-around mx-auto bg-brand">
+                    {teams.map(
+                        ({team, setTeam}) => (
+                            <TabsTrigger key={team.id} value={String(team.id)} className='bg-brand'>
+                                {team.teamNumber}
+                            </TabsTrigger>
+                        )
+                    )}
+                </TabsList>
+
+                {teams.map(({team, setTeam}) => (
+                    <TabsContent key={team.id} value={String(team.id)}>
+                        <TeamMatchScoutingArea
+                            team={team}
+                            setTeam={setTeam}
+                        />
+                    </TabsContent>
+                ))}
+              
             </Tabs>
           </div>
         </div>

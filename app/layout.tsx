@@ -22,20 +22,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-
-    // <ClerkProvider 
-    // afterSignOutUrl={'/sign-in'}
-    //     appearance={{
-    //     baseTheme: dark,
-    // }}
-    // >
-    <html lang="en">
-        <body className="dark bg-white">
-        {children}
-
-        </body>
-    </html>
-    // </ClerkProvider>
-
+      // <ClerkProvider
+      // afterSignOutUrl={'/sign-in'}
+      //     appearance={{
+      //     baseTheme: dark,
+      // }}
+      // >
+      <html lang="en">
+          <body className="dark bg-[#1e439d]">{children}</body>
+      </html>
+      // </ClerkProvider>
   );
 }

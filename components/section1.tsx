@@ -50,7 +50,7 @@ const Section1 = (info:any) => {
 
         <div className="items-center justify-center">
           <p className="text-4xl font-extrabold text-center text-white mb-3">
-            Benefit From Mentorship and Collaborative Learning
+            Mentorship and Collaborative Learning
           </p>
 
           <p className="text-xl text-center">{desc2}</p>
