@@ -120,56 +120,54 @@ export default function Home() {
                     width={1190} 
                     className='w-screen h-full z-0 sticky top-0' 
                 />
-                <motion.div variants={sectionVariants} className='z-40 absolute top-[305px] md:top-[675px]'>
-                    <div className="bg-[#1e439d] text-white px-12 py-10 items-center justify-center grid grid-cols-1 lg:grid-cols-2 gap-12">
-                        <div className="">
-                            <p className="text-4xl font-extrabold text-center text-white mb-3">
-                                Explore Hands-on STEM Workshops
-                            </p>
-                            <p className="text-xl text-center">{desc1}</p>
-                            <Link href={"/events"}>
-                                <motion.button
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    className="bg-white text-[#1e439d] px-6 py-2 rounded-lg flex items-center gap-2"
-                                >
-                                    Sign Up Now
-                                    <MoveRight className="w-5 h-5" />
-                                </motion.button>
-                            </Link>
-                        </div>
+                <motion.div variants={sectionVariants} className='z-40 absolute top-[305px] md:top-[675px] bottom-0 bg-[#1e439d] text-white px-12 py-10 items-center justify-center grid grid-cols-1 lg:grid-cols-2 gap-12'>
+                    <div className="items-center justify-center">
+                        <p className="text-4xl font-extrabold text-center text-white mb-3">
+                            Explore Hands-on STEM Workshops
+                        </p>
+                        <p className="text-xl text-center">{desc1}</p>
+                        <Link href={"/events"}>
+                            <motion.button
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                className="bg-white text-[#1e439d] px-6 py-2 rounded-lg flex items-center gap-2"
+                            >
+                                Sign Up Now
+                                <MoveRight className="w-5 h-5" />
+                            </motion.button>
+                        </Link>
+                    </div>
 
-                        <div className="items-center justify-center">
-                            <p className="text-4xl font-extrabold text-center text-white mb-3">
-                                Mentorship and Collaborative Learning
-                            </p>
+                    <div className="items-center justify-center">
+                        <p className="text-4xl font-extrabold text-center text-white mb-3">
+                            Mentorship and Collaborative Learning
+                        </p>
 
-                            <p className="text-xl text-center">{desc2}</p>
-                            <Link href={"/about"} className="items-center justify-center">
-                                <button className="bg-white text-[#1e439d] px-6 py-2 rounded-lg flex items-center">
-                                    Learn More
-                                    <MoveRight className="w-5 h-5" />
-                                </button>
-                            </Link>
-                        </div>
+                        <p className="text-xl text-center">{desc2}</p>
+                        <Link href={"/about"} className="items-center justify-center">
+                            <button className="bg-white text-[#1e439d] px-6 py-2 rounded-lg flex items-center">
+                                Learn More
+                                <MoveRight className="w-5 h-5" />
+                            </button>
+                        </Link>
+                    </div>
 
-                        <div className="items-center justify-center">
-                            <p className="text-4xl font-extrabold text-center text-white mb-3">
-                                Free and Accesible for All
-                            </p>
+                    <div className="items-center justify-center">
+                        <p className="text-4xl font-extrabold text-center text-white mb-3">
+                            Free and Accesible for All
+                        </p>
 
-                            <p className="text-xl text-center">{desc3}</p>
-                            <Link href={"/events"}>
-                                <motion.button
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    className="bg-white text-[#1e439d] px-6 py-2 rounded-lg flex items-center gap-2"
-                                >
-                                    Donate
-                                    <MoveRight className="w-5 h-5" />
-                                </motion.button>
-                            </Link>
-                        </div>
+                        <p className="text-xl text-center">{desc3}</p>
+                        <Link href={"/events"}>
+                            <motion.button
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                className="bg-white text-[#1e439d] px-6 py-2 rounded-lg flex items-center gap-2"
+                            >
+                                Donate
+                                <MoveRight className="w-5 h-5" />
+                            </motion.button>
+                        </Link>
                     </div>
                 </motion.div>
         </motion.div>
