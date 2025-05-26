@@ -32,7 +32,7 @@ const Circle = ({ color, title, content, y, color2, screenWidth, cutoff }: Circl
     return (
         <div
             className={cn(
-                `z-0 absolute rounded-full text-white w-52 sm:w-[225px] h-52 sm:h-[225px] flex justify-center items-center`,
+                `z-0 absolute rounded-full text-white w-52 sm:w-[225px] h-52 sm:h-[225px] flex justify-center items-center bg-gradient-to-br from-blue-500 to-green-500`,
                 colorClass
             )}
             style={{ top: y, left: x }}
