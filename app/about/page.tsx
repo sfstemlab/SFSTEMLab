@@ -409,7 +409,7 @@ const About = () => {
             >
                 <div className="">
                     {/* Mentors section */}
-                    <div className="flex items-center space-x-4">
+                    <div className="flex items-center space-x-4 m-2">
                         <div className="space-x-2 my-2 w-1/3 md:w-1/6">
                             <button
                                 className="py-1 px-3 rounded-2xl items-center border-2 border-[#b1d5e6] bg-[#b1d5e6]/15 hover:bg-[#8db5e3]/60 transition duration-700 ease-in-out"
@@ -437,7 +437,7 @@ const About = () => {
                         <h2 className="font-extrabold text-4xl mb-2 w-1/2 md:w-4/6">Our Team</h2>
                     </div>
                     <div
-                        className="rounded-md flex overflow-x-scroll no-scrollbar gap-3"
+                        className="rounded-md flex overflow-x-scroll no-scrollbar space-x-3 mx-16"
                         ref={teamContainerRef}
                     >
                         {people.length > 0 &&
@@ -484,7 +484,7 @@ const About = () => {
                         <h2 className="font-extrabold text-4xl mb-2">Our Collaborators</h2>
                     </div>
                     <div
-                        className="rounded-md flex overflow-x-scroll no-scrollbar"
+                        className="rounded-md flex overflow-x-scroll no-scrollbar mx-16"
                         ref={collaboratorsContainerRef}
                     >
                         {collaborators.length > 0 &&
@@ -516,7 +516,7 @@ const About = () => {
                     {/* Our vision */}
                     <div className="md:flex items-center justify-between space-x-4 w-full">
                         <div className="md:w-2/3">
-                            <h3 className="font-extrabold text-4xl mb-2 md:mb-0">Our Mission</h3>
+                            <h3 className="font-extrabold text-4xl mb-2 sm:mb-0">Our Mission</h3>
                             <p className="text-xl text-[#b1d5e6]">
                                 Our mission is to provide a community STEM hub by hosting
                                 interactive robotics demonstrations and hands-on workshops that
@@ -528,7 +528,7 @@ const About = () => {
                             </p>
                         </div>
                         <div className="md:w-1/3 mt-6 md:mt-0">
-                            <h3 className="font-extrabold text-4xl mb-2">Our Vision</h3>
+                            <h3 className="font-extrabold text-4xl mb-2 sm:mb-0">Our Vision</h3>
                             <p className="text-xl text-[#b1d5e6]">
                                 Our vision is for a long term space that students can rely on for
                                 free STEM enrichment and education. We want to foster a space that

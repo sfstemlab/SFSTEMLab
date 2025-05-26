@@ -6,6 +6,7 @@ import { useRef, useState, useEffect } from "react";
 import { Variants, Transition } from "framer-motion";
 import Navbar from '@/components/navbar'
 import Link from "next/link";
+import Circle from "@/components/circle";
 
 type BackgroundVariants = Variants & {
   hidden: { backgroundPosition: string };
@@ -87,24 +88,19 @@ export default function Home() {
     helping to inspire the next generation of innovators, thinkers, \n
     and problem-solvers.`.split('\n');
     
-    // useEffect(() => {
-    //     const handleResize = () => {
-    //         setSvgWidth(window.innerWidth);
-    //         setOriginalSize([window.innerWidth, window.innerHeight])
-    //         // console.log('window: '+window.innerWidth)
-    //     };
+    function useScreenWidth() {
+        const [width, setWidth] = useState(1024);
 
-    //     // Set initial size
-    //     handleResize();
-    //     // Update size on window resize
-    //     window.addEventListener("resize", handleResize);
+        useEffect(() => {
+            const handleResize = () => setWidth(window.innerWidth);
+            window.addEventListener('resize', handleResize);
+            handleResize();
+            return () => window.removeEventListener('resize', handleResize);
+        }, []);
 
-    //     // Cleanup on unmount
-    //     return () => {
-    //         window.removeEventListener("resize", handleResize);
-    //     };
-    // }, []);
-    
+        return width;
+    }
+    const screenWidth = useScreenWidth()
 
     return (
         <motion.div
@@ -112,64 +108,86 @@ export default function Home() {
             variants={backgroundVariants}
             initial="visible"
             animate="visible"
+        >
+            <Navbar />
+            <img
+                src="@/../images/HomePage_HeroSection.png"
+                alt="Home Page Hero Section"
+                width={1190}
+                className="w-screen h-full z-0 sticky top-0"
+            />
+            <motion.div
+                variants={sectionVariants}
+                className="z-40 absolute top-[305px] md:top-[675px] bottom-0 bg-[#1e439d] text-white px-12 py-10 items-center justify-center grid grid-cols-1 lg:grid-cols-2 gap-12"
             >
-                <Navbar />
-                <img 
-                    src='@/../images/HomePage_HeroSection.png' 
-                    alt='Home Page Hero Section'  
-                    width={1190} 
-                    className='w-screen h-full z-0 sticky top-0' 
+                <div className="items-center justify-center">
+                    <p className="text-4xl font-extrabold text-center text-white mb-3">
+                        Explore Hands-on STEM Workshops
+                    </p>
+                    <p className="text-xl text-center">{desc1}</p>
+                    <Link href={'/events'} className="z-10">
+                        <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            className="bg-white text-[#1e439d] px-6 py-2 rounded-lg flex items-center gap-2"
+                        >
+                            Sign Up Now
+                            <MoveRight className="w-5 h-5" />
+                        </motion.button>
+                    </Link>
+                </div>
+
+                <div className="items-center justify-center">
+                    <p className="text-4xl font-extrabold text-center text-white mb-3">
+                        Mentorship and Collaborative Learning
+                    </p>
+
+                    <p className="text-xl text-center">{desc2}</p>
+                    <Link href={'/about'} className="items-center justify-center">
+                        <button className="bg-white text-[#1e439d] px-6 py-2 rounded-lg flex items-center">
+                            Learn More
+                            <MoveRight className="w-5 h-5" />
+                        </button>
+                    </Link>
+                </div>
+
+                <div className="items-center justify-center mt-44">
+                    <p className="text-4xl font-extrabold text-center text-white mb-3">
+                        Free and Accesible for All
+                    </p>
+
+                    <p className="text-xl text-center">{desc3}</p>
+                    <Link href={'/events'}>
+                        <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            className="bg-white text-[#1e439d] px-6 py-2 rounded-lg flex items-center gap-2"
+                        >
+                            Donate
+                            <MoveRight className="w-5 h-5" />
+                        </motion.button>
+                    </Link>
+                </div>
+
+                <Circle
+                    color={'red-500'}
+                    color2={'green-500'}
+                    title={'Heya!'}
+                    content={'Did you know that we have these cool circles with fun facts in them?'}
+                    y={400}
+                    screenWidth={screenWidth}
+                    cutoff={'l'}
                 />
-                <motion.div variants={sectionVariants} className='z-40 absolute top-[305px] md:top-[675px] bottom-0 bg-[#1e439d] text-white px-12 py-10 items-center justify-center grid grid-cols-1 lg:grid-cols-2 gap-12'>
-                    <div className="items-center justify-center">
-                        <p className="text-4xl font-extrabold text-center text-white mb-3">
-                            Explore Hands-on STEM Workshops
-                        </p>
-                        <p className="text-xl text-center">{desc1}</p>
-                        <Link href={"/events"}>
-                            <motion.button
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                                className="bg-white text-[#1e439d] px-6 py-2 rounded-lg flex items-center gap-2"
-                            >
-                                Sign Up Now
-                                <MoveRight className="w-5 h-5" />
-                            </motion.button>
-                        </Link>
-                    </div>
-
-                    <div className="items-center justify-center">
-                        <p className="text-4xl font-extrabold text-center text-white mb-3">
-                            Mentorship and Collaborative Learning
-                        </p>
-
-                        <p className="text-xl text-center">{desc2}</p>
-                        <Link href={"/about"} className="items-center justify-center">
-                            <button className="bg-white text-[#1e439d] px-6 py-2 rounded-lg flex items-center">
-                                Learn More
-                                <MoveRight className="w-5 h-5" />
-                            </button>
-                        </Link>
-                    </div>
-
-                    <div className="items-center justify-center">
-                        <p className="text-4xl font-extrabold text-center text-white mb-3">
-                            Free and Accesible for All
-                        </p>
-
-                        <p className="text-xl text-center">{desc3}</p>
-                        <Link href={"/events"}>
-                            <motion.button
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                                className="bg-white text-[#1e439d] px-6 py-2 rounded-lg flex items-center gap-2"
-                            >
-                                Donate
-                                <MoveRight className="w-5 h-5" />
-                            </motion.button>
-                        </Link>
-                    </div>
-                </motion.div>
+                <Circle
+                    color={'red-500'}
+                    color2={'green-500'}
+                    title={'Hi Again!'}
+                    content={'Whaddya think? Pretty cool right?'}
+                    y={590}
+                    screenWidth={screenWidth}
+                    cutoff={'r'}
+                />
+            </motion.div>
         </motion.div>
     );
 }

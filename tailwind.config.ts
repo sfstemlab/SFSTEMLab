@@ -11,7 +11,7 @@ const config = {
   safelist: [
     'bg-red-500/60', 'bg-blue-500/60', 'bg-orange-500/60', 'bg-green-500/60', 'bg-yellow-500/60', 'bg-amber-500/60','bg-cyan-500/60', // Add all the colors you use dynamically
     'shadow-red-500/50', 'shadow-blue-500/50', 'shadow-orange-500/50', 'shadow-green-500/50', 'shadow-yellow-500/50', 'shadow-amber-500/50','shadow-cyan-500/50'
-    // If you have more colors or shades, add them here...
+
   ],
   prefix: "",
   theme: {
