@@ -29,6 +29,9 @@ export default function RootLayout({
       // }}
       // >
       <html lang="en">
+            <head>
+                <title>SF STEM Lab</title>
+            </head>
           <body className="dark bg-[#1e439d]">{children}</body>
       </html>
       // </ClerkProvider>
