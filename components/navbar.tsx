@@ -13,7 +13,6 @@ import {
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { cn } from "../lib/utils";
-import { UserButton } from "@clerk/nextjs";
 
 const Navbar = () => {
   const pathname = usePathname();

@@ -169,7 +169,7 @@ export default function Home() {
                     </Link>
                 </div>
 
-                <Circle
+                {/* <Circle
                     color={'red-500'}
                     color2={'green-500'}
                     title={'Heya!'}
@@ -186,7 +186,7 @@ export default function Home() {
                     y={590}
                     screenWidth={screenWidth}
                     cutoff={'r'}
-                />
+                /> */}
             </motion.div>
         </motion.div>
     );
