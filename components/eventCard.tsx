@@ -58,12 +58,12 @@ export function EventCard(event:EventProps) {
                         <motion.div
                             // layoutId={`card-${active.title}-${id}`}
                             ref={ref}
-                            className="absolute top-[-200px] w-full max-w-[500px]  h-96 flex flex-col bg-[#b1d5e6]/75 border-2 border-[#b1d5e6] backdrop-blur-lg sm:rounded-2xl"
+                            className="absolute top-[-200px] w-full max-w-[500px]  h-96 flex flex-col bg-brand/75 border-2 border-brand backdrop-blur-lg sm:rounded-2xl"
                         >
                             <div className="items-center p-4">
                                 <motion.h3
                                     // layoutId={`title-${active.title}-${id}`}
-                                    className="w-full font-extrabold underline text-[#cc1616] text-2xl text-center"
+                                    className="w-full font-extrabold underline text-redBrand text-2xl text-center"
                                 >
                                     {active.title}
                                 </motion.h3>
@@ -96,13 +96,13 @@ export function EventCard(event:EventProps) {
                 // layoutId={`card-${event.title}-${id}`}
                     key={event.title}
                     onClick={() => setActive(event)}
-                    className="text-white w-[330px] rounded-md py-2 px-1 items-center border-2 border-[#b1d5e6] bg-[#b1d5e6]/50 hover:bg-[#8db5e3]/90 transition duration-700 ease-in-out cursor-pointer"
+                    className="text-white w-[330px] rounded-md py-2 px-1 items-center border-2 border-brand bg-brand/50 hover:bg-[#8db5e3]/90 transition duration-700 ease-in-out cursor-pointer"
                 >
                     <div className="flex w-full">
                         <div className="flex justify-center items-center flex-col">
                             <motion.h3
                                 // layoutId={`title-${event.title}-${id}`}
-                                className="font-bold underline text-xl text-[#cc1616] text-left flex"
+                                className="font-bold underline text-xl text-redBrand text-left flex"
                             >
                                 {event.title}
                             </motion.h3>
@@ -120,7 +120,7 @@ export function EventCard(event:EventProps) {
                                 ))}
                             </div>
                         </div>
-                        <div className="mx-1 rounded-sm bg-[#b1d5e6]/60  text-[#cc1616] py-1 pb-2 px-3 items-center text-center h-5/6">
+                        <div className="mx-1 rounded-sm bg-brand/60  text-redBrand py-1 pb-2 px-3 items-center text-center h-5/6">
                             <h2 className="font-black text-lg">{event.month}</h2>
                             <h3 className="font-black text-5xl">{event.day}</h3>
                         </div>

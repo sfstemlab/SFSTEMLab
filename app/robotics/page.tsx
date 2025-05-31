@@ -63,18 +63,18 @@ const RoboticsPage = () => {
                 >
                     <Link
                         href="/robotics/scouting/match"
-                        className="w-1/2 rounded-md py-2 px-1 items-center border-2 border-[#b1d5e6] bg-[#b1d5e6]/50 hover:bg-[#8db5e3]/90 transition duration-700 ease-in-out cursor-pointer"
+                        className="w-1/2 rounded-md py-2 px-1 items-center border-2 border-brand bg-brand/50 hover:bg-[#8db5e3]/90 transition duration-700 ease-in-out cursor-pointer"
                     >
-                        <h1 className="font-bold underline text-2xl text-[#cc1616]">
+                        <h1 className="font-bold underline text-2xl text-redBrand">
                             Match Scouting
                         </h1>
                         <h2>The place for all of your match scouting needs!</h2>
                     </Link>
                     <Link
                         href="/robotics/scouting/pit"
-                        className="w-1/2 rounded-md py-2 px-1 items-center border-2 border-[#b1d5e6] bg-[#b1d5e6]/50 hover:bg-[#8db5e3]/90 transition duration-700 ease-in-out cursor-pointer"
+                        className="w-1/2 rounded-md py-2 px-1 items-center border-2 border-brand bg-brand/50 hover:bg-[#8db5e3]/90 transition duration-700 ease-in-out cursor-pointer"
                     >
-                        <h1 className="font-bold underline text-2xl text-[#cc1616]">
+                        <h1 className="font-bold underline text-2xl text-redBrand">
                             Pit Scouting
                         </h1>
                         <h2>The place for all of your pit scouting needs!</h2>

@@ -61,7 +61,7 @@ export function DropdownMenuCheckboxes({
             <DropdownMenuTrigger asChild>
                 <button
                     className={cn(
-                        "p-1 text-center bg-[#b1d5e6]/75 rounded-md w-full h-auto hover:bg-[#b1d5e6]/90 transition duration-500 ease-in-out",
+                        "p-1 text-center bg-brand/75 rounded-md w-full h-auto hover:bg-brand/90 transition duration-500 ease-in-out",
                         selectedItems.length > 0 ? "text-white" : "text-gray-500"
                     )}
                 >

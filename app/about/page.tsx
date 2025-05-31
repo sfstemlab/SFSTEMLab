@@ -31,28 +31,28 @@ const data = [
     {
         title: "Febuary-March 2025",
         content: (
-            <div className='rounded-md bg-[#b1d5e6]/20 border-2 border-[#b1d5e6] items-center hover:bg-[#8db5e3]/60 hover:text-white transition duration-700 ease-in-out'>
+            <div className='rounded-md bg-brand/20 border-2 border-brand items-center hover:bg-[#8db5e3]/60 hover:text-white transition duration-700 ease-in-out'>
                 <div className='flex mb-2 mt-1'>
                     <Dot className='stroke-2'/>
-                    <p className="text-[#b1d5e6] text-md font-semibold">
+                    <p className="text-brand text-md font-semibold">
                         Robotics demonstrations   
                     </p>
                 </div>
                 <div className='flex my-2'>
                     <Dot className='stroke-2'/>
-                    <p className="text-[#b1d5e6] text-md font-semibold">
+                    <p className="text-brand text-md font-semibold">
                         Two STEM Workshops per month
                     </p>
                 </div>
                 <div className='flex my-2'>
                     <Dot className='stroke-2'/>
-                    <p className="text-[#b1d5e6] text-md font-semibold">
+                    <p className="text-brand text-md font-semibold">
                         Community invite to robotics competitions
                     </p>
                 </div>
                 <div className='flex mt-2 mb-1'>
                     <Dot className='stroke-2'/>
-                    <p className="text-[#b1d5e6] text-md font-semibold">
+                    <p className="text-brand text-md font-semibold">
                         Continued outreach and recruitment
                     </p>
                 </div>
@@ -62,28 +62,28 @@ const data = [
     {
         title: "April-May 2025",
         content: (
-        <div className='rounded-md bg-[#b1d5e6]/20 border-2 border-[#b1d5e6] items-center hover:bg-[#8db5e3]/60 hover:text-white transition duration-700 ease-in-out'>
+        <div className='rounded-md bg-brand/20 border-2 border-brand items-center hover:bg-[#8db5e3]/60 hover:text-white transition duration-700 ease-in-out'>
             <div className='flex mb-2 mt-1'>
                 <Dot className='stroke-2'/>
-                <p className="text-[#b1d5e6] text-md font-semibold">
+                <p className="text-brand text-md font-semibold">
                     Robotics demonstrations
                 </p>
             </div>
             <div className='flex my-2'>
                 <Dot className='stroke-2'/>
-                <p className="text-[#b1d5e6] text-md font-semibold">
+                <p className="text-brand text-md font-semibold">
                     Two full-day STEM Workshops per month
                 </p>
             </div>
             <div className='flex my-2'>
                 <Dot className='stroke-2'/>
-                <p className="text-[#b1d5e6] text-md font-semibold">
+                <p className="text-brand text-md font-semibold">
                     Continued outreach and recruitment 
                 </p>
             </div>
             <div className='flex mt-2 mb-1'>
                 <Dot className='stroke-2'/>
-                <p className="text-[#b1d5e6] text-md font-semibold">
+                <p className="text-brand text-md font-semibold">
                     Workshop planning                 
                 </p>
             </div>
@@ -93,9 +93,9 @@ const data = [
   {
     title: "Summer 2025",
     content: (
-        <div className='rounded-md bg-[#b1d5e6]/20 border-2 border-[#b1d5e6] items-center hover:bg-[#8db5e3]/60 hover:text-white transition duration-700 ease-in-out'>
+        <div className='rounded-md bg-brand/20 border-2 border-brand items-center hover:bg-[#8db5e3]/60 hover:text-white transition duration-700 ease-in-out'>
             <div className='flex m-2'>
-                <p className="text-[#b1d5e6] text-md font-semibold">
+                <p className="text-brand text-md font-semibold">
                     Possible Program TBD
                 </p>
             </div>
@@ -382,7 +382,7 @@ const About = () => {
 
     return (
         <motion.div
-            className="relative w-full bg-white min-h-screen items-center justify-center text-[#b1d5e6]"
+            className="relative w-full bg-white min-h-screen items-center justify-center text-brand"
             variants={backgroundVariants}
             initial="hidden"
             animate="visible"
@@ -395,16 +395,14 @@ const About = () => {
                     className="w-full object-cover min-h-[600px]"
                     height={6000}
                 ></img>
-                <div className="absolute top-[100px] md:inset-0 flex flex-col items-center justify-center text-center px-4">
-                    <h1 className="font-extrabold text-4xl md:text-5xl text-white mb-4 underline">
+                <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
+                    <h1 className="text-white font-extrabold text-4xl md:text-5xl mb-4 underline decoration-dashed decoration-redBrand">
                         Welcome to the SF STEM Lab
                     </h1>
                 </div>
             </div>
-            <motion.div
+            <div
                 className="bg-[#1e439d] w-full p-4 text-center absolute top-[305px] md:top-[675px]"
-                variants={containerVariants}
-                initial="visible"
                 ref={ref}
             >
                 <div className="">
@@ -412,7 +410,7 @@ const About = () => {
                     <div className="flex items-center space-x-4 m-2">
                         <div className="space-x-2 my-2 w-1/3 md:w-1/6">
                             <button
-                                className="py-1 px-3 rounded-2xl items-center border-2 border-[#b1d5e6] bg-[#b1d5e6]/15 hover:bg-[#8db5e3]/60 transition duration-700 ease-in-out"
+                                className="py-1 px-3 rounded-2xl items-center border-2 border-brand bg-brand/15 hover:bg-[#8db5e3]/60 transition duration-700 ease-in-out"
                                 onClick={() =>
                                     teamContainerRef.current?.scrollBy({
                                         left: -300,
@@ -423,7 +421,7 @@ const About = () => {
                                 <MoveLeft />
                             </button>
                             <button
-                                className="py-1 px-3 rounded-2xl items-center border-2 border-[#b1d5e6] bg-[#b1d5e6]/15 hover:bg-[#8db5e3]/60 hover:text-white transition duration-700 ease-in-out"
+                                className="py-1 px-3 rounded-2xl items-center border-2 border-brand bg-brand/15 hover:bg-[#8db5e3]/60 hover:text-white transition duration-700 ease-in-out"
                                 onClick={() =>
                                     teamContainerRef.current?.scrollBy({
                                         left: 300,
@@ -445,8 +443,8 @@ const About = () => {
                                 <button
                                     key={index}
                                     className={cn(
-                                        'min-w-[400px] items-center space-x-5 py-2 px-1 rounded-md bg-[#b1d5e6]/25 mb-2 flex hover:bg-[#8db5e3] hover:text-white transition duration-700 ease-in-out',
-                                        expandedProfile === person ? 'bg-[#cc1616] text-white' : ''
+                                        'min-w-[400px] items-center space-x-5 py-2 px-1 rounded-md bg-brand/25 mb-2 flex hover:bg-[#8db5e3] hover:text-white transition duration-700 ease-in-out',
+                                        expandedProfile === person ? 'bg-redBrand text-white' : ''
                                     )}
                                     onClick={() => toggleExpandedProfile(person)}
                                 >
@@ -472,7 +470,7 @@ const About = () => {
                         /* Expanded Profile Section */
                         <div className="text-center mt-4">
                             <p className="text-lg text-center">{expandedProfile.bio}</p>
-                            <h5 className="text-[#cc1616] font-bold mt-4 text-xl cursor-pointer">
+                            <h5 className="text-redBrand font-bold mt-4 text-xl cursor-pointer">
                                 {expandedProfile.email}
                             </h5>
                         </div>
@@ -491,7 +489,7 @@ const About = () => {
                             collaborators.map((collaborator, index) => (
                                 <button
                                     key={index}
-                                    className="min-w-[305px] items-center space-x-5 px-5 rounded-md bg-[#b1d5e6]/25 m-2 p-2 flex hover:bg-[#8db5e3] hover:text-white transition duration-700 ease-in-out"
+                                    className="min-w-[305px] items-center space-x-5 px-5 rounded-md bg-brand/25 m-2 p-2 flex hover:bg-[#8db5e3] hover:text-white transition duration-700 ease-in-out"
                                     onClick={() => toggleExpandedProfile(collaborator)}
                                 >
                                     <div className="w-1/6 overflow-visible">
@@ -517,7 +515,7 @@ const About = () => {
                     <div className="md:flex items-center justify-between space-x-4 w-full">
                         <div className="md:w-2/3">
                             <h3 className="font-extrabold text-4xl mb-2 sm:mb-0">Our Mission</h3>
-                            <p className="text-xl text-[#b1d5e6]">
+                            <p className="text-xl text-brand">
                                 Our mission is to provide a community STEM hub by hosting
                                 interactive robotics demonstrations and hands-on workshops that
                                 promote STEM education, drawing interest from students, families,
@@ -529,7 +527,7 @@ const About = () => {
                         </div>
                         <div className="md:w-1/3 mt-6 md:mt-0">
                             <h3 className="font-extrabold text-4xl mb-2 sm:mb-0">Our Vision</h3>
-                            <p className="text-xl text-[#b1d5e6]">
+                            <p className="text-xl text-brand">
                                 Our vision is for a long term space that students can rely on for
                                 free STEM enrichment and education. We want to foster a space that
                                 local robotics teams can use for practice, collaboration, and
@@ -542,13 +540,16 @@ const About = () => {
                     {/* Our need */}
                     <div className="flex items-center justify-center flex-col space-x-4 w-full">
                         <h2 className="font-extrabold text-4xl mb-2">Our Need</h2>
-						<p className="text-xl text-[#b1d5e6]">
-							The SF STEM Lab has a need for a large space, capable of hosting events and demonstrations, and an area in which to organize workshops for hands-on learning activities. We&apos;re hoping to aquire an area that is around 3100 sq ft, so that we can accomodate both of these spaces. 
-						</p>
+                        <p className="text-xl text-brand">
+                            The SF STEM Lab has a need for a large space, capable of hosting events
+                            and demonstrations, and an area in which to organize workshops for
+                            hands-on learning activities. We&apos;re hoping to aquire an area that
+                            is around 3100 sq ft, so that we can accomodate both of these spaces.
+                        </p>
                     </div>
                 </div>
                 <Timeline data={data} />
-            </motion.div>
+            </div>
         </motion.div>
     );
 };

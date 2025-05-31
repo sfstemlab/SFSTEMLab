@@ -11,10 +11,10 @@ interface EventProps {
 
 const Event = (event:EventProps) => {
   return (
-    <Link className='text-white rounded-md py-2 px-1 items-center border-2 border-[#b1d5e6] bg-[#b1d5e6]/50 hover:bg-[#8db5e3]/90 transition duration-700 ease-in-out' href={`/${event.title}`}>
+    <Link className='text-white rounded-md py-2 px-1 items-center border-2 border-brand bg-brand/50 hover:bg-[#8db5e3]/90 transition duration-700 ease-in-out' href={`/${event.title}`}>
         <div className='flex'>
             <div className='w-3/4 px-2'>
-                <h1 className='font-bold underline text-xl text-[#cc1616] text-left flex'>
+                <h1 className='font-bold underline text-xl text-redBrand text-left flex'>
                     {event.title}
                 </h1>
                 <p className='text-left'>
@@ -26,7 +26,7 @@ const Event = (event:EventProps) => {
                     ))}
                 </div>
             </div>
-            <div className='mx-1 rounded-sm bg-[#b1d5e6]/60  text-[#cc1616] py-1 pb-2 px-3 items-center text-center h-5/6'>
+            <div className='mx-1 rounded-sm bg-brand/60  text-redBrand py-1 pb-2 px-3 items-center text-center h-5/6'>
                 <h2 className='font-black text-lg'>
                     {event.month}
                 </h2>

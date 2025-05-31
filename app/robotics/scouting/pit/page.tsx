@@ -149,7 +149,7 @@ const PitScoutingPage = () => {
 
           <div className="flex flex-col space-y-4 justify-center mt-4 items-center">
             <input
-              className="my-4 placeholder-white text-white rounded-md py-2 px-4 w-72 border-2 border-[#b1d5e6] bg-[#b1d5e6]/50 hover:bg-[#8db5e3]/90 transition duration-70 ease-in-out"
+              className="my-4 placeholder-white text-white rounded-md py-2 px-4 w-72 border-2 border-brand bg-brand/50 hover:bg-[#8db5e3]/90 transition duration-70 ease-in-out"
               type="number"
               placeholder="Your Team Number"
               onChange={(e) => setYourTeamNumber(Number(e.target.value))}
@@ -333,7 +333,7 @@ const PitScoutingPage = () => {
             </div>
 
             <button
-              className="p-2 text-center bg-[#cc1616]/75 rounded-md w-full hover:bg-[#cc1616]/90 transition duration-500 ease-in-out text-white font-semibold"
+              className="p-2 text-center bg-redBrand/75 rounded-md w-full hover:bg-redBrand/90 transition duration-500 ease-in-out text-white font-semibold"
               onClick={submitData}
             >
               Submit

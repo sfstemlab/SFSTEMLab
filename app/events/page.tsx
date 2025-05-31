@@ -114,19 +114,16 @@ const Events = () => {
                 className="sticky top-0 z-0 w-full"
             />
             <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
-                <h1 className="text-white font-extrabold text-4xl md:text-5xl mb-4 underline">
+                <h1 className="text-white font-extrabold text-4xl md:text-5xl mb-4 underline decoration-redBrand">
                     Upcoming Events
                 </h1>
             </div>
-            <motion.div
+            <div
                 className="bg-[#1e439d] z-20 w-full p-4 text-center absolute top-[305px] bottom-0 md:top-[675px]"
-                variants={containerVariants}
-                initial="hidden"
-                animate="visible"
                 ref={ref}
             >
                 {/* TODO: Add a calendar showing all of the events */}
-                <h1 className=" text-center font-extrabold text-2xl mb-2">
+                <h1 className="text-brand text-center font-extrabold text-2xl mb-2">
                     All Events
                 </h1>
                 <div className="rounded-md md:mx-20 p-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-4">
@@ -143,7 +140,7 @@ const Events = () => {
                             />
                         ))}
                 </div>
-            </motion.div>
+            </div>
         </motion.div>
     );
 }

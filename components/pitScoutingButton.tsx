@@ -19,11 +19,11 @@ const PitScoutingQuestion = ({
         // console.log(options)
     }
     return (
-        <div className="rounded-md bg-[#b1d5e6]/65 px-2 pt-3 pb-2 hover:bg-[#b1d5e6]/70 transition duration-500 ease-in-out items-center justify-center ">
+        <div className="rounded-md bg-brand/65 px-2 pt-3 pb-2 hover:bg-brand/70 transition duration-500 ease-in-out items-center justify-center ">
             <h3 className='text-white font-semibold text-center items-center justify-center'>{content}</h3>
             {inputType === 'number' && 
                 <input 
-                    className="p-1 text-center bg-[#b1d5e6]/75 rounded-md w-full hover:bg-[#b1d5e6]/90 transition duration-500 ease-in-out placeholder-gray-500"
+                    className="p-1 text-center bg-brand/75 rounded-md w-full hover:bg-brand/90 transition duration-500 ease-in-out placeholder-gray-500"
                     type="number"
                     onChange={onChange}
                     placeholder='0000'
@@ -31,7 +31,7 @@ const PitScoutingQuestion = ({
             }            
             {inputType === 'select' && 
                 <select  
-                    className='p-1 text-center bg-[#b1d5e6]/75 rounded-md w-full h-auto hover:bg-[#b1d5e6]/90 transition duration-500 ease-in-out placeholder-gray-500'
+                    className='p-1 text-center bg-brand/75 rounded-md w-full h-auto hover:bg-brand/90 transition duration-500 ease-in-out placeholder-gray-500'
                     onChange={onChange}
                 >
                     {options.map((option) => (

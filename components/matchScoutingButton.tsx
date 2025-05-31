@@ -59,7 +59,7 @@ const MatchScoutingButton = ({
     };
 
     return (
-        <Card className="rounded-md bg-[#b1d5e6]/50">
+        <Card className="rounded-md bg-brand/50">
             <CardHeader className='items-center'>
                 <CardTitle className="text-white">{content}</CardTitle>
             </CardHeader>
@@ -68,7 +68,7 @@ const MatchScoutingButton = ({
                 {buttonType === 'number' &&
                     <Button
                         size="sm"
-                        className="bg-[#b1d5e6]/75 rounded-md w-1/3 hover:bg-[#b1d5e6]/85 transition duration-500 ease-in-out"
+                        className="bg-brand/75 rounded-md w-1/3 hover:bg-brand/85 transition duration-500 ease-in-out"
                         onClick={() => {
                             if (subattribute) {
                                 changeSubAttribute(-1, subattribute);
@@ -85,14 +85,14 @@ const MatchScoutingButton = ({
                     <input
                         value={currentVal ?? 0}
                         readOnly
-                        className="text-center bg-[#b1d5e6]/75 rounded-md w-1/3 hover:bg-[#b1d5e6]/85 transition duration-500 ease-in-out"
+                        className="text-center bg-brand/75 rounded-md w-1/3 hover:bg-brand/85 transition duration-500 ease-in-out"
                     />
                 }
 
                 {buttonType === 'number' && 
                     <Button
                         size="sm"
-                        className="bg-[#b1d5e6]/75 rounded-md w-1/3 hover:bg-[#b1d5e6]/90 transition duration-500 ease-in-out"
+                        className="bg-brand/75 rounded-md w-1/3 hover:bg-brand/90 transition duration-500 ease-in-out"
                         onClick={() => {
                             if (subattribute) {
                                 changeSubAttribute(1, subattribute);
