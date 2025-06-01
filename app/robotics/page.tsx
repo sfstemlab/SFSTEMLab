@@ -57,7 +57,7 @@ const RoboticsPage = () => {
                     </p>
                 </div>
                 <motion.div
-                    className="absolute bottom-0 top-[305px] md:top-[675px] bg-[#1e439d] w-full p-4 text-center justify-center space-x-4 text-white flex"
+                    className="absolute bottom-[-10px] top-[305px] md:top-[675px] bg-[#1e439d] w-full p-4 text-center justify-center space-x-4 text-white flex"
                     variants={containerVariants}
                     initial="visible"
                 >

@@ -38,7 +38,7 @@ const Events = () => {
           tags: ["CNC", "CAD", "CAM"],
           expandedContent: () => {
             return (
-              <p className="text-white">
+              <p className="text-white text-left">
                 Join us for an exciting, hands-on workshop that introduces
                 middle school students to the world of STEM through the creative
                 power of CNC machining, 3D printing, and computer-aided design
@@ -113,15 +113,12 @@ const Events = () => {
                 alt="Events Page Hero Section"
                 className="sticky top-0 z-0 w-full"
             />
-            <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
+            <div className="absolute top-40 w-full md:inset-0 flex flex-col items-center justify-center text-center px-4">
                 <h1 className="text-white font-extrabold text-4xl md:text-5xl mb-4 underline decoration-redBrand">
                     Upcoming Events
                 </h1>
             </div>
-            <div
-                className="bg-[#1e439d] z-20 w-full p-4 text-center absolute top-[305px] bottom-0 md:top-[675px]"
-                ref={ref}
-            >
+            <div className="bg-[#1e439d] z-20 w-full p-4 text-center absolute top-[305px] bottom-0 md:top-[675px]">
                 {/* TODO: Add a calendar showing all of the events */}
                 <h1 className="text-brand text-center font-extrabold text-2xl mb-2">
                     All Events

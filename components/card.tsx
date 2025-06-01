@@ -4,6 +4,8 @@ import React, { useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useOutsideClick } from "../hooks/use-outside-click";
 import Tag from "./tag";
+import { MoveRight, X } from "lucide-react";
+import Link from "next/link";
 
 interface EventProps {
     title: string;
@@ -58,31 +60,49 @@ export function Card(event:EventProps) {
                         <motion.div
                             // layoutId={`card-${active.title}-${id}`}
                             ref={ref}
-                            className="absolute top-[200px] w-full max-w-[500px]  h-96 flex flex-col bg-brand/75 border-2 border-brand backdrop-blur-lg sm:rounded-2xl"
+                            className="absolute top-[200px] w-full max-w-[500px]  h-[400px] flex flex-col bg-brand/80 border-2 border-brand backdrop-blur-lg sm:rounded-2xl"
                         >
-                            <div className="items-center p-4">
-                                <motion.h3
-                                    // layoutId={`title-${active.title}-${id}`}
-                                    className="w-full font-extrabold underline text-redBrand text-2xl text-center"
-                                >
-                                    {active.title}
-                                </motion.h3>
-                                <div className="pt-4 relative px-4">
+                            <div className="items-center py-4">
+                                <div className='flex justify-between w-full px-8 pb-2 items-center'>
+                                    <motion.h3
+                                        // layoutId={`title-${active.title}-${id}`}
+                                        className="font-extrabold underline text-redBrand text-2xl text-left"
+                                    >
+                                        {active.title}
+                                    </motion.h3>
+                                    <button
+                                        className='flex items-center justify-center rounded-md p-1 bg-brand text-white'
+                                        onClick={() => setActive(false)}>
+                                        <X />
+                                    </button>
+                                </div>
+                                <div className=" relative px-4">
                                     <motion.div
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: 1 }}
                                         exit={{ opacity: 0 }}
-                                        className="h-96 md:h-fit pb-20 flex flex-col items-start gap-4 overflow-auto [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]"
+                                        className="px-4 h-96 md:h-fit pb-20 flex flex-col items-start gap-4 overflow-auto [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]"
                                     >
                                         {active.expandedContent()}
-                                        <div className="pb-6 flex space-x-2 items-center w-full justify-center">
-                                            {
-                                                event.tags &&
-                                                event.tags.length > 0 &&
-                                                event.tags.map((tag, index) => (
-                                                    <Tag key={index} value={tag} />
-                                                ))
-                                            }
+                                        <div className='flex w-full justify-between px-4 items-center'>
+                                            <div className=" flex space-x-2">
+                                                {
+                                                    event.tags &&
+                                                    event.tags.length > 0 &&
+                                                    event.tags.map((tag, index) => (
+                                                        <Tag key={index} value={tag} />
+                                                    ))
+                                                }
+                                            </div>
+                                            <Link 
+                                                href={`/signup/${event.title}`} 
+                                                className='bg-darkBlue py-1 px-3 rounded-md flex space-x-2 items-center'
+                                            >
+                                                <h1>
+                                                    Sign Up
+                                                </h1>
+                                                <MoveRight className='w-5 h-5' />
+                                            </Link>
                                         </div>
                                     </motion.div>
                                 </div>

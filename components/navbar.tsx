@@ -82,8 +82,7 @@ const Navbar = () => {
                           <motion.img
                               src="/images/Logo.png"
                               alt="SF STEMLab Logo"
-                              className="h-12 w-12"
-                              whileHover={{ rotate: 360 }}
+                              className="h-12 w-12 hover:animate-spin"
                               transition={{ duration: 0.5 }}
                           />
                           <span className="text-black font-bold text-xl">SF STEM Lab</span>

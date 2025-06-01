@@ -27,6 +27,7 @@ const config = {
         custommuted: '#6b7280',
         brand: '#b1d5e6',
         redBrand: '#cc1616',
+        darkBlue:'#1e439d',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
