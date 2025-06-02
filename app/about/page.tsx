@@ -382,27 +382,25 @@ const About = () => {
 
     return (
         <motion.div
-            className="relative w-full bg-white min-h-screen items-center justify-center text-brand"
+            className="root-div"
             variants={backgroundVariants}
             initial="hidden"
             animate="visible"
         >
             <Navbar />
-            <div className="relative w-full max-h-[500px] overflow-visible">
-                <img
-                    src="@/../images/aboutPage_HeroSection.png"
-                    alt="About Page Hero Section"
-                    className="w-full object-cover min-h-[600px]"
-                    height={6000}
-                ></img>
-                <div className="absolute top-24 md:inset-0 flex flex-col items-center justify-center text-center px-4">
-                    <h1 className="text-white font-extrabold text-4xl md:text-5xl mb-4 underline decoration-dashed decoration-redBrand">
-                        Welcome to the SF STEM Lab
-                    </h1>
-                </div>
+            <img
+                src="@/../images/aboutPage_HeroSection.png"
+                alt="About Page Hero Section"
+                className="hero-image"
+                height={6000}
+            ></img>
+            <div className="absolute top-24 md:inset-0 flex flex-col items-center justify-center text-center px-4">
+                <h1 className="text-white font-extrabold text-4xl md:text-5xl mb-4 underline decoration-dashed decoration-redBrand">
+                    Welcome to the SF STEM Lab
+                </h1>
             </div>
             <div
-                className="bg-[#1e439d] w-full p-4 text-center absolute top-[305px] md:top-[675px]"
+                className="main-section"
                 ref={ref}
             >
                 <div className="">

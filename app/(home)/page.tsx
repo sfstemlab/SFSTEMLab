@@ -22,49 +22,6 @@ type BackgroundVariants = Variants & {
 
 export default function Home() {
 
-    const containerVariants = {
-        hidden: { opacity: 0},
-        visible: {
-        opacity: 1,
-        transition: {
-            staggerChildren: 0.3, // each child will start animating 0.3s after the prev.
-        },
-        y: -10
-        },
-    };
-
-    const sectionVariants = {
-        hidden: { opacity: 0, y: 50 },
-        visible: {
-        opacity: 1,
-        y: 0,
-        transition: {
-            duration: 0.5,
-            type: "spring",
-            stiffness: 100,
-            damping: 20,
-        },
-        },
-        hover: {
-        scale: 1.1,
-        transition: {
-            duration: 1,
-        },
-        boxShadow: "0px 10px 30px rgba(0, 0, 0, 0.2)",
-        },
-    };
-    const backgroundVariants: BackgroundVariants = {
-        hidden: { backgroundPosition: "0% 50%" },
-        visible: {
-        backgroundPosition: "100% 50%",
-        transition: {
-            duration: 10,
-            repeat: Infinity,
-            repeatType: "mirror", 
-        },
-        },
-    };
-
     const desc1 = `SF STEM Lab offers hands-on workshops designed for elementary and middle\n 
         schoolstudents, welcoming all skill levels — even beginners with little to\n
         no prior STEM experience. The workshops are structured to help students dive\n
@@ -88,38 +45,17 @@ export default function Home() {
     helping to inspire the next generation of innovators, thinkers, \n
     and problem-solvers.`.split('\n');
     
-    function useScreenWidth() {
-        const [width, setWidth] = useState(1024);
-
-        useEffect(() => {
-            const handleResize = () => setWidth(window.innerWidth);
-            window.addEventListener('resize', handleResize);
-            handleResize();
-            return () => window.removeEventListener('resize', handleResize);
-        }, []);
-
-        return width;
-    }
-    const screenWidth = useScreenWidth()
 
     return (
-        <motion.div
-            className="w-full bg-white min-h-screen justify-center text-black relative"
-            variants={backgroundVariants}
-            initial="visible"
-            animate="visible"
-        >
+        <div className="root-div">
             <Navbar />
             <img
                 src="@/../images/HomePage_HeroSection.png"
                 alt="Home Page Hero Section"
                 width={1190}
-                className="w-screen h-full z-0 sticky top-0"
+                className="hero-image"
             />
-            <motion.div
-                variants={sectionVariants}
-                className="z-40 absolute top-[305px] md:top-[675px] bottom-0 bg-[#1e439d] text-white px-12 py-10 items-center justify-center grid grid-cols-1 lg:grid-cols-2 gap-12"
-            >
+            <div className="main-section grid grid-cols-1 lg:grid-cols-2 gap-12">
                 <div className="flex flex-col items-center justify-center">
                     <p className="text-4xl font-extrabold text-center text-white mb-3">
                         Explore Hands-on STEM Workshops
@@ -137,11 +73,11 @@ export default function Home() {
                     </Link>
                 </div>
 
-                <div className="flex flex-col items-center justify-center">
+                <div className="flex flex-col items-center">
                     <p className="text-4xl font-extrabold text-center text-white mb-3">
                         Mentorship and Collaborative Learning
                     </p>
-                    <p className="text-xl text-center">{desc1}</p>
+                    <p className="text-xl text-center">{desc2}</p>
                     <Link href={'/about'} className="z-10">
                         <motion.button
                             whileHover={{ scale: 1.05 }}
@@ -190,7 +126,7 @@ export default function Home() {
                     screenWidth={screenWidth}
                     cutoff={'r'}
                 /> */}
-            </motion.div>
-        </motion.div>
+            </div>
+        </div>
     );
 }

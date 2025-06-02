@@ -63,10 +63,10 @@ export function Card(event:EventProps) {
                             className="absolute top-[200px] w-full max-w-[500px]  h-[400px] flex flex-col bg-cardColor-light border-2 border-brand backdrop-blur-lg sm:rounded-2xl"
                         >
                             <div className="items-center py-4">
-                                <div className="flex justify-between w-full px-8 pb-2 items-center">
+                                <div className="flex justify-between w-full px-4 pb-2 items-center">
                                     <motion.h3
                                         // layoutId={`title-${active.title}-${id}`}
-                                        className="font-extrabold underline text-redBrand text-2xl text-left"
+                                        className="font-extrabold underline text-redBrand text-2xl text-left pl-2"
                                     >
                                         {active.title}
                                     </motion.h3>
@@ -86,7 +86,7 @@ export function Card(event:EventProps) {
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: 1 }}
                                         exit={{ opacity: 0 }}
-                                        className="px-4 h-80 pb-20 flex flex-col items-start gap-4 overflow-auto [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]"
+                                        className="px-2 h-80 pb-20 flex flex-col items-start gap-4 overflow-auto [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]"
                                     >
                                         {active.expandedContent()}
                                         <div className="flex w-full justify-between px-4 items-center">
