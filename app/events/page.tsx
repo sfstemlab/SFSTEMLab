@@ -33,7 +33,7 @@ const Events = () => {
         {
           title: "STEM Workshop #2",
           day: 16,
-          month: "Apr",
+          month: "April",
           desc: "Learn about the wonders of Computer-Aided Design and the CNC machine",
           tags: ["CNC", "CAD", "CAM"],
           expandedContent: () => {
@@ -130,7 +130,7 @@ const Events = () => {
                                 key={index}
                                 title={event.title}
                                 day={event.day}
-                                month={event.month.toUpperCase()}
+                                month={event.month}
                                 desc={event.desc}
                                 tags={event.tags}
                                 expandedContent={event.expandedContent}
