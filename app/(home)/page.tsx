@@ -48,9 +48,25 @@ export default function Home() {
     helping to inspire the next generation of innovators, thinkers, 
     and problem-solvers.`
     
+    const backgroundVariants: BackgroundVariants = {
+        hidden: { backgroundPosition: '0% 50%' },
+        visible: {
+            backgroundPosition: '100% 50%',
+            transition: {
+                duration: 10,
+                repeat: Infinity,
+                repeatType: 'mirror',
+            },
+        },
+    };
 
     return (
-        <div className="root-div">
+        <motion.div
+            className="root-div"
+            variants={backgroundVariants}
+            initial="hidden"
+            animate="visible"
+        >
             <Navbar />
             <img
                 src="@/../images/HomePage_HeroSection.png"
@@ -120,6 +136,6 @@ export default function Home() {
                     cutoff={'r'}
                 /> */}
             </div>
-        </div>
+        </motion.div>
     );
 }

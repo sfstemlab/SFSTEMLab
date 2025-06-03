@@ -47,7 +47,7 @@
 }
 @layer components {
     .root-div {
-        @apply w-full min-h-screen justify-center text-brand relative overflow-x-auto flex flex-col
+        @apply w-full min-h-screen justify-start text-brand relative overflow-x-auto flex flex-col
     }
     .hero-image {
         @apply w-screen min-h-[600px] z-0 relative object-cover

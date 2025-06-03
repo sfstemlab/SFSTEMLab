@@ -345,17 +345,6 @@ const About = () => {
     // Sort people by importance
     people.sort((a, b) => getImportance(a) - getImportance(b));
 
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.3, // each child will start animating 0.3s after the prev.
-            },
-            y: -10,
-        },
-    };
-
     const backgroundVariants: BackgroundVariants = {
         hidden: { backgroundPosition: '0% 50%' },
         visible: {
@@ -367,27 +356,6 @@ const About = () => {
             },
         },
     };
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    setIsInView(true);
-                }
-            },
-            { threshold: 0.5 }
-        );
-
-        if (ref.current) {
-            observer.observe(ref.current);
-        }
-
-        return () => {
-            if (ref.current) {
-                observer.unobserve(ref.current);
-            }
-        };
-    }, []);
 
     return (
         <motion.div

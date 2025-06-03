@@ -30,7 +30,7 @@ export default function RootLayout({
       // }}
       // >
       <html lang="en">
-          <body className="dark bg-[#1e439d]">{children}</body>
+          <body className="dark bg-[#1e439d] justify-start">{children}</body>
       </html>
       // </ClerkProvider>
   );
