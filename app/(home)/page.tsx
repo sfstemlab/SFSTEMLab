@@ -7,6 +7,8 @@ import { Variants, Transition } from "framer-motion";
 import Navbar from '@/components/navbar'
 import Link from "next/link";
 import Circle from "@/components/circle";
+import LinkButton from '@/components/linkButton'
+import PageTitle from "@/components/pageTitle";
 
 type BackgroundVariants = Variants & {
   hidden: { backgroundPosition: string };
@@ -22,28 +24,29 @@ type BackgroundVariants = Variants & {
 
 export default function Home() {
 
-    const desc1 = `SF STEM Lab offers hands-on workshops designed for elementary and middle\n 
-        schoolstudents, welcoming all skill levels — even beginners with little to\n
-        no prior STEM experience. The workshops are structured to help students dive\n
-        into a variety of engaging activities, from building robots to mastering \n
-        coding, 3D printing, and CAD design. Through these interactive sessions,\n
-        students gainpractical experience and a deeper understanding of how the\n
-        technology works, encouraging curiosity and creativity.`.split('\n');
+    const desc1 = `We offer hands-on workshops for elementary and middle
+        school students of skill levels — even beginners with
+        no prior STEM experience. The workshops are designed
+        to give students practical experience and a deeper understanding of how
+        technology works, and encourage curiosity and creativity.`.split('.')
+    // const desc1v2 = `* Hands-on and student-led
+    //                 * Designed for elementary to middle schoolers
+    //                 * Fun and engaging for all skill levels
+    //     `.split('');
 
-    const desc2 = `At SF STEM Lab, our focus is on mentorship and collaborativelearning.\n
-        Experienced student mentors and professionals from the community\n
-        play a key role in teaching the workshops, sharing their expertise and\n
-        guiding students through the process of building and creating. This\n
-        environment provides students with valuable skills and teaches the\n
-        importance of teamwork, problem-solving, and working wtih others\n
-        toward a common goal.`.split('\n');
+    const desc2 = `Our experienced student mentors and professionals from the community
+        play a key role in teaching the workshops by sharing their expertise and
+        guiding students through the activites. This
+        environment provides students with valuable skills and teaches the
+        importance of teamwork, problem-solving, and working wtih others
+        toward a common goal.`
 
-    const desc3 = `SF STEM Lab's workshops are entirely free and open to all. We \n
-    are commited to ensuring that students from all backgrounds have \n
-    the opportunity to explore and create with STEM. SF STEM Lab aims \n
-    to make high-quality STEM education available to a wider audience, \n
-    helping to inspire the next generation of innovators, thinkers, \n
-    and problem-solvers.`.split('\n');
+    const desc3 = `SF STEM Lab's workshops are entirely free and open to all. We 
+    are commited to ensuring that students from all backgrounds have 
+    the opportunity to explore and create with STEM. SF STEM Lab aims 
+    to make high-quality STEM education available to a wider audience, 
+    helping to inspire the next generation of innovators, thinkers, 
+    and problem-solvers.`
     
 
     return (
@@ -55,57 +58,47 @@ export default function Home() {
                 width={1190}
                 className="hero-image"
             />
+            <PageTitle title="Welcome to the SF STEM Lab!" />
             <div className="main-section grid grid-cols-1 lg:grid-cols-2 gap-12">
                 <div className="flex flex-col items-center justify-center">
-                    <p className="text-4xl font-extrabold text-center text-white mb-3">
+                    <p className="text-4xl font-extrabold text-center mb-3 text-white">
                         Explore Hands-on STEM Workshops
                     </p>
+                    {/* {desc1.map((ln, idx) => (
+                        <p className="text-xl text-left indent-10 mt-4" key={idx}>
+                            {ln}
+                        </p>
+                    ))} */}
                     <p className="text-xl text-center">{desc1}</p>
-                    <Link href={'/events'} className="z-10">
-                        <motion.button
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            className="bg-white text-[#1e439d] px-6 py-2 rounded-lg flex items-center mt-4"
-                        >
-                            Sign Up Now
-                            <MoveRight className="w-5 h-5" />
-                        </motion.button>
-                    </Link>
+                    <LinkButton href="/events" title="Sign Up Now" />
                 </div>
 
                 <div className="flex flex-col items-center">
-                    <p className="text-4xl font-extrabold text-center text-white mb-3">
+                    <p className="text-4xl font-extrabold text-center mb-3 text-white">
                         Mentorship and Collaborative Learning
                     </p>
+                    {/* {desc2.map((ln, idx) => (
+                        <p className="text-xl text-left indent-10 mt-4" key={idx}>
+                            {ln}
+                        </p>
+                    ))} */}
                     <p className="text-xl text-center">{desc2}</p>
-                    <Link href={'/about'} className="z-10">
-                        <motion.button
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            className="bg-white text-[#1e439d] px-6 py-2 rounded-lg flex items-center mt-4"
-                        >
-                            Learn More
-                            <MoveRight className="w-5 h-5" />
-                        </motion.button>
-                    </Link>
+
+                    <LinkButton href="/about" title="Learn More" />
                 </div>
 
                 <div className="flex flex-col items-center justify-center">
-                    <p className="text-4xl font-extrabold text-center text-white mb-3">
+                    <p className="text-4xl font-extrabold text-center mb-3 text-white">
                         Free and Accesible for All
                     </p>
-
+                    {/* {desc3.map((ln, idx) => (
+                        <p className="text-xl text-left indent-10 mt-4" key={idx}>
+                            {ln}
+                        </p>
+                    ))} */}
                     <p className="text-xl text-center">{desc3}</p>
-                    <Link href={'/events'}>
-                        <motion.button
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            className="bg-white text-[#1e439d] px-6 py-2 rounded-lg flex items-center mt-4"
-                        >
-                            Donate
-                            <MoveRight className="w-5 h-5" />
-                        </motion.button>
-                    </Link>
+
+                    <LinkButton href="/events" title="Donate" />
                 </div>
 
                 {/* <Circle

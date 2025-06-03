@@ -53,7 +53,10 @@
         @apply w-screen min-h-[600px] z-0 relative object-cover
     }
     .main-section {
-        @apply text-center w-full z-40 absolute top-[305px] md:top-[675px] bottom-0 bg-[#1e439d] text-white px-12 py-10 items-center justify-center overflow-y-visible
+        @apply text-center w-full z-40 absolute top-[305px] md:top-[675px] bottom-0 bg-[#1e439d] text-brand px-12 py-10 items-center justify-center overflow-y-visible
+    }
+    .title {
+
     }
 }
 .no-scrollbar::-webkit-scrollbar {

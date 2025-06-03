@@ -5,6 +5,7 @@ import Navbar from '../../components/navbar';
 
 import { Transition, Variants, motion } from "framer-motion";
 import { Card } from '@/components/card';
+import PageTitle from '@/components/pageTitle';
 
 type BackgroundVariants = Variants & {
     hidden: { backgroundPosition: string };
@@ -102,7 +103,7 @@ const Events = () => {
 
     return (
         <motion.div
-            className="relative w-full bg-white min-h-screen justify-center items-center text-[#b1d5e6]"
+            className="root-div"
             variants={backgroundVariants}
             initial="hidden"
             animate="visible"
@@ -111,14 +112,11 @@ const Events = () => {
             <img
                 src="@/../images/eventsPage_HeroSection.png"
                 alt="Events Page Hero Section"
-                className="sticky top-0 z-0 w-full"
+                className="hero-image"
             />
-            <div className="absolute top-40 w-full md:inset-0 flex flex-col items-center justify-center text-center px-4">
-                <h1 className="text-white font-extrabold text-4xl md:text-5xl mb-4 underline decoration-redBrand">
-                    Upcoming Events
-                </h1>
-            </div>
-            <div className="bg-[#1e439d] z-20 w-full p-4 text-center absolute top-[305px] bottom-0 md:top-[675px]">
+            <PageTitle title='Upcoming Events' />
+            <div className="main-section">
+
                 {/* TODO: Add a calendar showing all of the events */}
                 <h1 className="text-brand text-center font-extrabold text-2xl mb-2">
                     All Events
