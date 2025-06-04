@@ -128,7 +128,7 @@ export default function Home() {
                         <LinkButton href="/events" title="Donate" />
                     </div>
                     <img
-                        src="/images/homePage_image2.png"
+                        src="/images/homePage_Image2.png"
                         className="rounded-full w-80 h-80 object-cover hidden md:block"
                     />
                 </div>
