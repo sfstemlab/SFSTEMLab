@@ -213,7 +213,7 @@ const About = () => {
             name: 'Ember Ximm',
             picture: '@/../images/EmberPFP.png',
             bio: "I'm a 17 year old high school student and visual artist living in San Francisco, interested in pursuing robotics, science, math, programming and engineering opportunities. As an older sister and babysitter, I'm also super excited to bring more STEM education to elementary and middle schools in the district.",
-            titles: ['Mechanical Engineering Lead - SOTA Robotcs'],
+            titles: ['Mechanical Engineering Lead - SOTA Cyberdragons'],
             email: 'ember@team5700.org',
             open: false,
         },
@@ -224,6 +224,14 @@ const About = () => {
             titles: ['President - Lowell Robotics'],
             email: '',
             open: false,
+        },
+        {
+            name: 'Maelys Kerherve',
+            picture: '',
+            bio: '',
+            titles: ['Media Lead - SOTA Cyberdragons'],
+            email: 'maelys@team5700.org',
+            open: false
         },
         {
             name: 'Derrick Lam',

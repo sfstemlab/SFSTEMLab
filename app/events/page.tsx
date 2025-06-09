@@ -28,33 +28,55 @@ interface EventProps {
 }
 
 const Events = () => {
-    const ref = useRef(null);
-    const [isInView, setIsInView] = useState(false);
+
+    const currentDate = new Date()
+    const currentMonth = currentDate.getMonth() + 1 // account for getMonth starting at January = 0
+    const currentDay = currentDate.getDate()
+    const monthMap: Record<string, number> = {
+        January: 1,
+        February: 2,
+        March: 3,
+        April: 4,
+        May: 5,
+        June: 6,
+        July: 7,
+        August: 8,
+        September: 9,
+        October: 10,
+        November: 11,
+        December: 12,
+    };
+
     const events: EventProps[] = [
         {
-          title: "STEM Workshop #2",
-          day: 16,
-          month: "April",
-          desc: "Learn about the wonders of Computer-Aided Design and the CNC machine",
-          tags: ["CNC", "CAD", "CAM"],
-          expandedContent: () => {
-            return (
-              <p className="text-white text-left">
-                Join us for an exciting, hands-on workshop that introduces
-                middle school students to the world of STEM through the creative
-                power of CNC machining, 3D printing, and computer-aided design
-                (CAD). In this beginner-friendly session, students will learn
-                the fundamentals of digital design and manufacturing by creating
-                their own custom projects from start to finish. They&apos;ll
-                explore how ideas go from screen to physical object, gain
-                confidence using real engineering tools, and spark curiosity
-                about the technology shaping our future. No prior experience is
-                needed—just curiosity and a willingness to learn and build!
-              </p>
-            );
-          },
+            title: 'STEM Workshop #2',
+            day: 16,
+            month: 'June',
+            desc: 'Learn about the wonders of Computer-Aided Design and the CNC machine',
+            tags: ['CNC', 'CAD', 'CAM'],
+            expandedContent: () => {
+                return (
+                    <p className="text-white text-left">
+                        Join us for an exciting, hands-on workshop that introduces middle school
+                        students to the world of STEM through the creative power of CNC machining,
+                        3D printing, and computer-aided design (CAD). In this beginner-friendly
+                        session, students will learn the fundamentals of digital design and
+                        manufacturing by creating their own custom projects from start to finish.
+                        They&apos;ll explore how ideas go from screen to physical object, gain
+                        confidence using real engineering tools, and spark curiosity about the
+                        technology shaping our future. No prior experience is needed—just curiosity
+                        and a willingness to learn and build!
+                    </p>
+                );
+            },
         },
-      ];
+    ].filter((event) => {
+        const eventMonthNum = monthMap[event.month];
+        if (eventMonthNum > currentMonth) return true;
+        if (eventMonthNum === currentMonth && event.day >= currentDay) return true;
+        return false;
+    });
+
       
 
     const containerVariants = {
@@ -93,16 +115,13 @@ const Events = () => {
                 alt="Events Page Hero Section"
                 className="hero-image"
             />
-            <PageTitle title='Upcoming Events' />
+            <PageTitle title="Upcoming Events" />
             <div className="main-section">
-
                 {/* TODO: Add a calendar showing all of the events */}
-                <h1 className="text-brand text-center font-extrabold text-2xl mb-2">
-                    All Events
-                </h1>
-                <div className="rounded-md md:mx-20 p-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-4">
-                    {events.length > 0 &&
-                        events.map((event, index) => (
+                <h2 className="font-extrabold text-4xl mb-2 w-full">Upcoming Events</h2>
+                {(events.length > 0 && (
+                    <div className="rounded-md md:mx-20 p-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-4">
+                        {events.map((event, index) => (
                             <Card
                                 key={index}
                                 title={event.title}
@@ -113,7 +132,12 @@ const Events = () => {
                                 expandedContent={event.expandedContent}
                             />
                         ))}
-                </div>
+                    </div>
+                )) || (
+                    <h1 className="font-bold text-lg text-center w-full mt-6">
+                        More events coming soon..
+                    </h1>
+                )}
             </div>
         </motion.div>
     );
