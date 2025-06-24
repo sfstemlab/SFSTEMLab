@@ -134,7 +134,7 @@ const Events = () => {
                         ))}
                     </div>
                 )) || (
-                    <h1 className="font-bold text-lg text-center w-full mt-6">
+                    <h1 className="font-bold text-lg text-center w-full mt-6 h-full">
                         More events coming soon..
                     </h1>
                 )}

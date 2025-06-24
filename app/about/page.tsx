@@ -383,8 +383,8 @@ const About = () => {
             <div className="main-section" ref={ref}>
                 <div className="">
                     {/* Mentors section */}
-                    <div className="flex items-center space-x-4 m-2">
-                        <div className="space-x-2 my-2 w-1/3 md:w-1/6">
+                    <div className="flex items-center space-x-4 md:m-2">
+                        <div className="space-x-2 md:my-2 w-1/3 md:w-1/6">
                             <button
                                 className="text-white py-1 px-3 rounded-2xl items-center border-2 border-brand bg-cardColor hover:bg-cardColor-light transition duration-700 ease-in-out"
                                 onClick={() =>

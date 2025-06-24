@@ -8,6 +8,7 @@ import {
   Calendar,
   Menu,
   X,
+  HandHeart,
   Bot,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
@@ -22,7 +23,7 @@ const Navbar = () => {
     { href: "/", label: "Home", icon: Home },
     { href: "/about", label: "About Us", icon: UsersRound },
     { href: "/events", label: "Events", icon: Calendar },
-    { href: "/robotics", label: "Robotics", icon: Bot}
+    // { href: "/robotics", label: "Robotics", icon: Bot}
   ];
 
 
@@ -61,9 +62,7 @@ const Navbar = () => {
   };
 
   return (
-      <nav
-          className="sticky top-0 z-50 bg-white backdrop-blur-lg shadow-lg shadow-gray-400/10 w-screen m-0 p-0"
-      >
+      <nav className="sticky top-0 z-50 bg-white backdrop-blur-lg shadow-lg shadow-gray-400/10 w-screen m-0 p-0">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex justify-between h-16 items-center">
                   {/* Logo Section */}
@@ -97,7 +96,7 @@ const Navbar = () => {
                                       'flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-300',
                                       href == pathname
                                           ? 'bg-[#1e439d] text-white px-4 py-3'
-                                          : 'text-gray-600 bg-brand hover:bg-white transition duration-300 ease-in-out'
+                                          : 'text-gray-600 bg-brand hover:bg-cardColor hover:text-white hover:scale-110 border-brand transition duration-400 ease-in-out'
                                   )}
                               >
                                   <Icon className="w-5 h-5 mr-2" />
@@ -105,13 +104,35 @@ const Navbar = () => {
                               </Link>
                           </motion.div>
                       ))}
+                      <Link
+                          href="/donate"
+                          style={{
+                              backgroundColor: '#cc1616',
+                              backgroundImage:
+                                  'linear-gradient(90deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.8) 100%)',
+                              backgroundSize: '200% 100%',
+                              backgroundPosition: '-100% 0',
+                              backgroundRepeat: 'no-repeat',
+                              transition: 'background-position 0.5s ease',
+                          }}
+                          onMouseEnter={(e) =>
+                              (e.currentTarget.style.backgroundPosition = '200% 0')
+                          }
+                          onMouseLeave={(e) =>
+                              (e.currentTarget.style.backgroundPosition = '-100% 0')
+                          }
+                          className="w-28 h-10 rounded-lg text-white font-bold flex items-center justify-center"
+                      >
+                          <HandHeart className="w-5 h-5 mr-2" />
+                          Donate
+                      </Link>
 
                       {/* <motion.button
-              whileHover={{ scale: 1.05 }}
-              className="flex items-center px-4 py-2 rounded-lg text-gray-600 hover:bg-blue-500 transition duration-500 text-sm font-medium"
-            >
-              <UserButton userProfileUrl="/account" afterSignOutUrl="/" />
-            </motion.button> */}
+                whileHover={{ scale: 1.05 }}
+                className="flex items-center px-4 py-2 rounded-lg text-gray-600 hover:bg-blue-500 transition duration-500 text-sm font-medium"
+                >
+                <UserButton userProfileUrl="/account" afterSignOutUrl="/" />
+                </motion.button> */}
                   </div>
 
                   {/* Mobile Menu Button */}

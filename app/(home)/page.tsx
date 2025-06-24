@@ -9,6 +9,7 @@ import Link from "next/link";
 import Circle from "@/components/circle";
 import LinkButton from '@/components/linkButton'
 import PageTitle from "@/components/pageTitle";
+import Newsletter from "@/components/newsletter";
 
 type BackgroundVariants = Variants & {
   hidden: { backgroundPosition: string };
@@ -75,7 +76,7 @@ export default function Home() {
                 className="hero-image"
             />
             <PageTitle title="Welcome to the SF STEM Lab!" />
-            <div className="main-section  md:p-24">
+            <div className="main-section  md:p-24 relative">
                 <div className="flex items-center justify-between md:space-x-8 mb-12">
                     <div className="flex flex-col justify-center">
                         <p className="text-4xl font-extrabold text-center md:text-left mb-3 text-white">
@@ -132,25 +133,7 @@ export default function Home() {
                         className="rounded-full w-80 h-80 object-cover hidden md:block"
                     />
                 </div>
-
-                {/* <Circle
-                    color={'red-500'}
-                    color2={'green-500'}
-                    title={'Heya!'}
-                    content={'Did you know that we have these cool circles with fun facts in them?'}
-                    y={400}
-                    screenWidth={screenWidth}
-                    cutoff={'l'}
-                />
-                <Circle
-                    color={'red-500'}
-                    color2={'green-500'}
-                    title={'Hi Again!'}
-                    content={'Whaddya think? Pretty cool right?'}
-                    y={590}
-                    screenWidth={screenWidth}
-                    cutoff={'r'}
-                /> */}
+                <Newsletter />
             </div>
         </motion.div>
     );
