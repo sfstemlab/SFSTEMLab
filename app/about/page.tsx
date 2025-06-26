@@ -419,18 +419,16 @@ const About = () => {
                                 <button
                                     key={index}
                                     className={cn(
-                                        'min-w-[400px] items-center space-x-5 py-2 px-1 rounded-md bg-cardColor mb-2 flex hover:bg-cardColor-light text-white transition duration-700 ease-in-out',
-                                        expandedProfile === person ? 'bg-redBrand text-white' : ''
+                                        'min-w-[400px] max-w-[400px] h-24 my-12 items-center space-x-5 py-2 pl-2 pr-1 rounded-md mb-2 flex border-2 border-brand-dark transition duration-700 ease-in-out',
+                                        expandedProfile && expandedProfile.name == person.name ? 'bg-brand/90 hover:bg-brand-light/80 text-darkBlue' : 'bg-cardColor hover:bg-cardColor-light text-white'
                                     )}
                                     onClick={() => toggleExpandedProfile(person)}
                                 >
-                                    <div className=" overflow-visible text-white">
-                                        <img
-                                            width={100}
-                                            src={person.picture}
-                                            alt={person.name}
-                                        ></img>
-                                    </div>
+                                    <img
+                                        width={115}
+                                        src={person.picture}
+                                        alt={person.name}
+                                    />
                                     <div className="">
                                         <h3 className="font-bold text-lg text-left">
                                             {person.name}

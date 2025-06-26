@@ -1,12 +1,8 @@
 'use client';
-import { MoveRight } from 'lucide-react';
 import { motion } from 'framer-motion';
-import dynamic from 'next/dynamic';
 import { useRef, useState, useEffect } from 'react';
 import { Variants, Transition } from 'framer-motion';
 import Navbar from '@/components/navbar';
-import Link from 'next/link';
-import Circle from '@/components/circle';
 import LinkButton from '@/components/linkButton';
 import PageTitle from '@/components/pageTitle';
 import Newsletter from '@/components/newsletter';
@@ -28,10 +24,6 @@ export default function Home() {
         no prior STEM experience. The workshops are designed
         to give students practical experience and a deeper understanding of how
         technology works, and encourage curiosity and creativity.`.split('.');
-    // const desc1v2 = `* Hands-on and student-led
-    //                 * Designed for elementary to middle schoolers
-    //                 * Fun and engaging for all skill levels
-    //     `.split('');
 
     const desc2 = `Our student mentors and professionals from the community
         play a key role in teaching the workshops by sharing their expertise and
@@ -41,11 +33,11 @@ export default function Home() {
         toward a common goal.`;
 
     const desc3 = `Our workshops are entirely free and open to all. We 
-    are commited to ensuring that students from all backgrounds have 
-    the opportunity to explore and create with STEM. SF STEM Lab aims 
-    to make high-quality STEM education available to a wider audience, 
-    helping to inspire the next generation of innovators, thinkers, 
-    and problem-solvers.`;
+        are commited to ensuring that students from all backgrounds have 
+        the opportunity to explore and create with STEM. SF STEM Lab aims 
+        to make high-quality STEM education available to a wider audience, 
+        helping to inspire the next generation of innovators, thinkers, 
+        and problem-solvers.`;
 
     const backgroundVariants: BackgroundVariants = {
         hidden: { backgroundPosition: '0% 50%' },
@@ -80,11 +72,6 @@ export default function Home() {
                         <p className="text-4xl font-extrabold text-center md:text-left mb-3 text-white">
                             Explore Hands-on STEM Workshops
                         </p>
-                        {/* {desc1.map((ln, idx) => (
-                            <p className="text-xl text-left indent-10 mt-4" key={idx}>
-                                {ln}
-                            </p>
-                        ))} */}
                         <p className="text-xl text-center md:text-left w-full md:w-5/6">{desc1}</p>
                         <LinkButton href="/events" title="Sign Up Now" />
                     </div>
@@ -102,11 +89,6 @@ export default function Home() {
                         <p className="text-4xl font-extrabold text-center mb-3 text-white">
                             Mentorship and Collaborative Learning
                         </p>
-                        {/* {desc2.map((ln, idx) => (
-                            <p className="text-xl text-left indent-10 mt-4" key={idx}>
-                                {ln}
-                            </p>
-                        ))} */}
                         <p className="text-xl text-center md:text-end w-full md:w-5/6">{desc2}</p>
                         <LinkButton href="/about" title="Learn More" />
                     </div>
@@ -117,11 +99,6 @@ export default function Home() {
                         <p className="text-4xl font-extrabold text-center mb-3 text-white">
                             Free and Accesible for All
                         </p>
-                        {/* {desc3.map((ln, idx) => (
-                            <p className="text-xl text-left indent-10 mt-4" key={idx}>
-                                {ln}
-                            </p>
-                        ))} */}
                         <p className="text-xl text-center md:text-left w-full md:w-5/6">{desc3}</p>
 
                         <LinkButton href="/events" title="Donate" />
