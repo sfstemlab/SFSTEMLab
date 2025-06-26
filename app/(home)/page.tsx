@@ -1,35 +1,33 @@
-"use client";
-import { MoveRight } from "lucide-react";
-import { motion } from "framer-motion";
-import dynamic from "next/dynamic";
-import { useRef, useState, useEffect } from "react";
-import { Variants, Transition } from "framer-motion";
-import Navbar from '@/components/navbar'
-import Link from "next/link";
-import Circle from "@/components/circle";
-import LinkButton from '@/components/linkButton'
-import PageTitle from "@/components/pageTitle";
-import Newsletter from "@/components/newsletter";
+'use client';
+import { MoveRight } from 'lucide-react';
+import { motion } from 'framer-motion';
+import dynamic from 'next/dynamic';
+import { useRef, useState, useEffect } from 'react';
+import { Variants, Transition } from 'framer-motion';
+import Navbar from '@/components/navbar';
+import Link from 'next/link';
+import Circle from '@/components/circle';
+import LinkButton from '@/components/linkButton';
+import PageTitle from '@/components/pageTitle';
+import Newsletter from '@/components/newsletter';
 
 type BackgroundVariants = Variants & {
-  hidden: { backgroundPosition: string };
-  visible: {
-    backgroundPosition: string;
-    transition: Transition & {
-      repeat?: number;
-      repeatType?: "loop" | "reverse" | "mirror";
+    hidden: { backgroundPosition: string };
+    visible: {
+        backgroundPosition: string;
+        transition: Transition & {
+            repeat?: number;
+            repeatType?: 'loop' | 'reverse' | 'mirror';
+        };
     };
-  };
 };
 
-
 export default function Home() {
-
     const desc1 = `We offer hands-on workshops for elementary and middle
         school students of skill levels — even beginners with
         no prior STEM experience. The workshops are designed
         to give students practical experience and a deeper understanding of how
-        technology works, and encourage curiosity and creativity.`.split('.')
+        technology works, and encourage curiosity and creativity.`.split('.');
     // const desc1v2 = `* Hands-on and student-led
     //                 * Designed for elementary to middle schoolers
     //                 * Fun and engaging for all skill levels
@@ -40,15 +38,15 @@ export default function Home() {
         guiding students through the activites. This
         environment provides students with valuable skills and teaches the
         importance of teamwork, problem-solving, and working wtih others
-        toward a common goal.`
+        toward a common goal.`;
 
     const desc3 = `Our workshops are entirely free and open to all. We 
     are commited to ensuring that students from all backgrounds have 
     the opportunity to explore and create with STEM. SF STEM Lab aims 
     to make high-quality STEM education available to a wider audience, 
     helping to inspire the next generation of innovators, thinkers, 
-    and problem-solvers.`
-    
+    and problem-solvers.`;
+
     const backgroundVariants: BackgroundVariants = {
         hidden: { backgroundPosition: '0% 50%' },
         visible: {
