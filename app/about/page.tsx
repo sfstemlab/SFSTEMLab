@@ -136,7 +136,7 @@ const About = () => {
                 Example 2! This is a very cool bio for Example 2! This is a very cool bio for Example 2! This is a very cool bio for 
                 Example 2! This is a very cool bio for Example 2! `,
             titles: ['President - Galileo Robotics', 'Project Leader'],
-            email: 'example2@ststemlab.org',
+            email: 'example2@sfstemlab.org',
             open: false,
         },
         {
@@ -150,7 +150,7 @@ const About = () => {
                 Example 3! This is a very cool bio for Example 3! This is a very cool bio for Example 3! This is a very cool bio for 
                 Example 3! This is a very cool bio for Example 3! `,
             titles: ['Outreach - Lowell Robotics', 'Project Leader'],
-            email: 'example3@ststemlab.org',
+            email: 'example3@sfstemlab.org',
             open: false,
         },
         {
@@ -382,7 +382,7 @@ const About = () => {
             <PageTitle title='About Us' />
             <div className="main-section">
                 <div className='flex'>
-                    <div className='flex flex-col w-2/3'>
+                    <div className='flex flex-col w-2/3 pr-10'>
                         <div className="flex items-center space-x-4">
                             <div className="items-center justify-center space-x-2 w-1/3 md:w-1/6">
                                 <button
@@ -453,8 +453,8 @@ const About = () => {
                         )}
                         <div className="m-3 py-2"> { /* Mission and Vision section */}
                             <div className="md:flex items-center justify-between space-x-4 w-full">
-                                <div className="md:w-2/3"> { /* Mission section */}
-                                    <h3 className="font-extrabold text-4xl mb-2 sm:mb-0">Our Mission</h3>
+                                <div className="md:w-2/3 pr-6"> { /* Mission section */}
+                                    <h3 className="font-extrabold text-4xl">Our Mission</h3>
                                     <p className="text-xl text-brand">
                                         Our mission is to provide a community STEM hub by hosting
                                         interactive robotics demonstrations and hands-on workshops that
@@ -504,7 +504,7 @@ const About = () => {
                                     </button>
                             ))}
                         </div>
-                        <div className="mx-3 py-2">
+                        <div className="mx-3 pt-10">
                             {/* Our need */}
                             <div className="flex items-center justify-center flex-col space-x-4 w-full">
                                 <h2 className="font-extrabold text-4xl mb-2">Our Need</h2>
