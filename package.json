@@ -39,6 +39,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.53.2",
+    "stripe": "^18.3.0",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.25.64"
@@ -47,7 +48,7 @@
     "@types/node": "^20.16.5",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "eslint": "^8",
+    "eslint": "^8.57.1",
     "eslint-config-next": "14.2.4",
     "postcss": "^8",
     "prettier": "^3.5.3",
