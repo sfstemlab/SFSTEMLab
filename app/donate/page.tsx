@@ -11,9 +11,9 @@ export default function DonatePage() {
         <div className="bg-gradient-to-r from-brand-light to-darkBlue-light bg-[length:200%_200%]">
             <Navbar />
             <img
-                src="/images/donate_hero.png"
+                src="/images/alliancePic.png"
                 alt="Donate Hero Image"
-                className="w-full object-cover max-h-[600px]"
+                className="min-h-[400px] object-cover"
             />
             <PageTitle title="Support the SF STEM Lab" />
 
@@ -30,8 +30,8 @@ export default function DonatePage() {
                         </p>
                     </div>
                     <img
-                        src="/images/stem_kids.png"
-                        alt="STEM kids placeholder"
+                        src=""
+                        alt="Image Placeholder"
                         className="rounded-full w-80 h-80 object-cover hidden md:block"
                     />
                 </div>

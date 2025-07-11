@@ -66,7 +66,7 @@ export default function Home() {
                 className="hero-image"
             />
             <PageTitle title="Welcome to the SF STEM Lab!" />
-            <div className="main-section  md:p-24 relative">
+            <div className="main-section  md:p-24">
                 <div className="flex items-center justify-between md:space-x-8 mb-12">
                     <div className="flex flex-col justify-center">
                         <p className="text-4xl font-extrabold text-center md:text-left mb-3 text-white">

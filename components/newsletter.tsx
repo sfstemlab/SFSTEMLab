@@ -41,7 +41,7 @@ const Newsletter = () => {
                 </h1>
                 <div className="flex">
                     <input
-                        className={`font-normal text-darkBlue grow items-center h-14 pr-0.5 rounded-l px-4 border-y-2 border-l-2 ${statusCode == 400 ? 'border-redBrand' : 'border-darkBlue'} `}
+                        className={`font-normal text-darkBlue grow items-center h-14 pr-0.5 rounded-l px-4 border-y-2 border-l-2 placeholder-transparent md:placeholder-gray-400 ${statusCode == 400 ? 'border-redBrand' : 'border-darkBlue'} `}
                         type="email"
                         placeholder="Enter your email address here"
                         value={email}
