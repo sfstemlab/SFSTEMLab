@@ -9,6 +9,7 @@ import { Timeline } from '@/components/timeline';
 import { Dot, MoveLeft, MoveRight } from 'lucide-react';
 
 import PageTitle from '@/components/pageTitle'
+import CollaboratorsAccordion from '@/components/collaboratorsAccordion';
 interface Person {
     name: string;
     picture: any;
@@ -319,11 +320,13 @@ const About = () => {
         {
             name: 'SOTA Cyberdragons',
             picture: '../../images/CyberdragonsLogoSmall.png',
+            bio: 'The SOTA Cyberdragons, also known as Team 5700, is a FIRST robotics team based out of Ruth Asawa School of the Arts in San Francisco, California. As one of the few robotics teams based out art schools, the SOTA Cyberdragons strive to incorporate their artistic talent into the robots they create.',
             open: false,
         },
         {
             name: 'CardinalBotics',
             picture: '../../images/CardinalBoticsLogo.png',
+            bio: 'CardinalBotics, also knonw as Team 4159, is a FIRST robotics team based out of Lowell High School in San Francisco. ', //TODO: Add more here
             open: false,
         },
         {
@@ -373,18 +376,20 @@ const About = () => {
             animate="visible"
         >
             <Navbar />
-            <img
+            {/* <img
                 src="@/../images/aboutPage_HeroSection.png"
                 alt="About Page Hero Section"
                 className="hero-image"
                 height={6000}
-            ></img>
-            <PageTitle title='About Us' />
+            /> */}
+            <div className='h-[500px]'>
+                <PageTitle />
+            </div>
             <div className="main-section">
                 <div className='flex flex-col md:flex-row'>
                     <div className='flex flex-col w-full md:w-2/3 md:pr-10'>
-                        <div className="flex items-center space-x-4">
-                            <div className="items-center justify-center space-x-2 w-1/2 md:w-1/4">
+                        <div className="flex items-center justify-around  ">
+                            <div className="hidden md:block items-center justify-center space-x-2 w-1/3">
                                 <button
                                     className="text-white py-1 px-3 rounded-2xl items-center border-2 border-brand bg-cardColor hover:bg-cardColor-light transition duration-700 ease-in-out"
                                     onClick={() =>
@@ -408,7 +413,7 @@ const About = () => {
                                     <MoveRight />
                                 </button>
                             </div>
-                            <h2 className="font-extrabold text-4xl mb-4 w-1/3 md:w-4/6">Our Team</h2>
+                            <h2 className="font-extrabold text-center text-4xl mb-4 w-1/2">Our Team</h2>
                         </div>
                         { /* People section */}
                         <div
@@ -453,70 +458,42 @@ const About = () => {
                         )}
                         
                     </div>
-                    <div className='flex flex-col w-full md:w-1/3'>
-                        <h2 className="text-center items-center w-full font-extrabold text-4xl mb-4">Our Collaborators</h2>
-                        <div
-                            className="rounded-md flex flex-col overflow-x-scroll no-scrollbar"
-                            ref={collaboratorsContainerRef}
-                        >
-                            {collaborators.length > 0 &&
-                                collaborators.map((collaborator, index) => (
-                                    <button
-                                        key={index}
-                                        className={cn(
-                                            ' h-24 items-center py-2 pl-2 pr-1 rounded-md mb-2 flex border-2 border-brand-dark transition duration-700 ease-in-out',
-                                            expandedProfile && expandedProfile.name == collaborator.name ? 'bg-brand/90 hover:bg-brand-light/80 text-darkBlue' : 'bg-cardColor hover:bg-cardColor-light text-white'
-                                        )}
-                                        onClick={() => toggleExpandedProfile(collaborator)}
-                                    >
-                                        <img
-                                            width={80}
-                                            src={collaborator.picture}
-                                            alt={collaborator.name}
-                                    />
-                                        <h3 className=" ml-4 font-bold text-lg text-left">
-                                            {collaborator.name}
-                                        </h3>
-                                    </button>
-                            ))}
-                        </div>
-                    </div>
-
+                    <CollaboratorsAccordion collaborators={collaborators} />
                 </div>
-                <div className="m-3 py-2"> { /* Mission and Vision section */}
-                        <div className="md:flex items-center justify-between space-x-4 w-full">
-                            <div className="md:w-2/3 pr-6"> { /* Mission section */}
-                                <h3 className="font-extrabold text-4xl">Our Mission</h3>
-                                <p className="text-xl text-brand">
-                                    Our mission is to provide a community STEM hub by hosting
-                                    interactive robotics demonstrations and hands-on workshops that
-                                    promote STEM education, drawing interest from students, families,
-                                    and the broader community. The SF STEM Lab enables high school
-                                    students to mentor younger students (particularly those underserved
-                                    in STEM education, robotics, and engineering), fostering a learning
-                                    environment that benefits both mentors and mentees.
-                                </p>
-                            </div>
-                            <div className="md:w-1/3 mt-6 md:mt-0"> { /* Vision section */}
-                                <h3 className="font-extrabold text-4xl mb-2 sm:mb-0">Our Vision</h3>
-                                <p className="text-xl text-brand">
-                                    Our vision is for a long term space that students can rely on for
-                                    free STEM enrichment and education. We want to foster a space that
-                                    local robotics teams can use for practice, collaboration, and
-                                    comunity service.
-                                </p>
-                            </div>
+                <div className="mt-4"> { /* Mission and Vision section */}
+                    <div className="md:flex items-center justify-between md:space-x-4 w-full">
+                        <div className="md:w-2/3 px-6 md:px-0"> { /* Mission section */}
+                            <h3 className="text-left font-extrabold text-4xl mb-2">Our Mission</h3>
+                            <p className="text-left text-xl text-brand">
+                                Our mission is to provide a community STEM hub by hosting
+                                interactive robotics demonstrations and hands-on workshops that
+                                promote STEM education, drawing interest from students, families,
+                                and the broader community. The SF STEM Lab enables high school
+                                students to mentor younger students (particularly those underserved
+                                in STEM education, robotics, and engineering), fostering a learning
+                                environment that benefits both mentors and mentees.
+                            </p>
                         </div>
-                    </div>
-                    <div className="mx-3 pt-10">
-                        {/* Our need */}
-                        <div className="flex items-center justify-center flex-col space-x-4 w-full">
-                            <h2 className="font-extrabold text-4xl mb-2">Our Need</h2>
-                            <p className="text-xl text-brand">
-                                The SF STEM Lab is seeking a practical yet versatile space of approximately 3,100 square feet to support our diverse educational programs and growing community engagement. This space would be large enough to comfortably host events, demonstrations, and interactive presentations, providing participants with room to move and engage fully. At the same time, it would allow us to set up a dedicated area for hands-on workshops and learning activities, with flexible layouts to accommodate different age groups and project types. With this space, we can create an inviting and dynamic environment where curiosity, collaboration, and innovation in STEM can truly thrive.
+                        <div className="md:w-1/3 mt-6 md:mt-0 px-6 md:px-0"> { /* Vision section */}
+                            <h3 className="text-left font-extrabold text-4xl mb-2">Our Vision</h3>
+                            <p className="text-left text-xl text-brand">
+                                Our vision is for a long term space that students can rely on for
+                                free STEM enrichment and education. We want to foster a space that
+                                local robotics teams can use for practice, collaboration, and
+                                comunity service.
                             </p>
                         </div>
                     </div>
+                </div>
+                <div className="mt-4">
+                    {/* Our need */}
+                    <div className="flex items-center justify-center flex-col w-full">
+                        <h2 className="text-left w-full font-extrabold text-4xl mb-2">Our Need</h2>
+                        <p className="text-left text-xl text-brand">
+                            The SF STEM Lab is seeking a practical yet versatile space of approximately 3,100 square feet to support our diverse educational programs and growing community engagement. This space would be large enough to comfortably host events, demonstrations, and interactive presentations, providing participants with room to move and engage fully. At the same time, it would allow us to set up a dedicated area for hands-on workshops and learning activities, with flexible layouts to accommodate different age groups and project types. With this space, we can create an inviting and dynamic environment where curiosity, collaboration, and innovation in STEM can truly thrive.
+                        </p>
+                    </div>
+                </div>
                 <Timeline data={data} />
             </div>
         </motion.div>

@@ -10,12 +10,7 @@ export default function DonatePage() {
     return (
         <div className="bg-gradient-to-r from-brand-light to-darkBlue-light bg-[length:200%_200%]">
             <Navbar />
-            <img
-                src="/images/alliancePic.png"
-                alt="Donate Hero Image"
-                className="min-h-[400px] object-cover"
-            />
-            <PageTitle title="Support the SF STEM Lab" />
+            <PageTitle />
 
             <div className="main-section md:p-24 relative">
                 <div className="flex flex-col md:flex-row items-center justify-between md:space-x-8 mb-24">

@@ -6,20 +6,15 @@ import { useOutsideClick } from "../hooks/use-outside-click";
 import Tag from "./tag";
 import { MoveRight, X } from "lucide-react";
 import Link from "next/link";
+import { EventProps } from "@/types/types";
+import DifficultyIndicator from "./diffucultyIndicator";
 
-interface EventProps {
-    title: string;
-    day: number;
-    month: string;
-    desc: string;
-    tags?: string[];
-    expandedContent: any;
-  }
+interface CardProps {
+    event: EventProps; 
+}
 
-export function Card(event:EventProps) {
-    const [active, setActive] = useState<
-        (typeof event) | boolean | null
-    >(null);
+export function Card( { event } : CardProps) {
+    const [active, setActive] = useState<(EventProps) | boolean | null>(null);
     const id = useId();
     const ref = useRef<HTMLDivElement>(null);
 
@@ -54,6 +49,7 @@ export function Card(event:EventProps) {
                     />
                 )}
             </AnimatePresence>
+            {/* Pop-up */}
             <AnimatePresence>
                 {active && typeof active === 'object' ? (
                     <div className="fixed inset-0 grid place-items-center z-[100]">
@@ -70,9 +66,12 @@ export function Card(event:EventProps) {
                                     >
                                         {active.title}
                                     </motion.h3>
-                                    <div className="mx-1 rounded-sm bg-brand/60  text-redBrand py-1 px-3 items-center text-center flex space-x-2 cursor-default">
+                                    <div className="ml-2 rounded-l-md bg-brand/60  text-redBrand py-1 px-3 items-center text-center flex space-x-2 cursor-default">
                                         <h2 className="font-extrabold text-lg">{event.month}</h2>
                                         <h3 className="font-extrabold text-lg">{event.day}</h3>
+                                    </div>
+                                    <div className='mr-2 rounded-r-md bg-brand/60  text-redBrand py-1 px-3 items-center text-center flex space-x-2 cursor-default'>
+                                        <h2 className='font-extrabold text-lg'>{event.duration}</h2>
                                     </div>
                                     <button
                                         className="flex items-center justify-center rounded-md p-1.5 bg-brand/60 text-white font-black"
@@ -112,15 +111,16 @@ export function Card(event:EventProps) {
                     </div>
                 ) : null}
             </AnimatePresence>
+            {/* card */}
             <div className="mx-auto w-full grid grid-cols-1 md:grid-cols-2 items-start gap-4">
                 <motion.div
                     // layoutId={`card-${event.title}-${id}`}
                     key={event.title}
                     onClick={() => setActive(event)}
-                    className="text-white w-[330px] rounded-md py-2 px-1 items-center border-2 border-brand bg-cardColor hover:bg-cardColor-light transition duration-700 ease-in-out cursor-pointer"
+                    className="text-white w-[350px] rounded-md py-2 px-1 items-center border-2 border-brand bg-cardColor hover:bg-cardColor-light transition duration-700 ease-in-out cursor-pointer"
                 >
                     <div className="flex w-full">
-                        <div className="flex justify-center items-center flex-col">
+                        <div className="flex justify-center items-left flex-col w-2/3 pl-2">
                             <motion.h3
                                 // layoutId={`title-${event.title}-${id}`}
                                 className="font-bold underline text-xl text-redBrand text-left flex"
@@ -139,9 +139,16 @@ export function Card(event:EventProps) {
                                     event.tags.map((tag, index) => <Tag key={index} value={tag} />)}
                             </div>
                         </div>
-                        <div className="mx-1 rounded-sm bg-brand/60  text-redBrand py-1 pb-2 px-3 items-center text-center h-5/6">
-                            <h2 className="font-black text-lg">{event.month.toUpperCase()}</h2>
-                            <h3 className="font-black text-5xl">{event.day}</h3>
+                        <div className='flex flex-col w-1/3'>
+                            <div className="mx-1 rounded-sm bg-brand/60  text-redBrand py-1 pb-2 px-3 items-center text-center h-1/2">
+                                <h2 className="font-black text-lg">{event.month.toUpperCase()}</h2>
+                                <h3 className="font-black text-5xl">{event.day}</h3>
+                            </div>
+                            <DifficultyIndicator level={event.difficulty}/>
+                            <div className='mx-1 rounded-sm bg-brand/60 text-redBrand py-1 pb-2 px-3 items-center text-center h-1/3'>
+                                <h2 className='font-extrabold text-sm'>Age Range</h2>
+                                <h2 className='font-bold text-md'>{event.ageGroup}</h2>
+                            </div>
                         </div>
                     </div>
                 </motion.div>

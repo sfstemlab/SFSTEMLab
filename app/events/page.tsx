@@ -6,6 +6,7 @@ import Navbar from '../../components/navbar';
 import { Transition, Variants, motion } from "framer-motion";
 import { Card } from '@/components/card';
 import PageTitle from '@/components/pageTitle';
+import { EventProps } from '@/types/types';
 
 type BackgroundVariants = Variants & {
     hidden: { backgroundPosition: string };
@@ -17,15 +18,6 @@ type BackgroundVariants = Variants & {
         };
     };
 };
-
-interface EventProps {
-    title:string;
-    day:number;
-    month:string;
-    desc:string;
-    tags?:string[];
-    expandedContent:any;
-}
 
 const Events = () => {
 
@@ -51,9 +43,13 @@ const Events = () => {
         {
             title: 'STEM Workshop #2',
             day: 16,
-            month: 'June',
-            desc: 'Learn about the wonders of Computer-Aided Design and the CNC machine',
+            month: 'July',
+            desc: 'Learn about the wonders of Computer-Aided Design and the Computer Numerical Control (CNC) machine',
             tags: ['CNC', 'CAD', 'CAM'],
+            difficulty: 3,
+            duration: '3 hrs',
+            materials: ['Water bottle'],
+            ageGroup: '10-12',
             expandedContent: () => {
                 return (
                     <p className="text-white text-left">
@@ -110,12 +106,12 @@ const Events = () => {
             animate="visible"
         >
             <Navbar />
-            <img
+            {/* <img
                 src="@/../images/eventsPage_HeroSection.png"
                 alt="Events Page Hero Section"
                 className="hero-image"
-            />
-            <PageTitle title="Upcoming Events" />
+            /> */}
+            <PageTitle />
             <div className="main-section">
                 {/* TODO: Add a calendar showing all of the events */}
                 <h2 className="font-extrabold text-4xl mb-2 w-full">Upcoming Events</h2>
@@ -124,12 +120,13 @@ const Events = () => {
                         {events.map((event, index) => (
                             <Card
                                 key={index}
-                                title={event.title}
-                                day={event.day}
-                                month={event.month}
-                                desc={event.desc}
-                                tags={event.tags}
-                                expandedContent={event.expandedContent}
+                                // title={event.title}
+                                // day={event.day}
+                                // month={event.month}
+                                // desc={event.desc}
+                                // tags={event.tags}
+                                // expandedContent={event.expandedContent}
+                                event={event}
                             />
                         ))}
                     </div>

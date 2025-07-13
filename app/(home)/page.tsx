@@ -23,7 +23,7 @@ export default function Home() {
         school students of skill levels — even beginners with
         no prior STEM experience. The workshops are designed
         to give students practical experience and a deeper understanding of how
-        technology works, and encourage curiosity and creativity.`.split('.');
+        technology works, and encourage curiosity and creativity.`;
 
     const desc2 = `Our student mentors and professionals from the community
         play a key role in teaching the workshops by sharing their expertise and
@@ -59,20 +59,15 @@ export default function Home() {
             animate="visible"
         >
             <Navbar />
-            <img
-                src="/images/HomePage_HeroSection.png"
-                alt="Home Page Hero Section"
-                width={1190}
-                className="hero-image"
-            />
-            <PageTitle title="Welcome to the SF STEM Lab!" />
+            <PageTitle />
             <div className="main-section  md:p-24">
+                <h2></h2>
                 <div className="flex items-center justify-between md:space-x-8 mb-12">
-                    <div className="flex flex-col justify-center">
+                    <div className="flex flex-col items-center md:items-start">
                         <p className="text-4xl font-extrabold text-center md:text-left mb-3 text-white">
                             Explore Hands-on STEM Workshops
                         </p>
-                        <p className="text-xl text-center md:text-left w-full md:w-5/6">{desc1}</p>
+                        <p className="text-xl text-center md:text-left w-full ">{desc1}</p>
                         <LinkButton href="/events" title="Sign Up Now" />
                     </div>
                     <img
@@ -86,7 +81,7 @@ export default function Home() {
                         className="rounded-full w-80 h-80 object-cover hidden md:block"
                     />
                     <div className="flex flex-col items-center md:items-end">
-                        <p className="text-4xl font-extrabold text-center mb-3 text-white">
+                        <p className="text-4xl font-extrabold text-center md:text-right mb-3 text-white">
                             Mentorship and Collaborative Learning
                         </p>
                         <p className="text-xl text-center md:text-end w-full md:w-5/6">{desc2}</p>

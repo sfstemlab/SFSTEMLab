@@ -159,6 +159,28 @@ type GamePartKeys = {
     endgame: 'climb' | 'climbTime' | 'totalScore';
 };
 
+interface Person {
+    name: string;
+    picture: any;
+    bio?: string;
+    titles?: string[];
+    email?: string;
+    open: Boolean;
+}
+
+interface EventProps {
+    title:string;
+    day:number;
+    month:string;
+    desc:string;
+    tags?:string[];
+    expandedContent:any;
+    difficulty: number;
+    duration: string | number;
+    materials: string[];
+    ageGroup: string;
+}
+
 interface MatchScoutingButtonProps {
     buttonType?: 'number' | 'climb' | 'text';
     team: teamResults;
