@@ -49,7 +49,7 @@ const RoboticsPage = () => {
                     className="hero-image"
                     height={6000}
                 ></img>
-                <PageTitle title='FRC Team Resources' />
+                <PageTitle />
                 <motion.div
                     className="absolute bottom-[-10px] top-[305px] md:top-[675px] bg-[#1e439d] w-full p-4 text-center justify-center space-x-4 text-white flex"
                     variants={containerVariants}
