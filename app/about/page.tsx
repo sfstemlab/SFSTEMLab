@@ -98,30 +98,16 @@ const data = [
 ];
 
 const About = () => {
-    const [expandedProfile, setExpandedProfile] = useState<Person>();
-
     const ref = useRef(null);
     const teamContainerRef = useRef<HTMLDivElement>(null);
     const collaboratorsContainerRef = useRef<HTMLDivElement>(null);
     const [isInView, setIsInView] = useState(false);
 
-    const toggleExpandedProfile = (profile: Person) => {
-        console.log('expanded: ' + expandedProfile?.name);
-        console.log('profile: ' + profile?.name);
-        setExpandedProfile(expandedProfile?.name == profile?.name ? undefined : profile);
-    };
-
     const people: Person[] = [
         {
             name: 'Daniel Linhardt',
             picture: '@/../images/DanielLinhardt.png',
-            bio: `This is a very cool bio for Example 1! This is a very cool bio for Example 1! This is a very cool bio for Example 1! 
-                This is a very cool bio for Example 1! This is a very cool bio for Example 1! This is a very cool bio for Example 1! This is 
-                a very cool bio for example 1! This is a very cool bio for Example 1! This is a very cool bio for Example 1! This is a very 
-                cool bio for Example 1! This is a very cool bio for Example 1! This is a very cool bio for Example 1! This is a very cool 
-                bio for Example 1! This is a very cool bio for Example 1! This is a very cool bio for Example 1! This is a very cool bio for 
-                Example 1! This is a very cool bio for Example 1! This is a very cool bio for Example 1! This is a very cool bio for 
-                Example 1! This is a very cool bio for Example 1! `,
+            bio: ``,
             titles: ['Previous President - SOTA Cyberdragons', 'Project Leader'],
             email: 'daniel@team5700.org',
             open: false,
@@ -129,13 +115,7 @@ const About = () => {
         {
             name: 'Benjamin Thayer',
             picture: '',
-            bio: `This is a very cool bio for Example 2! This is a very cool bio for Example 2! This is a very cool bio for Example 2! 
-                This is a very cool bio for Example 2! This is a very cool bio for Example 2! This is a very cool bio for Example 2! This is 
-                a very cool bio for Example 2! This is a very cool bio for Example 2! This is a very cool bio for Example 2! This is a very 
-                cool bio for Example 2! This is a very cool bio for Example 2! This is a very cool bio for Example 2! This is a very cool 
-                bio for Example 2! This is a very cool bio for Example 2! This is a very cool bio for Example 2! This is a very cool bio for 
-                Example 2! This is a very cool bio for Example 2! This is a very cool bio for Example 2! This is a very cool bio for 
-                Example 2! This is a very cool bio for Example 2! `,
+            bio: ``,
             titles: ['President - Galileo Robotics', 'Project Leader'],
             email: 'example2@sfstemlab.org',
             open: false,
@@ -143,13 +123,7 @@ const About = () => {
         {
             name: 'Katharine Kasperski',
             picture: '',
-            bio: `This is a very cool bio for Example 3! This is a very cool bio for Example 3! This is a very cool bio for Example 3! 
-                This is a very cool bio for Example 3! This is a very cool bio for Example 3! This is a very cool bio for Example 3! This is 
-                a very cool bio for example 3! This is a very cool bio for Example 3! This is a very cool bio for Example 3! This is a very 
-                cool bio for Example 3! This is a very cool bio for Example 3! This is a very cool bio for Example 3! This is a very cool 
-                bio for Example 3! This is a very cool bio for Example 3! This is a very cool bio for Example 3! This is a very cool bio for 
-                Example 3! This is a very cool bio for Example 3! This is a very cool bio for Example 3! This is a very cool bio for 
-                Example 3! This is a very cool bio for Example 3! `,
+            bio: ``,
             titles: ['Outreach - Lowell Robotics', 'Project Leader'],
             email: 'example3@sfstemlab.org',
             open: false,
@@ -196,8 +170,8 @@ const About = () => {
         },
         {
             name: 'August White',
-            picture: '',
-            bio: '',
+            picture: '@/../images/AugustBioPhoto.png',
+            bio: "Hi! I'm a 15-year-old high school student and lover of all things STEAM. WhenI can, I love to read, draw, and code websites, as well as play Dungeons and Dragons and other role-playing games with my friends. I'm excited to continue bringing STEM education to new places, and teaching the younger generation more about the wonders of computers and machines.",
             titles: ['Software Development Lead - SOTA Cyberdragons'],
             email: 'august@team5700.org',
             open: false,
@@ -316,6 +290,9 @@ const About = () => {
         },
     ];
 
+    const [expandedProfile, setExpandedProfile] = useState<Person>(people[0]);
+
+
     const collaborators: Person[] = [
         {
             name: 'SOTA Cyberdragons',
@@ -382,12 +359,12 @@ const About = () => {
                 className="hero-image"
                 height={6000}
             /> */}
-            <div className='h-[500px]'>
-                <PageTitle />
-            </div>
+            <PageTitle />
             <div className="main-section">
                 <div className='flex flex-col md:flex-row'>
+                    {/* 2/3 of screen */}
                     <div className='flex flex-col w-full md:w-2/3 md:pr-10'>
+                        {/* Left/right buttons */}
                         <div className="flex items-center justify-around  ">
                             <div className="hidden md:block items-center justify-center space-x-2 w-1/3">
                                 <button
@@ -425,16 +402,17 @@ const About = () => {
                                     <button
                                         key={index}
                                         className={cn(
-                                            'min-w-[350px] md:min-w-[400px] max-w-[400px] h-24 items-center space-x-5 py-2 pl-2 pr-1 rounded-md mb-2 flex border-2 border-brand-dark transition duration-700 ease-in-out',
+                                            'min-w-[350px] md:min-w-[400px] max-w-[400px] h-24 items-center space-x-5 py-2 pl-2 pr-1 rounded-md mb-2 flex border-2 border-brand-dark transition duration-700 ease-in-out justify-center',
                                             expandedProfile && expandedProfile.name == person.name ? 'bg-brand/90 hover:bg-brand-light/80 text-darkBlue' : 'bg-cardColor hover:bg-cardColor-light text-white'
                                         )}
-                                        onClick={() => toggleExpandedProfile(person)}
+                                        onClick={() => setExpandedProfile(person)}
                                     >
                                         <img
                                             width={115}
+                                            height={115}
                                             src={person.picture}
                                             alt={person.name}
-                                            className='overflow-visible'
+                                            className='rounded-full object-cover'
                                         />
                                         <div className="">
                                             <h3 className="font-bold text-lg text-left">
@@ -456,13 +434,7 @@ const About = () => {
                                 </h5>
                             </div>
                         )}
-                        
-                    </div>
-                    <CollaboratorsAccordion collaborators={collaborators} />
-                </div>
-                <div className="mt-4"> { /* Mission and Vision section */}
-                    <div className="md:flex items-center justify-between md:space-x-4 w-full">
-                        <div className="md:w-2/3 px-6 md:px-0"> { /* Mission section */}
+                        <div className="px-6 md:px-0"> { /* Mission section */}
                             <h3 className="text-left font-extrabold text-4xl mb-2">Our Mission</h3>
                             <p className="text-left text-xl text-brand">
                                 Our mission is to provide a community STEM hub by hosting
@@ -474,7 +446,24 @@ const About = () => {
                                 environment that benefits both mentors and mentees.
                             </p>
                         </div>
-                        <div className="md:w-1/3 mt-6 md:mt-0 px-6 md:px-0"> { /* Vision section */}
+                        <div className="mt-4">
+                            {/* Our need */}
+                            <div className="flex items-center justify-center flex-col w-full px-6 md:px-0">
+                                <h2 className="text-left w-full font-extrabold text-4xl mb-2">Our Need</h2>
+                                <p className="text-left text-xl text-brand">
+                                    The SF STEM Lab is seeking a practical yet versatile space of approximately 3,100 square feet to support our diverse educational programs and growing community engagement. This space would be large enough to comfortably host events, demonstrations, and interactive presentations, providing participants with room to move and engage fully. At the same time, it would allow us to set up a dedicated area for hands-on workshops and learning activities, with flexible layouts to accommodate different age groups and project types. With this space, we can create an inviting and dynamic environment where curiosity, collaboration, and innovation in STEM can truly thrive.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    {/* 1/3 of screen */}
+                    <div className="flex flex-col w-full md:w-1/3">
+                        {/* Section title */}
+                        <h2 className="text-center items-center w-full font-extrabold text-4xl mb-4">
+                            Our Collaborators
+                        </h2>
+                        <CollaboratorsAccordion collaborators={collaborators} />
+                        <div className="mt-6 md:mt-0 px-6 md:px-0"> { /* Vision section */}
                             <h3 className="text-left font-extrabold text-4xl mb-2">Our Vision</h3>
                             <p className="text-left text-xl text-brand">
                                 Our vision is for a long term space that students can rely on for
@@ -483,15 +472,6 @@ const About = () => {
                                 comunity service.
                             </p>
                         </div>
-                    </div>
-                </div>
-                <div className="mt-4">
-                    {/* Our need */}
-                    <div className="flex items-center justify-center flex-col w-full">
-                        <h2 className="text-left w-full font-extrabold text-4xl mb-2">Our Need</h2>
-                        <p className="text-left text-xl text-brand">
-                            The SF STEM Lab is seeking a practical yet versatile space of approximately 3,100 square feet to support our diverse educational programs and growing community engagement. This space would be large enough to comfortably host events, demonstrations, and interactive presentations, providing participants with room to move and engage fully. At the same time, it would allow us to set up a dedicated area for hands-on workshops and learning activities, with flexible layouts to accommodate different age groups and project types. With this space, we can create an inviting and dynamic environment where curiosity, collaboration, and innovation in STEM can truly thrive.
-                        </p>
                     </div>
                 </div>
                 <Timeline data={data} />

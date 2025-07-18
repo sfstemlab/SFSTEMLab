@@ -111,7 +111,9 @@ const Events = () => {
                 alt="Events Page Hero Section"
                 className="hero-image"
             /> */}
-            <PageTitle />
+            <div className='h-[500px]'>
+                <PageTitle />
+            </div>
             <div className="main-section">
                 {/* TODO: Add a calendar showing all of the events */}
                 <h2 className="font-extrabold text-4xl mb-2 w-full">Upcoming Events</h2>
