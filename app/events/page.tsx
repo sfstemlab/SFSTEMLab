@@ -43,12 +43,12 @@ const Events = () => {
         {
             title: 'STEM Workshop #2',
             day: 16,
-            month: 'July',
+            month: 'August',
             desc: 'Learn about the wonders of Computer-Aided Design and the Computer Numerical Control (CNC) machine',
             tags: ['CNC', 'CAD', 'CAM'],
             difficulty: 3,
             duration: '3 hrs',
-            materials: ['Water bottle'],
+            materials: ['Water Bottle'],
             ageGroup: '10-12',
             expandedContent: () => {
                 return (
@@ -99,46 +99,23 @@ const Events = () => {
     };
 
     return (
-        <motion.div
-            className="root-div"
-            variants={backgroundVariants}
-            initial="hidden"
-            animate="visible"
-        >
-            <Navbar />
-            {/* <img
-                src="@/../images/eventsPage_HeroSection.png"
-                alt="Events Page Hero Section"
-                className="hero-image"
-            /> */}
-            <div className='h-[500px]'>
-                <PageTitle />
-            </div>
-            <div className="main-section">
-                {/* TODO: Add a calendar showing all of the events */}
-                <h2 className="font-extrabold text-4xl mb-2 w-full">Upcoming Events</h2>
-                {(events.length > 0 && (
-                    <div className="rounded-md md:mx-20 p-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-4">
-                        {events.map((event, index) => (
-                            <Card
-                                key={index}
-                                // title={event.title}
-                                // day={event.day}
-                                // month={event.month}
-                                // desc={event.desc}
-                                // tags={event.tags}
-                                // expandedContent={event.expandedContent}
-                                event={event}
-                            />
-                        ))}
-                    </div>
-                )) || (
-                    <h1 className="font-bold text-lg text-center w-full mt-6 h-full">
-                        More events coming soon..
-                    </h1>
-                )}
-            </div>
-        </motion.div>
+        <div className="main-section md:px-20">
+            <h2 className="font-extrabold text-4xl mb-2 w-full">Upcoming Events</h2>
+            {(events.length > 0 && (
+                <div className="rounded-md grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-4">
+                    {events.map((event, index) => (
+                        <Card
+                            key={index}
+                            event={event}
+                        />
+                    ))}
+                </div>
+            )) || (
+                <h1 className="font-bold text-lg text-center w-full mt-6 h-full">
+                    More events coming soon..
+                </h1>
+            )}
+        </div>
     );
 }
 

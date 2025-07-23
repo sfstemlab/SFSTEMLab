@@ -6,7 +6,7 @@ interface TagProps {
 
 const Tag = ({ value }: TagProps) => {
   return (
-    <h1 className='bg-brand/50 text-redBrand text-lg font-bold rounded-lg px-2 py-1 cursor-default'>
+    <h1 className='bg-brand/50 text-redBrand text-lg font-bold rounded-lg px-2 py-1'>
       {value}
     </h1>
   )

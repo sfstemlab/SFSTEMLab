@@ -24,27 +24,39 @@ const PageTitle = () => {
             title: 'About Us',
             subtitle: 'Who is the SF STEM Lab?',
             imgSrc: '@/../images/aboutPage_HeroSection.png',
-            imgAlt: 'About Page Hero Section'
+            imgAlt: 'About Page Hero Image'
         },
         '/events': {
             title: 'Events',
             subtitle: 'Find all of our upcoming events here',
             imgSrc: '@/../images/eventsPage_HeroSection.png',
-            imgAlt: 'Events Page Hero Section'
+            imgAlt: 'Events Page Hero Image'
+        },
+        '/signup/STEM%20Workshop%20': {
+            title: 'Thank you for signing up for this event!',
+            subtitle: "Just a few quick questions, then you'll be good to go!",
+            imgSrc: '/images/controllers.png',
+            imgAlt: 'Signup Page Hero Image'
+        },
+        '/donate':{
+            title: 'Fuel the Future of STEM',
+            subtitle: 'We thank you for any and all donations, not matter how small!',
+            imgSrc: '/images/alliancePic.png',
+            imgAlt: 'Donate Page Hero Image'
         }
     }
     // --------------------------------
-    
-    const { title, subtitle, imgSrc, imgAlt} = titleInfo[pathname] ?? {
-        title: 'Page Not Found',
-        subtitle: "Check the URL for typos. If you still can't find the page you're looking for, contact us at august@team5700.org",
-        imgSrc: '/images/theThinker.png',
-        imgAlt: 'No Page Found Image'
-    }
+    const { title, subtitle, imgSrc, imgAlt} = titleInfo[pathname] ?? 
+            {
+                title: 'Page Not Found',
+                subtitle: "Check the URL for typos. If you still can't find the page you're looking for, contact us at august@team5700.org",
+                imgSrc: '/images/theThinker.png',
+                imgAlt: 'No Page Found Image'
+            }
     
 
     return (
-        <div className="relative w-full">
+        <div className="relative w-full mt-16">
             <img
                 src={imgSrc}
                 alt={imgAlt}

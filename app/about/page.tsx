@@ -219,7 +219,7 @@ const About = () => {
         {
             name: 'Faye Yang',
             picture: '',
-            bio: 'CardinalBotics, also known as Team 4159, is a FIRST Robotics team based out of Lowell High School in San Francisco. As the oldest FRC team in the city, CardinalBotics strives to support other teams and promote equal access to STEM education and resources throughout the community.',
+            bio: "I am a junior at Lowell High School and passionate about robotics, piano, and journalism. I'm excited to teach and introduce students to STEM and help them discover their interests.",
             titles: ['President - CardinalBotics'],
             email: 'faye.yang@team4159.org',
             open: false,
@@ -303,7 +303,7 @@ const About = () => {
         {
             name: 'CardinalBotics',
             picture: '../../images/CardinalBoticsLogo.png',
-            bio: 'CardinalBotics, also knonw as Team 4159, is a FIRST robotics team based out of Lowell High School in San Francisco. ', //TODO: Add more here
+            bio: 'CardinalBotics, also known as Team 4159, is a FIRST Robotics team based out of Lowell High School in San Francisco. As the oldest FRC team in the city, CardinalBotics strives to support other teams and promote equal access to STEM education and resources throughout the community.',
             open: false,
         },
         {
@@ -346,20 +346,7 @@ const About = () => {
     };
 
     return (
-        <motion.div
-            className="root-div"
-            variants={backgroundVariants}
-            initial="hidden"
-            animate="visible"
-        >
-            <Navbar />
-            {/* <img
-                src="@/../images/aboutPage_HeroSection.png"
-                alt="About Page Hero Section"
-                className="hero-image"
-                height={6000}
-            /> */}
-            <PageTitle />
+
             <div className="main-section">
                 <div className='flex flex-col md:flex-row'>
                     {/* 2/3 of screen */}
@@ -451,7 +438,7 @@ const About = () => {
                             <div className="flex items-center justify-center flex-col w-full px-6 md:px-0">
                                 <h2 className="text-left w-full font-extrabold text-4xl mb-2">Our Need</h2>
                                 <p className="text-left text-xl text-brand">
-                                    The SF STEM Lab is seeking a practical yet versatile space of approximately 3,100 square feet to support our diverse educational programs and growing community engagement. This space would be large enough to comfortably host events, demonstrations, and interactive presentations, providing participants with room to move and engage fully. At the same time, it would allow us to set up a dedicated area for hands-on workshops and learning activities, with flexible layouts to accommodate different age groups and project types. With this space, we can create an inviting and dynamic environment where curiosity, collaboration, and innovation in STEM can truly thrive.
+                                    The SF STEM Lab is seeking a practical yet versatile space of approximately 3,100 square feet to support our diverse educational programs and growing community engagement. This space would be large enough to comfortably host events, demonstrations, and interactive presentations, providing participants with room to move and engage fully. At the same time, it would allow us to set up a dedicated area for hands-on workshops and learning activities. With this space, we can create an inviting and dynamic environment where curiosity, collaboration, and innovation in STEM can truly thrive.
                                 </p>
                             </div>
                         </div>
@@ -476,7 +463,6 @@ const About = () => {
                 </div>
                 <Timeline data={data} />
             </div>
-        </motion.div>
     );
 };
 
