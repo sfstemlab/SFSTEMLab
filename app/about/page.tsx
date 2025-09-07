@@ -12,7 +12,7 @@ import PageTitle from '@/components/pageTitle'
 import CollaboratorsAccordion from '@/components/collaboratorsAccordion';
 interface Person {
     name: string;
-    picture: any;
+    picture: string;
     bio?: string;
     titles?: string[];
     email?: string;

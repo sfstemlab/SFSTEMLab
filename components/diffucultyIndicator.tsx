@@ -22,12 +22,6 @@ export default function DifficultyIndicator({ level} : DifficultyProps) {
                             key={star}
                             initial={{ scale: 0}}
                             animate={{ scale: isActive ? 1 : 0.8 , rotate: isActive ? [0, 10, -10, 0] : 0}}
-                            transition={{
-                                type: 'spring',
-                                stiffness: isActive ? 300 : 100, 
-                                damping: 20, 
-                                delay: star * 0.03
-                            }}
                             whileHover={isActive ? { scale: 1.2, rotate: 0} : { scale: 1}}
                         >
                             <Star

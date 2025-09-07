@@ -7,6 +7,7 @@ import { Transition, Variants, motion } from "framer-motion";
 import { Card } from '@/components/card';
 import PageTitle from '@/components/pageTitle';
 import { EventProps } from '@/types/types';
+import { CreateTimeslot } from '@/components/createTimeslot';
 
 type BackgroundVariants = Variants & {
     hidden: { backgroundPosition: string };
@@ -43,7 +44,7 @@ const Events = () => {
         {
             title: 'STEM Workshop #2',
             day: 16,
-            month: 'August',
+            month: 'September',
             desc: 'Learn about the wonders of Computer-Aided Design and the Computer Numerical Control (CNC) machine',
             tags: ['CNC', 'CAD', 'CAM'],
             difficulty: 3,
@@ -100,7 +101,10 @@ const Events = () => {
 
     return (
         <div className="main-section md:px-20">
-            <h2 className="font-extrabold text-4xl mb-2 w-full">Upcoming Events</h2>
+            <div className='flex clex-row justify-between items-center'>
+                <h2 className="font-extrabold text-4xl mb-2 w-full">Upcoming Events</h2>
+                <CreateTimeslot />
+            </div>
             {(events.length > 0 && (
                 <div className="rounded-md grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-4">
                     {events.map((event, index) => (

@@ -1,6 +1,6 @@
 import { stripe } from '@/lib/stripe'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET () {
     
@@ -10,7 +10,7 @@ export async function GET () {
     })
 }
 
-export async function POST (req: Request) {
+export async function POST (req: NextRequest) {
     console.log('POST request triggered...')
     let body:any = {}
     try {

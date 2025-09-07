@@ -6,214 +6,28 @@ generator client {
 datasource db {
     provider    = "postgresql"
     url         = env("DATABASE_URL")
-    directUrl   = env("DIRECT_URL")
-  relationMode  = "foreignKeys"
+    relationMode  = "foreignKeys"
 }
 
 
-enum climbEnum {
-    deep
-    shallow
-    none
+model eventSignup {
+    id                      Int         @id @default(autoincrement())
+    event                   String
+    firstName               String?
+    lastName                String?
+    pronouns                String?
+    accessSource            String?
+    reasonForAttending      String?
+    school                  String?
+    grade                   String?
+    createdAt               DateTime    @default(now())
 }
 
-enum autoStart {
-    left
-    center
-    right
+model Person {
+    id                      Int         @id @default(autoincrement())
+    name                    String
+    picture                 String
+    bio                     String?
+    titles                  String[]    @default([])
+    email                   String?
 }
-
-enum fieldPlacement {
-    r1
-    r2
-    r3
-    b1
-    b2
-    b3
-}
-
-
-model pitScoutingTeam { // 5700
-    id              Int             @id @default(autoincrement())
-    teamNumber      Int             @unique
-    scoutedTeams    pitScoutedTeam[]   @relation("teamScouted")
-}
-
-model matchScoutingTeam { // 5700
-    id              Int             @id @default(autoincrement())
-    teamNumber      Int             @unique
-    scoutedTeams    matchScoutedTeam[]   @relation("teamScouted")
-}
-
-model pitScoutedTeam {
-    id                  Int             @id @default(autoincrement())
-    teamNumber          Int
-    event               String
-
-    scoutingTeamId      Int
-    scoutingTeam        pitScoutingTeam    @relation("teamScouted", fields: [scoutingTeamId], references: id)
-
-    coralScoringId  Int?
-    coralScoring    coralScoringPit?    @relation(fields: [coralScoringId], references: id)
-
-    coralIntakeId   Int?
-    coralIntake     coralIntakePit?    @relation(fields: [coralIntakeId], references: id)
-
-    algaeScoringId  Int?
-    algaeScoring    algaeScoringPit?    @relation(fields: [algaeScoringId], references: id)
-
-    algaeIntakeId   Int?
-    algaeIntake     algaeIntakePit?     @relation(fields: [algaeIntakeId], references: id)
-
-    climb           climbEnum?
-
-    autoId          Int?
-    auto            auto?            @relation(fields: [autoId], references: id)
-
-    driverExpId     Int?
-    driverExp       driverExpPit?       @relation(fields: [driverExpId], references: id)
-
-}
-
-model matchScoutedTeam {
-    id                  Int             @id @default(autoincrement())
-    teamNumber          Int
-    fieldPlacement      fieldPlacement
-    matchNumber         Int
-    matchType           String
-    event               String
-
-    scoutingTeamId      Int
-    scoutingTeam        matchScoutingTeam    @relation("teamScouted", fields: [scoutingTeamId], references: id)
-
-    coralScoringId  Int
-    coralScoring    coralScoringMatch    @relation(fields: [coralScoringId], references: id)
-
-    coralIntakeId   Int
-    coralIntake     coralIntakeMatch    @relation(fields: [coralIntakeId], references: id)
-
-    algaeScoringId  Int
-    algaeScoring    algaeScoringMatch    @relation(fields: [algaeScoringId], references: id)
-
-    algaeIntakeId   Int
-    algaeIntake     algaeIntakeMatch     @relation(fields: [algaeIntakeId], references: id)
-
-    climb           climbEnum
-
-    autoId          Int
-    auto            auto            @relation(fields: [autoId], references: id)
-
-    driverExpId     Int
-    driverExp       driverExpMatch       @relation(fields: [driverExpId], references: id)
-
-}
-
-model coralScoringPit {
-    id              Int             @id @default(autoincrement())
-    L1              Boolean
-    L2              Boolean
-    L3              Boolean
-    L4              Boolean
-
-    scoutedTeam     pitScoutedTeam[]
-}
-
-model coralScoringMatch {
-    id              Int             @id @default(autoincrement())
-    L1              Int
-    L2              Int
-    L3              Int
-    L4              Int
-
-    scoutedTeam     matchScoutedTeam[]
-}
-
-model coralIntakePit {
-    id              Int             @id @default(autoincrement())
-    floor           Boolean
-    source          Boolean
-
-    scoutedTeam     pitScoutedTeam[]
-}
-
-model coralIntakeMatch {
-    id              Int             @id @default(autoincrement())
-    floor           Boolean
-    source          Boolean
-
-    scoutedTeam     matchScoutedTeam[]
-}
-
-model algaeScoringPit {
-    id              Int             @id @default(autoincrement())
-    processor       Boolean
-    net             Boolean
-
-    scoutedTeam     pitScoutedTeam[]
-}
-
-model algaeScoringMatch {
-    id              Int             @id @default(autoincrement())
-    processor       Int
-    net             Int
-    scoutedTeam     matchScoutedTeam[]
-}
-
-model algaeIntakePit {
-    id              Int             @id @default(autoincrement())
-    reef            Boolean
-    floor           Boolean
-    dealgifyOnly    Boolean
-
-    scoutedTeam     pitScoutedTeam[]
-}
-
-model algaeIntakeMatch {
-    id              Int             @id @default(autoincrement())
-    reef            Boolean
-    floor           Boolean
-    dealgifyOnly    Boolean
-
-    scoutedTeam     matchScoutedTeam[]
-}
-
-model auto {
-    id              Int             @id @default(autoincrement())
-    start           autoStart
-    move            Boolean
-    L1              Int
-    L2              Int
-    L3              Int
-    L4              Int
-    processor       Int
-    net             Int
-
-    pitScoutedTeam     pitScoutedTeam[]
-    matchScoutedTeam    matchScoutedTeam[]
-}
-
-
-
-model driverExpPit {
-    id              Int             @id @default(autoincrement())
-    comps           Int?
-    years           Int?
-
-    scoutedTeam     pitScoutedTeam[]
-
-}
-
-model driverExpMatch {
-    id              Int             @id @default(autoincrement())
-    defense         Boolean
-    drivePrecision  Int?             //1-5
-    driveSpeed      Int?             //1-5
-    maneuvering     Int?             //1-5
-    consistency     Int?            //1-5 (not used if defense)
-    fouls           String[]
-    defenseImpact   Int?            //1-5 (only used in defense)
-    brickTime       Float?
-    comments        String?
-    scoutedTeam     matchScoutedTeam[]
-}
-

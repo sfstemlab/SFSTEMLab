@@ -181,6 +181,16 @@ interface EventProps {
     ageGroup: string;
 }
 
+interface CreateTimeslotProps {
+    title: string,
+    teamNum: string | number,
+    day: number,
+    month: string,
+    duration: number,
+    desc: string
+}
+
+
 interface MatchScoutingButtonProps {
     buttonType?: 'number' | 'climb' | 'text';
     team: teamResults;
