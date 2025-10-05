@@ -1,7 +1,6 @@
-import { PrismaClient } from "@prisma/client";
+import {  PrismaClient } from "@prisma/client";
 
 const db = new PrismaClient();
-// teamData.team5700
 async function main() {
 
     const eventSignup = await db.eventSignup.create({
@@ -13,11 +12,11 @@ async function main() {
             accessSource: 'TEST ACCESS SOURCE',
             reasonForAttending: 'TEST REASON',
             school: 'TEST SCHOOL',
-            grade: 'TEST GRADE'
+            grade: 0
         }
     })
 
-    const Person = await db.Person.create({
+    const Person = await db.person.create({
         data: {
             name: 'TEST NAME',
             picture: 'TEST PICTURE',
@@ -27,7 +26,18 @@ async function main() {
         }
     })
 
-    console.log("Seed Record: ", eventSignup, Person)
+    const Timeslot = await db.timeslot.create({
+        data: {
+            title: 'TEST TITLE',
+            teamNum: 5700,
+            desc: 'TEST DESC',
+            startTime: 12,
+            endTime: 2,
+            date: new Date()
+        }
+    })
+
+    console.log("Seed Record: ", eventSignup, Person, Timeslot)
     // let scouting5700 = await db.scoutingTeam.findUnique({
     //     where: { teamNumber: 5700 }
     // })

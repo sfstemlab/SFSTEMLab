@@ -10,10 +10,13 @@ import {
   X,
   HandHeart,
   Bot,
+  UserRound,
+  User2,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { cn } from "../lib/utils";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 
 const Navbar = () => {
     const pathname = usePathname();
@@ -104,6 +107,18 @@ const Navbar = () => {
                                 </Link>
                             </motion.div>
                         ))}
+
+                        <UserButton/>
+                        <SignedOut>
+                            <SignInButton
+                                mode='modal'
+                            >
+                                <button>
+                                    Sign In
+                                </button>
+                            </SignInButton>
+                        </SignedOut>
+                        
                         <Link
                             href="/donate"
                             //   styling for shine hover effect - dont change this code

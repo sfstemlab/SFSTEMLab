@@ -6,8 +6,8 @@ import Navbar from '../../components/navbar';
 import { Transition, Variants, motion } from "framer-motion";
 import { Card } from '@/components/card';
 import PageTitle from '@/components/pageTitle';
-import { EventProps } from '@/types/types';
-import { CreateTimeslot } from '@/components/createTimeslot';
+import { TimeslotModal } from '@/components/timeslotModal';
+import { TimeslotCard } from '@/components/timeslotCard';
 
 type BackgroundVariants = Variants & {
     hidden: { backgroundPosition: string };
@@ -20,7 +20,60 @@ type BackgroundVariants = Variants & {
     };
 };
 
+interface TimeslotModalProps {
+    title: string,
+    desc: string,
+    teamNum?: number
+    date: Date,
+    startTime: number,
+    endTime: number
+}
+
+interface EventProps {
+    title:string;
+    day:number;
+    month:string;
+    desc:string;
+    tags?:string[];
+    expandedContent:any;
+    difficulty?: number;
+    startTime: number;
+    endTime: number;
+    materials?: string[];
+    ageGroup?: string;
+}
+
 const Events = () => {
+
+
+    const [loading, setLoading] = useState<boolean>(true)
+    const [timeslots, setTimeslots] = useState<TimeslotModalProps[]>([]);
+
+    useEffect(() => {
+        const fetchTimeslots = async () => {
+            try {
+                const res = await fetch ('/api/getTimeslots', { method: 'GET' })
+                console.log('res: ', res)
+                
+                if (!res.ok){
+                    throw new Error('failed to fetch timeslots')
+                }
+                const data = await res.json()
+                setTimeslots(data.timeslots)
+                console.log('timeslots', timeslots)
+            } catch (e){
+                console.error(e)
+            } finally {
+                setLoading(false)
+            } 
+        }
+        fetchTimeslots()
+    }, [])
+
+    useEffect(() => {
+        console.log('timeslot variable changing')
+    }, [timeslots])
+
 
     const currentDate = new Date()
     const currentMonth = currentDate.getMonth() + 1 // account for getMonth starting at January = 0
@@ -48,7 +101,8 @@ const Events = () => {
             desc: 'Learn about the wonders of Computer-Aided Design and the Computer Numerical Control (CNC) machine',
             tags: ['CNC', 'CAD', 'CAM'],
             difficulty: 3,
-            duration: '3 hrs',
+            startTime: 12,
+            endTime: 3,
             materials: ['Water Bottle'],
             ageGroup: '10-12',
             expandedContent: () => {
@@ -98,27 +152,46 @@ const Events = () => {
         },
         },
     };
-
+    console.log('events length: ', events.length, 'timeslots length: ', timeslots.length)
     return (
+
         <div className="main-section md:px-20">
             <div className='flex clex-row justify-between items-center'>
                 <h2 className="font-extrabold text-4xl mb-2 w-full">Upcoming Events</h2>
-                <CreateTimeslot />
+                <TimeslotModal />
             </div>
-            {(events.length > 0 && (
+
+            { loading ? (
+                <p>loading events & timeslots</p>
+            ) : (events.length > 0 || timeslots.length > 0) ? (
                 <div className="rounded-md grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-4">
-                    {events.map((event, index) => (
+                    {events?.map((event, index) => (
                         <Card
                             key={index}
                             event={event}
                         />
                     ))}
+                    {timeslots.map((slot, index) => (
+                        <TimeslotCard
+                            key = {index}
+                            slot = {{
+                                title: slot.title,
+                                date: slot.date,
+                                desc: slot.desc,
+                                startTime: slot.startTime,
+                                endTime: slot.endTime
+                            }}
+                        />
+                    ))
+
+                    }
                 </div>
-            )) || (
+            ) : (
                 <h1 className="font-bold text-lg text-center w-full mt-6 h-full">
                     More events coming soon..
                 </h1>
             )}
+        
         </div>
     );
 }

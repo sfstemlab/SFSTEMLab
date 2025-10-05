@@ -8,6 +8,7 @@ import Navbar from "@/components/navbar";
 // import { ClerkProvider, SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 import { dark, shadesOfPurple } from '@clerk/themes'
 import PageTitle from "@/components/pageTitle";
+import { ClerkProvider } from "@clerk/nextjs";
 
 
 
@@ -26,12 +27,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-      // <ClerkProvider
-      // afterSignOutUrl={'/sign-in'}
-      //     appearance={{
-      //     baseTheme: dark,
-      // }}
-      // >
+      <ClerkProvider
+        afterSignOutUrl={'/'}
+        afterSignInUrl={'/'}
+        appearance={{
+          baseTheme: dark,
+        }}
+      >
       <html lang="en">
           <body className="dark bg-[#1e439d] justify-start root-div">
             <Navbar />
@@ -39,6 +41,7 @@ export default function RootLayout({
             {children}
         </body>
       </html>
-      // </ClerkProvider>
+      </ClerkProvider>
   );
 }
+

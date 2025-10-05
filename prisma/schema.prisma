@@ -1,33 +1,42 @@
 generator client {
-    provider    = "prisma-client-js"
-    seed        = "./prisma/seed2.js"
+  provider = "prisma-client-js"
+  seed     = "./prisma/seed2.js"
 }
 
 datasource db {
-    provider    = "postgresql"
-    url         = env("DATABASE_URL")
-    relationMode  = "foreignKeys"
+  provider     = "postgresql"
+  url          = env("DATABASE_URL")
+  relationMode = "foreignKeys"
 }
 
-
 model eventSignup {
-    id                      Int         @id @default(autoincrement())
-    event                   String
-    firstName               String?
-    lastName                String?
-    pronouns                String?
-    accessSource            String?
-    reasonForAttending      String?
-    school                  String?
-    grade                   String?
-    createdAt               DateTime    @default(now())
+  id                 Int      @id @default(autoincrement())
+  event              String
+  firstName          String?
+  lastName           String?
+  pronouns           String?
+  accessSource       String?
+  reasonForAttending String?
+  school             String?
+  grade              Int?
+  createdAt          DateTime @default(now())
 }
 
 model Person {
-    id                      Int         @id @default(autoincrement())
-    name                    String
-    picture                 String
-    bio                     String?
-    titles                  String[]    @default([])
-    email                   String?
+  id      Int      @id @default(autoincrement())
+  name    String
+  picture String
+  bio     String?
+  titles  String[] @default([])
+  email   String?
+}
+
+model Timeslot {
+  id           Int     @id @default(autoincrement())
+  title        String
+  teamNum      Int?
+  desc         String
+  startTime    Int
+  endTime      Int
+  date         DateTime
 }

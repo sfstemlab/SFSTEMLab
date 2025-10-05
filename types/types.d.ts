@@ -175,19 +175,11 @@ interface EventProps {
     desc:string;
     tags?:string[];
     expandedContent:any;
-    difficulty: number;
-    duration: string | number;
-    materials: string[];
-    ageGroup: string;
-}
-
-interface CreateTimeslotProps {
-    title: string,
-    teamNum: string | number,
-    day: number,
-    month: string,
-    duration: number,
-    desc: string
+    difficulty?: number;
+    startTime: number;
+    endTime: number;
+    materials?: string[];
+    ageGroup?: string;
 }
 
 
@@ -209,3 +201,6 @@ interface MatchScoutingProps {
     setMatch: React.Dispatch<React.SetStateAction<MatchResults>>; // the function to change the matchResults vairalbe
     team: Team; // This should match the type of valid teams
 }
+
+const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+export default months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']

@@ -15,7 +15,7 @@ const config = {
         'bg-green-500/60',
         'bg-yellow-500/60',
         'bg-amber-500/60',
-        'bg-cyan-500/60', // Add all the colors you use dynamically
+        'bg-cyan-500/60', 
         'shadow-red-500/50',
         'shadow-blue-500/50',
         'shadow-orange-500/50',

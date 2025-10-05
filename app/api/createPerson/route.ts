@@ -1,7 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
-
 const db = new PrismaClient()
 
 export async function POST(req: NextRequest) {
@@ -15,7 +14,7 @@ export async function POST(req: NextRequest) {
     }
 
     try {
-        const created = await db.Person.create({body})
+        const created = await db.person.create({data: body})
         return NextResponse.json({created}, {status: 201})
     } catch (e) {
         return NextResponse.json({error: 'db insert fail', e}, {status: 500 })

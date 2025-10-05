@@ -1,0 +1,138 @@
+"use client";
+import Image from "next/image";
+import React, { useEffect, useId, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useOutsideClick } from "../hooks/use-outside-click";
+import Tag from "./tag";
+import { MoveRight, X } from "lucide-react";
+import Link from "next/link";
+import DifficultyIndicator from "./diffucultyIndicator";
+
+interface CreateTimeslotProps {
+    title: string,
+    desc: string,
+    teamNum?: number
+    date: Date,
+    startTime: number,
+    endTime: number
+}
+
+interface TimeslotCardProps {
+    slot: CreateTimeslotProps; 
+}
+
+export function TimeslotCard( { slot } : TimeslotCardProps) {
+    const [active, setActive] = useState<(CreateTimeslotProps) | boolean | null>(null);
+    const id = useId();
+    const ref = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        function onKeyDown(event: KeyboardEvent) {
+            if (event.key === "Escape") {
+                setActive(false);
+            }
+        }
+
+        if (active && typeof active === "object") {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "auto";
+        }
+
+        window.addEventListener("keydown", onKeyDown);
+        return () => window.removeEventListener("keydown", onKeyDown);
+    }, [active]);
+
+    useOutsideClick(ref, () => setActive(null));
+
+    return (
+        <>
+            <AnimatePresence>
+                {active && typeof active === 'object' && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 bg-black/30 h-full w-full z-10 backdrop-blur-sm"
+                    />
+                )}
+            </AnimatePresence>
+            {/* Pop-up */}
+            <AnimatePresence>
+                {active && typeof active === 'object' ? (
+                    <div className="fixed inset-0 grid place-items-center z-[100]">
+                        <motion.div
+                            ref={ref}
+                            className="absolute top-[200px] w-full max-w-[600px] h-[460px] flex flex-col bg-cardColor-light border-2 border-brand backdrop-blur-lg sm:rounded-2xl"
+                        >
+                            <div className="items-center py-4">
+                                <header className="flex justify-between w-full px-4 pb-2 items-center">
+                                    <motion.h3
+                                        className="font-extrabold underline text-redBrand text-2xl text-left pl-2"
+                                    >
+                                        {active.title}
+                                    </motion.h3>
+                                    <div className='flex space-x-1'>
+                                        <div className="ml-2 rounded-l-md bg-brand/60  text-redBrand py-1 px-3 items-center text-center flex space-x-2 cursor-default">
+                                            <h2 className="font-extrabold text-lg">{slot.date.toString()}</h2>
+                                        </div>
+                                        <div className='mr-2 rounded-r-md bg-brand/60  text-redBrand py-1 px-3 items-center text-center flex cursor-default'>
+                                            <h2 className='font-extrabold text-lg'>{slot.startTime} - {slot.endTime}</h2>
+                                        </div>
+                                    </div>
+                                    <button
+                                        className="flex items-center justify-center rounded-md p-1.5 bg-brand/60 text-white font-black"
+                                        onClick={() => setActive(false)}
+                                    >
+                                        <X />
+                                    </button>
+                                </header>
+                                
+                                <div className=" relative px-4 mb-6">
+                                    <motion.div
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        className="px-1 h-80 flex flex-col items-start overflow-auto [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]"
+                                    >
+                                        {slot.desc}
+                                    </motion.div>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </div>
+                ) : null}
+            </AnimatePresence>
+            {/* card */}
+            <div className="mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+                <motion.div
+                    key={slot.title}
+                    onClick={() => setActive(slot)}
+                    className="text-white w-[380px] rounded-lg py-4 px-4 items-center border-2 border-brand bg-cardColor hover:bg-cardColor-light transition duration-700 ease-in-out cursor-pointer"
+                >
+                    <div className="flex w-full">
+                        <div className="flex justify-center items-left flex-col w-15/24 mr-2">
+                            <motion.h3
+                                // layoutId={`title-${slot.title}-${id}`}
+                                className="font-bold underline text-xl text-redBrand text-left flex"
+                            >
+                                {slot.title}
+                            </motion.h3>
+                            <motion.p
+                                // layoutId={`description-${slot.desc}-${id}`}
+                                className="text-white text-center md:text-left text-base"
+                            >
+                                {slot.desc}
+                            </motion.p>
+                        </div>
+                        <div className='flex flex-col w-9/24'>
+                            <div className="mx-1 rounded-sm bg-brand/60  text-redBrand py-1 px-3 items-center text-center h-1/2">
+                                <h2 className="font-black text-lg">{slot.date.toString().toUpperCase()}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </motion.div>
+            </div>
+        </>
+    );
+}
