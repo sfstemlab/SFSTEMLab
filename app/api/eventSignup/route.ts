@@ -19,36 +19,35 @@ const formSchema = z.object({
 
 // POST: create a new event sign-up record
 export async function POST (req: NextRequest) {
-    await db.$connect(); 
-    // parse json body (or return 400)
-    let body: any;
-    try {
-        body = await req.json()
-    } catch {
-        return NextResponse.json({error: 'Invalid json request'}, {status: 400})
-    } finally {
-        await db.$disconnect(); 
-    }
+    // await db.$connect(); 
+    // // parse json body (or return 400)
+    // let body: any;
+    // try {
+    //     body = await req.json()
+    // } catch {
+    //     return NextResponse.json({error: 'Invalid json request'}, {status: 400})
+    // } finally {
+    //     await db.$disconnect(); 
+    // }
 
 
-    // validate + parse with zod
-    const result = formSchema.safeParse(body)
-    if (!result.success) {
-        const message = result.error.issues[0].message;
-        return NextResponse.json({error: message}, {status: 400})
-    }
+    // // validate + parse with zod
+    // const result = formSchema.safeParse(body)
+    // if (!result.success) {
+    //     const message = result.error.issues[0].message;
+    //     return NextResponse.json({error: message}, {status: 400})
+    // }
 
-    const data = result.data
+    // const data = result.data
     
-    // insert it into our db via prisma
-    try {
-        const created = await db.eventSignup.create({data})
-        return NextResponse.json(created, {status: 201})
-    } catch(e) {
-        return NextResponse.json({error: 'Database insert fail'}, {status: 500})
-    }
-    await db.$disconnect();
-
+    // // insert it into our db via prisma
+    // try {
+    //     // const created = await db.eventSignup.create({data})
+    //     // return NextResponse.json(created, {status: 201})
+    // } catch(e) {
+    //     return NextResponse.json({error: 'Database insert fail'}, {status: 500})
+    // }
+    // await db.$disconnect();
     
     
 }
