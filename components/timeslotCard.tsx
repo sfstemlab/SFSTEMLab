@@ -26,6 +26,8 @@ export function TimeslotCard( { slot } : TimeslotCardProps) {
     const id = useId();
     const ref = useRef<HTMLDivElement>(null);
 
+    const formattedDate = new Date(slot.date)
+
     useEffect(() => {
         function onKeyDown(event: KeyboardEvent) {
             if (event.key === "Escape") {
@@ -73,9 +75,6 @@ export function TimeslotCard( { slot } : TimeslotCardProps) {
                                         {active.title}
                                     </motion.h3>
                                     <div className='flex space-x-1'>
-                                        <div className="ml-2 rounded-l-md bg-brand/60  text-redBrand py-1 px-3 items-center text-center flex space-x-2 cursor-default">
-                                            <h2 className="font-extrabold text-lg">{slot.date.toString()}</h2>
-                                        </div>
                                         <div className='mr-2 rounded-r-md bg-brand/60  text-redBrand py-1 px-3 items-center text-center flex cursor-default'>
                                             <h2 className='font-extrabold text-lg'>{slot.startTime} - {slot.endTime}</h2>
                                         </div>

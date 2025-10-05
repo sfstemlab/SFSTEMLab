@@ -29,20 +29,20 @@ const Form = ({event}: FormProps) => {
         console.log(info)
     }
 
-    const submitForm = async (e: React.FormEvent) => {
-        e.preventDefault(); 
-        const res = await fetch("/api/eventSignup", {
-            method: "POST", 
-            headers: { "Content-Type" : "application/json"}, 
-            body: JSON.stringify(info)
-        })
+    // const submitForm = async (e: React.FormEvent) => {
+    //     e.preventDefault(); 
+    //     const res = await fetch("/api/eventSignup", {
+    //         method: "POST", 
+    //         headers: { "Content-Type" : "application/json"}, 
+    //         body: JSON.stringify(info)
+    //     })
 
-        if(!res.ok) {
-            console.log("submit failed"); 
-        } else {
-            console.log("submit successful")
-        }
-    }
+    //     if(!res.ok) {
+    //         console.log("submit failed"); 
+    //     } else {
+    //         console.log("submit successful")
+    //     }
+    // }
     
 	return (
 		<div>
@@ -146,12 +146,12 @@ const Form = ({event}: FormProps) => {
 					/>
 				</div>
 			</div>
-            <button 
+            {/* <button 
                 className='w-3/4 bg-redBrand rounded-md px-4 py-2 mt-2'
                 onClick={(e) => submitForm(e)}
             >
                 Submit
-            </button>
+            </button> */}
 
 		</div>
 	);
