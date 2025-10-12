@@ -133,7 +133,7 @@ export async function POST(req: NextRequest) {
         // }
 
     } catch (err) {
-        alert('DB insert fail: '+err)
+        console.error('DB insert fail: '+err)
         return NextResponse.json({error: `❌ db insert fail`}, {status: 500 })
     }
 }

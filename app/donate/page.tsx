@@ -43,7 +43,7 @@ export default function DonatePage() {
                     {[10, 25, 50, 100].map((amt) => (
                         <button
                             key={amt}
-                            onClick={() => alert(`Redirect to donation platform for $${amt}`)}
+                            // onClick={() => alert(`Redirect to donation platform for $${amt}`)}
                             className="bg-redBrand hover:scale-105 text-white font-bold py-2 px-4 rounded-xl transition"
                         >
                             ${amt}
@@ -51,7 +51,7 @@ export default function DonatePage() {
                     ))}
                 </div>
                 <button
-                    onClick={() => alert('Redirect to custom amount')}
+                    // onClick={() => alert('Redirect to custom amount')}
                     className="text-white font-medium underline hover:bg-darkBlue/50 px-3 py-2 rounded-md transition duration-300"
                 >
                     Donate a custom amount
