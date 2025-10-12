@@ -3,8 +3,8 @@ import React, { useEffect, useMemo, useState } from 'react';
 import Navbar from '@/components/navbar';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import TeamMatchScoutingArea from '@/components/teamMatchScoutingArea';
-import { fieldPlacement, MatchResults, teamResults } from '@/types/types';
 import { cn } from '@/lib/utils';
+import { fieldPlacement, MatchResults, teamResults } from '@/types/types';
 
 interface TeamState {
   team: teamResults; 

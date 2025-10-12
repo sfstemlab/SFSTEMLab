@@ -46,18 +46,18 @@ const PageTitle = () => {
         }
     }
     // --------------------------------
-    const { title, subtitle, imgSrc, imgAlt} = titleInfo[pathname] ?? 
-            {
-                title: 'Page Not Found',
-                subtitle: "Check the URL for typos. If you still can't find the page you're looking for, contact us at august@team5700.org",
-                imgSrc: '/images/theThinker.png',
-                imgAlt: 'No Page Found Image'
-            }
+    // const { title, subtitle, imgSrc, imgAlt} = titleInfo[pathname] ?? 
+    //         {
+    //             title: 'Page Not Found',
+    //             subtitle: "Check the URL for typos. If you still can't find the page you're looking for, contact us at stemlabsf@gmail.com",
+    //             imgSrc: '/images/theThinker.png',
+    //             imgAlt: 'No Page Found Image'
+    //         }
     
 
     return (
         <div className="relative w-full mt-16">
-            <img
+            {/* <img
                 src={imgSrc}
                 alt={imgAlt}
                 className='w-full h-auto object-cover'
@@ -72,7 +72,7 @@ const PageTitle = () => {
                     </p>
                 </div>
                
-            </div>
+            </div> */}
         </div>
     );
 }

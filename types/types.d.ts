@@ -1,6 +1,6 @@
 import TeamMatchScoutingArea from "@/components/teamMatchScoutingArea";
 
-type fieldPlacement = 'r1' | 'r2' | 'r3' | 'b1' | 'b2' | 'b3';
+export type fieldPlacement = 'r1' | 'r2' | 'r3' | 'b1' | 'b2' | 'b3';
 
 type climb = 'none' | 'deep' | 'shallow'
 
@@ -78,14 +78,14 @@ export interface Answers {
     };
 }
 
-interface MatchResults {
+export interface MatchResults {
     matchNumber: number | null;
     matchType: string;
     event: string;
     winner: string;
 }
 
-interface teamResults {
+export interface teamResults {
     id: number;
     teamNumber: number;
     fieldPlacement: fieldPlacement;
