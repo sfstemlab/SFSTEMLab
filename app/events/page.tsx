@@ -8,6 +8,7 @@ import { Card } from '@/components/card';
 import PageTitle from '@/components/pageTitle';
 import { TimeslotModal } from '@/components/timeslotModal';
 import { TimeslotCard } from '@/components/timeslotCard';
+import { EventProps } from '@/types/types';
 
 type BackgroundVariants = Variants & {
     hidden: { backgroundPosition: string };
@@ -27,20 +28,6 @@ interface TimeslotModalProps {
     date: Date,
     startTime: number,
     endTime: number
-}
-
-interface EventProps {
-    title:string;
-    day:number;
-    month:string;
-    desc:string;
-    tags?:string[];
-    expandedContent:any;
-    difficulty?: number;
-    startTime: number;
-    endTime: number;
-    materials?: string[];
-    ageGroup?: string;
 }
 
 const Events = () => {
@@ -102,6 +89,7 @@ const Events = () => {
             tags: ['CNC', 'CAD', 'CAM'],
             difficulty: 3,
             startTime: 12,
+            duration: 3,
             endTime: 3,
             materials: ['Water Bottle'],
             ageGroup: '10-12',

@@ -53,11 +53,11 @@ const PageTitle = () => {
     //             imgSrc: '/images/theThinker.png',
     //             imgAlt: 'No Page Found Image'
     //         }
-    
+    const { title, subtitle, imgSrc, imgAlt} = titleInfo[pathname]
 
     return (
         <div className="relative w-full mt-16">
-            {/* <img
+            <img
                 src={imgSrc}
                 alt={imgAlt}
                 className='w-full h-auto object-cover'
@@ -71,8 +71,8 @@ const PageTitle = () => {
                         {subtitle}
                     </p>
                 </div>
-               
-            </div> */}
+            
+            </div>
         </div>
     );
 }
