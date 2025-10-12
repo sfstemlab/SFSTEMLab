@@ -1,10 +1,8 @@
-import TeamMatchScoutingArea from "@/components/teamMatchScoutingArea";
-
 export type fieldPlacement = 'r1' | 'r2' | 'r3' | 'b1' | 'b2' | 'b3';
 
-type climb = 'none' | 'deep' | 'shallow'
+export type climb = 'none' | 'deep' | 'shallow'
 
-type autoStart = 'left' | 'center' | 'right'
+export type autoStart = 'left' | 'center' | 'right'
 
 export type PitScoutedTeam = {
     teamNumber: number;
@@ -151,15 +149,15 @@ export interface teamResults {
     };
 }
 
-type GamePart = 'auto' | 'teleop' | 'endgame';
+export type GamePart = 'auto' | 'teleop' | 'endgame';
 
-type GamePartKeys = {
+export type GamePartKeys = {
     auto: keyof teamResults['auto'];
     teleop: keyof teamResults['teleop'];
     endgame: 'climb' | 'climbTime' | 'totalScore';
 };
 
-interface Person {
+export interface Person {
     name: string;
     picture: any;
     bio?: string;
@@ -168,7 +166,7 @@ interface Person {
     open: Boolean;
 }
 
-interface EventProps {
+export interface EventProps {
     title:string;
     day:number;
     month:string;
@@ -183,7 +181,7 @@ interface EventProps {
 }
 
 
-interface MatchScoutingButtonProps {
+export interface MatchScoutingButtonProps {
     buttonType?: 'number' | 'climb' | 'text';
     team: teamResults;
     setTeam:  React.Dispatch<React.SetStateAction<teamResults>>;
@@ -191,16 +189,16 @@ interface MatchScoutingButtonProps {
     attribute: keyof teamResults;
     subattribute?: 'L1' | 'L2' | 'L3' | 'L4' | 'floor' | 'source' | 'processor' | 'net' | 'reef' | 'dealgifyOnly' | 'start' | 'move' | 'defense' | 'driverPrecision' | 'driveSpeed' | 'maneuvering' | 'consistency' | 'fouls' | 'defenseImpact' | 'brickTime' | 'comments'
 }
-interface TeamMatchScoutingAreaProps {
+export interface TeamMatchScoutingAreaProps {
     team: teamResults;
     setTeam: React.Dispatch<React.SetStateAction<teamResults>>;
 }
 
-interface MatchScoutingProps {
+export interface MatchScoutingProps {
     match: MatchResults;
     setMatch: React.Dispatch<React.SetStateAction<MatchResults>>; // the function to change the matchResults vairalbe
     team: Team; // This should match the type of valid teams
 }
 
-const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+export const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 export default months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
