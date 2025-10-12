@@ -93,7 +93,7 @@ export function Card( { event } : CardProps) {
                                             <div className='flex flex-col rounded-md bg-brand/50 h-14 items-center justify-center px-3'>
                                                 <h2 className='font-bold text-redBrand text-sm'>What To Bring </h2>
                                                 <p className='text-redBrand text-md'>
-                                                    {event.materials.join(', ')}
+                                                    {event.materials?.join(', ')}
                                                 </p>
                                             </div>
                                             <div className='flex flex-col mx-1 rounded-sm bg-brand/60 text-redBrand px-3 h-14 items-center justify-center text-center'>

@@ -173,8 +173,9 @@ export interface EventProps {
     desc:string;
     tags?:string[];
     expandedContent:any;
-    difficulty?: number;
+    difficulty: number;
     startTime: number;
+    duration: number;
     endTime: number;
     materials?: string[];
     ageGroup?: string;
