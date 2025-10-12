@@ -1,141 +1,139 @@
-    "use client";
-    import Image from "next/image";
-    import React, { useEffect, useId, useRef, useState } from "react";
-    import { AnimatePresence, motion } from "framer-motion";
-    import { useOutsideClick } from "../hooks/use-outside-click";
-    import Tag from "./tag";
-    import { MoveRight, X } from "lucide-react";
-    import Link from "next/link";
-    import DifficultyIndicator from "./diffucultyIndicator";
+'use client';
+import Image from 'next/image';
+import React, { useEffect, useId, useRef, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useOutsideClick } from '../hooks/use-outside-click';
+import Tag from './tag';
+import { Calendar, Clock, MoveRight, X } from 'lucide-react';
+import Link from 'next/link';
+import DifficultyIndicator from './diffucultyIndicator';
 
-    interface CreateTimeslotProps {
-        title: string,
-        desc: string,
-        teamNum?: number
-        date: Date,
-        startTime: number,
-        endTime: number
-    }
+interface CreateTimeslotProps {
+	title: string;
+	desc: string;
+	teamNum?: number;
+	date: Date;
+	startTime: number;
+	endTime: number;
+}
 
-    interface TimeslotCardProps {
-        slot: CreateTimeslotProps; 
-    }
+interface TimeslotCardProps {
+	slot: CreateTimeslotProps;
+}
 
-    export function TimeslotCard( { slot } : TimeslotCardProps) {
-        const [active, setActive] = useState<(CreateTimeslotProps) | boolean | null>(null);
-        const id = useId();
-        const ref = useRef<HTMLDivElement>(null);
+export function TimeslotCard({ slot }: TimeslotCardProps) {
+	const [active, setActive] = useState<CreateTimeslotProps | boolean | null>(null);
+	const id = useId();
+	const ref = useRef<HTMLDivElement>(null);
 
-        const formattedDate = new Date(slot.date).toLocaleDateString('en-us', {
-            month: 'short',
-            day: 'numeric'
-        })
+	const formattedDate = new Date(slot.date).toLocaleDateString('en-us', {
+		month: 'short',
+		day: 'numeric',
+	});
 
-        useEffect(() => {
-            function onKeyDown(event: KeyboardEvent) {
-                if (event.key === "Escape") {
-                    setActive(false);
-                }
-            }
+	useEffect(() => {
+		function onKeyDown(event: KeyboardEvent) {
+			if (event.key === 'Escape') {
+				setActive(false);
+			}
+		}
 
-            if (active && typeof active === "object") {
-                document.body.style.overflow = "hidden";
-            } else {
-                document.body.style.overflow = "auto";
-            }
+		if (active && typeof active === 'object') {
+			document.body.style.overflow = 'hidden';
+		} else {
+			document.body.style.overflow = 'auto';
+		}
 
-            window.addEventListener("keydown", onKeyDown);
-            return () => window.removeEventListener("keydown", onKeyDown);
-        }, [active]);
+		window.addEventListener('keydown', onKeyDown);
+		return () => window.removeEventListener('keydown', onKeyDown);
+	}, [active]);
 
-        useOutsideClick(ref, () => setActive(null));
+	useOutsideClick(ref, () => setActive(null));
 
-        return (
-            <>
-                <AnimatePresence>
-                    {active && typeof active === 'object' && (
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            className="fixed inset-0 bg-black/30 h-full w-full z-10 backdrop-blur-sm"
-                        />
-                    )}
-                </AnimatePresence>
-                {/* Pop-up */}
-                <AnimatePresence>
-                    {active && typeof active === 'object' ? (
-                        <div className="fixed inset-0 grid place-items-center z-[100]">
-                            <motion.div
-                                ref={ref}
-                                className="absolute top-[200px] w-full max-w-[600px] h-[460px] flex flex-col bg-cardColor-light border-2 border-brand backdrop-blur-lg sm:rounded-2xl"
-                            >
-                                <div className="items-center py-4">
-                                    <header className="flex justify-between w-full px-4 pb-2 items-center">
-                                        <motion.h3
-                                            className="font-extrabold underline text-redBrand text-2xl text-left pl-2"
-                                        >
-                                            {active.title}
-                                        </motion.h3>
-                                        <div className='flex space-x-1'>
-                                            <div className='mr-2 rounded-r-md bg-brand/60  text-redBrand py-1 px-3 items-center text-center flex cursor-default'>
-                                                <h2 className='font-extrabold text-lg'>{slot.startTime} - {slot.endTime}</h2>
-                                            </div>
+	return (
+		<>
+			<AnimatePresence>
+				{active && typeof active === 'object' && (
+					<motion.div
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						exit={{ opacity: 0 }}
+						className="fixed inset-0 bg-black/30 h-full w-full z-10 backdrop-blur-sm"
+					/>
+				)}
+			</AnimatePresence>
+			{/* Pop-up */}
+			<AnimatePresence>
+				{active && typeof active === 'object' ? (
+					<div className="fixed inset-0 grid place-items-center z-[100]">
+						<motion.div
+							ref={ref}
+							className="absolute top-[200px] w-full max-w-[600px] h-[460px] flex flex-col bg-cardColor-light border-2 border-brand backdrop-blur-lg sm:rounded-2xl"
+						>
+							<div className="items-center py-4">
+								<header className="flex justify-between w-full px-4 pb-2 items-center">
+									<motion.h3 className="font-extrabold underline text-redBrand text-2xl text-left pl-2">
+										{active.title}
+									</motion.h3>
+									<div className="flex space-x-1">
+                                        <div className="mr-2 rounded-l-md bg-brand/60  text-redBrand py-1 px-3 items-center text-center flex cursor-default">
+                                            <h2 className="font-extrabold text-lg">
+												{formattedDate}
+											</h2>
                                         </div>
-                                        <button
-                                            className="flex items-center justify-center rounded-md p-1.5 bg-brand/60 text-white font-black"
-                                            onClick={() => setActive(false)}
-                                        >
-                                            <X />
-                                        </button>
-                                    </header>
-                                    
-                                    <div className=" relative px-4 mb-6">
-                                        <motion.div
-                                            initial={{ opacity: 0 }}
-                                            animate={{ opacity: 1 }}
-                                            exit={{ opacity: 0 }}
-                                            className="px-1 h-80 flex flex-col items-start overflow-auto [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]"
-                                        >
-                                            {slot.desc}
-                                        </motion.div>
-                                    </div>
-                                </div>
-                            </motion.div>
-                        </div>
-                    ) : null}
-                </AnimatePresence>
-                {/* card */}
-                <div className="mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <motion.div
-                        key={slot.title}
-                        onClick={() => setActive(slot)}
-                        className="text-white w-[380px] rounded-lg py-4 px-4 items-center border-2 border-brand bg-cardColor hover:bg-cardColor-light transition duration-700 ease-in-out cursor-pointer"
-                    >
-                        <div className="flex w-full">
-                            <div className="flex justify-center items-left flex-col w-15/24 mr-2">
-                                <motion.h3
-                                    // layoutId={`title-${slot.title}-${id}`}
-                                    className="font-bold underline text-xl text-redBrand text-left flex"
-                                >
-                                    {slot.title}
-                                </motion.h3>
-                                <motion.p
-                                    // layoutId={`description-${slot.desc}-${id}`}
-                                    className="text-white text-center md:text-left text-base"
-                                >
-                                    {slot.desc}
-                                </motion.p>
-                            </div>
+										<div className="mr-2 rounded-r-md bg-brand/60  text-redBrand py-1 px-3 items-center text-center flex cursor-default">
+											<h2 className="font-extrabold text-lg">
+												{slot.startTime} - {slot.endTime}
+											</h2>
+										</div>
+									</div>
+									<button
+										className="flex items-center justify-center rounded-md p-1.5 bg-brand/60 text-white font-black"
+										onClick={() => setActive(false)}
+									>
+										<X />
+									</button>
+								</header>
 
-                            <div className='mt-4 flex flex-col justify-between items-center text-redBrand bg-brand/60 px-3 py-2 rounded-md'>
-                                <span className="font-black text-lg">{formattedDate.toString().split(' ')[0]}</span>
-                                <span className="font-black text-4xl">{formattedDate.toString().split(' ')[1]}</span>
-                            </div>
+								<div className=" relative px-4 mb-6">
+									<motion.div
+										initial={{ opacity: 0 }}
+										animate={{ opacity: 1 }}
+										exit={{ opacity: 0 }}
+										className="px-1 h-80 flex flex-col items-start overflow-auto [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]"
+									>
+										{slot.desc}
+									</motion.div>
+								</div>
+							</div>
+						</motion.div>
+					</div>
+				) : null}
+			</AnimatePresence>
+			{/* card */}
+			<motion.div
+				whileHover={{ y: -6 }}
+				transition={{ duration: 0.2 }}
+				onClick={() => setActive(slot)}
+				className="group relative bg-cardColor border-2 border-brand hover:border-redBrand/80 rounded-xl p-5 cursor-pointer shadow-md hover:shadow-lg transition-all duration-300 max-w-sm w-full mx-auto"
+			>
+				<h3 className="text-xl font-semibold text-redBrand mb-2 group-hover:text-redBrand/90 transition">
+					{slot.title}
+				</h3>
 
-                        </div>
-                    </motion.div>
-                </div>
-            </>
-        );
-    }
+				<p className="text-sm text-white/80 line-clamp-3 mb-4">{slot.desc}</p>
+
+				<div className="flex items-center justify-between">
+					<span className="flex text-xs text-redBrand tracking-wide gap-2 bg-brand/60 rounded-md px-3 py-2 font-bold">
+						<Calendar className="w- h-4" />
+						{formattedDate}
+					</span>
+					<span className="flex text-xs text-redBrand tracking-wide gap-2 bg-brand/60 rounded-md px-3 py-2 font-bold">
+						<Clock className="w-4 h-4" />
+						{slot.startTime} - {slot.endTime}
+					</span>
+				</div>
+			</motion.div>
+		</>
+	);
+}

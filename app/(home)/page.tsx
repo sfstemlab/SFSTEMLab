@@ -20,26 +20,43 @@ type BackgroundVariants = Variants & {
 	};
 };
 
+const fadeIn = (delay: number = 0) => ({
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { delay, duration: 0.6, ease: 'easeOut' },
+  },
+});
+
 export default function Home() {
-	const desc1 = `We offer hands-on workshops for elementary and middle
-        school students of skill levels — even beginners with
-        no prior STEM experience. The workshops are designed
-        to give students practical experience and a deeper understanding of how
-        technology works, and encourage curiosity and creativity.`;
+  const sections = [
+    {
+      title: 'Explore Hands-on STEM Workshops',
+      desc: `We offer hands-on workshops for elementary and middle school students — even beginners with no prior STEM experience. Each session builds practical understanding and sparks curiosity through creative exploration.`,
+      img: '/images/tools.png',
+      link: '/events',
+      linkText: 'Sign Up Now',
+      reverse: false,
+    },
+    {
+      title: 'Mentorship and Collaborative Learning',
+      desc: `Our student mentors and community professionals guide learners through each activity, fostering collaboration and problem-solving while helping students discover the joy of teamwork and innovation.`,
+      img: '/images/wiring.png',
+      link: '/about',
+      linkText: 'Learn More',
+      reverse: true,
+    },
+    {
+      title: 'Free and Accessible for All',
+      desc: `Our workshops are completely free and open to all. SF STEM Lab is dedicated to making quality STEM education accessible — inspiring the next generation of innovators, thinkers, and problem-solvers.`,
+      img: '/images/homePage_Image2.png',
+      link: '/donate',
+      linkText: 'Donate',
+      reverse: false,
+    },
+  ];
 
-	const desc2 = `Our student mentors and professionals from the community
-        play a key role in teaching the workshops by sharing their expertise and
-        guiding students through the activites. This
-        environment provides students with valuable skills and teaches the
-        importance of teamwork, problem-solving, and working wtih others
-        toward a common goal.`;
-
-	const desc3 = `Our workshops are entirely free and open to all. We 
-        are commited to ensuring that students from all backgrounds have 
-        the opportunity to explore and create with STEM. SF STEM Lab aims 
-        to make high-quality STEM education available to a wider audience, 
-        helping to inspire the next generation of innovators, thinkers, 
-        and problem-solvers.`;
 
 	const backgroundVariants: BackgroundVariants = {
 		hidden: { backgroundPosition: '0% 50%' },
@@ -54,70 +71,63 @@ export default function Home() {
 	};
 
 	return (
-		<div className="main-section md:px-32 md:py-24">
+		<motion.div className="main-section md:px-32 md:py-24">
 			<div className="flex items-center justify-between md:space-x-8 mb-12">
-				<h1 className="text-4xl font-black text-center">
+				<h1 className="text-xl md:text-4xl font-black text-center">
 					We are a{' '}
-					<mark className="text-brand bg-transparent hover:bg-cardColor hovver:border border-brand rounded-md pb-1 px-2 hover:text-white hover:underline decoration-dashed decoration-redBrand underline-offset-4 transition duration-300">
+					<mark className="bg-cardColor  rounded-md pb-1 px-2 text-white underline decoration-dashed decoration-redBrand underline-offset-4 transition duration-300">
 						student-led
 					</mark>{' '}
 					collective of{' '}
-					<mark className="text-brand bg-transparent hover:bg-cardColor hovver:border border-brand rounded-md pb-1 px-2 hover:text-white hover:underline decoration-dashed decoration-redBrand underline-offset-4 transition duration-300">
+					<mark className="bg-cardColor  rounded-md pb-1 px-2 text-white underline decoration-dashed decoration-redBrand underline-offset-4 transition duration-300">
 						FIRST Robotics Competition
 					</mark>{' '}
 					(FRC) teams based out of{' '}
-					<mark className="text-brand bg-transparent hover:bg-cardColor hovver:border border-brand rounded-md pb-1 px-2 hover:text-white hover:underline decoration-dashed decoration-redBrand underline-offset-4 transition duration-300">
+					<mark className="bg-cardColor rounded-md pb-1 px-2 text-white underline decoration-dashed decoration-redBrand underline-offset-4 transition duration-300">
 						public schools
 					</mark>{' '}
 					in San Francisco
 				</h1>
 			</div>
-			<div className="flex items-center justify-between md:space-x-8 mb-12">
-				<div className="flex flex-col items-center md:items-start">
-					<p className="text-4xl font-extrabold text-center md:text-left mb-3 text-white">
-						Explore Hands-on STEM Workshops
-					</p>
-					<p className="text-xl text-center md:text-left w-full ">{desc1}</p>
-					<LinkButton href="/events" title="Sign Up Now" />
-				</div>
-                <img
-                    src='/images/gearSVG.svg'
-                    className='hidden'
-                />
-				<img
-					src="/images/tools.png"
-					className="bg-redBrand rounded-full w-80 h-80 object-cover hidden md:block"
-				/>
-			</div>
-			<div className="flex items-center justify-between md:space-x-8 mb-12">
-				<img
-					src="/images/wiring.png"
-					className="rounded-full w-80 h-80 object-cover hidden md:block"
-				/>
-				<div className="flex flex-col items-center md:items-end">
-					<p className="text-4xl font-extrabold text-center md:text-right mb-3 text-white">
-						Mentorship and Collaborative Learning
-					</p>
-					<p className="text-xl text-center md:text-end w-full md:w-5/6">{desc2}</p>
-					<LinkButton href="/about" title="Learn More" />
-				</div>
-			</div>
 
-			<div className="flex items-center justify-between md:space-x-8 mb-12">
-				<div className="flex flex-col items-center md:items-start">
-					<p className="text-4xl font-extrabold text-center mb-3 text-white">
-						Free and Accesible for All
-					</p>
-					<p className="text-xl text-center md:text-left w-full md:w-5/6">{desc3}</p>
-
-					<LinkButton href="/events" title="Donate" />
-				</div>
-				<img
-					src="/images/homePage_Image2.png"
-					className="rounded-full w-80 h-80 object-cover hidden md:block"
-				/>
-			</div>
+			<div className="flex flex-col items-center justify-between md:space-x-8 mb-12">
+                {sections.map((section:any, idx: number) => (
+                    <motion.section
+                        key={section.title}
+                        initial='hidden'
+                        whileInView='visible'
+                        viewport={{once:true}}
+                        // variants={fadeIn(idx * 0.2)}
+                        className={`flex flex-col md:flex-row ${section.reverse? 'md:flex-row-reverse' : ''} items-center justify-between mb-12`}
+                    >
+                        <div className="flex-1 text-center md:text-left space-y-2 px-4">
+                            <h2 className='text-3xl md:text-4xl font-extrabold text-center md:text-left mb-3 text-white'>
+                                {section.title}
+                            </h2>
+                            <p className='text-xl text-center md:text-left w-full'>
+                                {section.desc}
+                            </p>
+                            <div className="pb-6">
+                                <LinkButton href={section.link} title={section.linkText} />
+                            </div>
+                        </div>
+                        <div className={`flex-1 flex justify-center ${section.reverse ? 'md:justify-start' : 'md:justify-end'}`}>
+                            <motion.img
+                                src={section.img}
+                                alt={section.title}
+								className="rounded-2xl w-[320px] md:w-[400px] h-[320px] md:h-[400px] object-cover border-2 border-brand shadow-[0_0_25px_rgba(255,255,255,0.05)]"
+                                whileHover={{
+                                    scale: 1.03
+                                }}
+                                transition={{
+                                    duration:0.3
+                                }}
+                            />
+                        </div>
+					</motion.section>
+                ))}
+                </div>
 			<Newsletter />
-		</div>
+		</motion.div>
 	);
 }

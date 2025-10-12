@@ -1,8 +1,8 @@
+
 //import { PrismaClient } from "@prisma/client";
 //import { NextRequest, NextResponse } from "next/server";
 
 // const db = new PrismaClient()
-
 // export async function POST(req: NextRequest) {
 //     let body:any = {}
 
