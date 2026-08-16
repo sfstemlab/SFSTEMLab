@@ -91,9 +91,13 @@ export function TimeslotModal() {
             <AnimatePresence>
                 {active && typeof active === 'boolean' ? (
                     <div className="fixed inset-0 grid place-items-center z-[100]">
-                        <div
+                        <motion.div
                             ref={ref}
                             className="absolute top-[200px] w-full max-w-[560px] h-[455px] flex flex-col bg-cardColor-light border-2 border-brand backdrop-blur-lg sm:rounded-2xl"
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.95 }}
+                            transition={{ duration: 0.2 }}
                         >
                             <div className="items-center py-4">
                                 <header className="flex justify-between w-full px-4 pb-2 items-center">
@@ -171,7 +175,7 @@ export function TimeslotModal() {
                                     </button>
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
                     </div>
                 ) : null}
             </AnimatePresence>

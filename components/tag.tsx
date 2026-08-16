@@ -1,12 +1,24 @@
+import { cn } from '@/lib/utils';
 import React from 'react'
 
 interface TagProps {
-  value: string;
+    value: string;
+    variant?: 'normal' | 'frc' | 'subtle';
+    className?: string;
 }
 
-const Tag = ({ value }: TagProps) => {
+const Tag = ({ value, variant = "normal", className }: TagProps) => {
+
+  const baseStyles = "bg-redBrand text-white text-sm rounded-full px-3 py-1 flex text-center items-center justify-center"; 
+  const variants = {
+    normal: "bg-redBrand text-white", 
+    frc: "bg-brand text-white",
+    subtle: "bg-white/10 text-white hover:bg-white/20"
+  }
+
+
   return (
-    <h1 className='bg-brand/50 text-redBrand text-lg font-bold rounded-lg px-2 py-1'>
+    <h1 className={cn(baseStyles, variants[variant], className)}>
       {value}
     </h1>
   )

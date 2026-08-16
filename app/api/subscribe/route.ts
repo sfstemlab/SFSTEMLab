@@ -7,22 +7,29 @@ import { z } from 'zod';
 type Data = { message?: string; error?: string };
 
 // Email validation schema
-const EmailSchema = z.string().email({ message: 'Please enter a valid email address' });
+// const EmailSchema = z.string().email({ message: 'Please enter a valid email address' });
+const Schema = z.object({
+    email: z.string().email({ message: 'Please enter a valid email address' }),
+    firstName: z.string().optional(), 
+    lastName: z.string().optional()
+})
 
 export async function POST(req: NextRequest) {
     let body: any;
     try {
         body = await req.json()
+        console.log("[API-SUBSCRIBE] : BODY ", body); 
     } catch {
         return NextResponse.json({error: 'Invalid JSON'}, {status: 400})
     }
 
-    const emailParse = EmailSchema.safeParse(body.email)
-    if (!emailParse.success) {
-        return NextResponse.json({ error: emailParse.error.issues[0].message }, {status: 400});
+    const parseResult = Schema.safeParse(body)
+    if (!parseResult.success) {
+        return NextResponse.json({ error: parseResult.error.issues[0].message }, {status: 400});
     }
 
-    const email = emailParse.data
+    // const email = parseResult.data
+    const { email, firstName="", lastName="" } = parseResult.data
 
     const API_KEY = process.env.MAILCHIMP_API_KEY;
     const API_SERVER = process.env.MAILCHIMP_API_SERVER;
@@ -36,13 +43,17 @@ export async function POST(req: NextRequest) {
 
     const payload = {
         email_address: email,
+        merge_fields : {
+            FNAME: firstName,
+            LNAME: lastName
+        },
         status: 'subscribed',
     }
 
     const config = {
         headers: {
             'Content-Type': 'application/json',
-            Authorization: `api_key ${API_KEY}`,
+            Authorization: `api_key ${API_KEY}`, // we might need to use `Basic base64` 
         },
     };
 
@@ -50,6 +61,7 @@ export async function POST(req: NextRequest) {
         const res = await axios.post(url, payload, config)
         // mailchimp returns a 200 for existing
         if (res.status === 200 || res.status === 201) {
+            console.log('successful subscription')
             return NextResponse.json({message: 'You have successfully subscribed!'}, {status: 201})
         }
 

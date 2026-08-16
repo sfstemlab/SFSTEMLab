@@ -8,7 +8,7 @@ import Newsletter from '@/components/newsletter';
 
 export default function DonatePage() {
     return (
-        <div className="text-center w-full z-40 bg-[#1e439d] text-brand px-4 py-8 md:px-12 md:py-12 items-center justify-center overflow-y-scroll"> {/* this is just the main-section section classes minus the top values bc of the size of the image*/}
+        <div className="text-center w-full bg-[#1e439d] text-brand px-4 py-8 md:px-12 md:py-12 items-center justify-center overflow-y-scroll"> {/* this is just the main-section section classes minus the top values bc of the size of the image*/}
             <div className="flex flex-col md:flex-row items-center justify-between md:space-x-8">
                 <div className="flex flex-col justify-center items-center md:items-start text-center md:text-left">
                     <p className="text-4xl font-extrabold mb-3 text-white">
@@ -17,7 +17,7 @@ export default function DonatePage() {
                     <p className="text-xl text-white w-full md:w-5/6 mb-6">
                         Your donation empowers students through free hands-on workshops, tools,
                         mentorship, and access to STEM opportunities. Every dollar goes directly
-                        toward making STEM education more accessible and inspiring.
+                        toward making STEM education more accessible and inspiring more students to engage in robotics.
                     </p>
                 </div>
                 <img
@@ -56,10 +56,6 @@ export default function DonatePage() {
                 >
                     Donate a custom amount
                 </button>
-            </div>
-
-            <div className="mt-24">
-                <Newsletter />
             </div>
         </div>
     );

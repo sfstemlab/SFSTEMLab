@@ -8,13 +8,13 @@ const Newsletter = () => {
     const [responseMsg, setResponseMsg] = useState<string>('');
     const [statusCode, setStatusCode] = useState<number>();
     const [statusMessageOpen, setStatusMessageOpen] = useState<boolean>(false);
+    const [visible, setVisible] = useState(true)
 
     async function handleSubscribe(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
         setStatus('loading');
         try {
             const response = await axios.post('/api/subscribe', { email });
-
             setStatus('success');
             setStatusCode(response.status);
             setEmail('');
@@ -33,12 +33,18 @@ const Newsletter = () => {
     return (
         <>
             <form
-                className="bg-cardColor text-white font-bold px-6 py-4 rounded-lg items-center mt-4 space-x-2 border-2 border-brand max-w-md"
+                className={`${visible ? '' : 'hidden'} sticky bottom-4 left-4 bg-brand/80 backdrop-blur-sm border-2 border-brand text-darkBlue font-bold px-6 py-4 rounded-lg items-center mt-4 space-x-2 max-w-md shadow-lg shadow-black/50`}
                 onSubmit={handleSubscribe}
             >
-                <h1 className="text-xl mb-4">
-                    Subscribe to our weekly newsletter!
-                </h1>
+                <div className='flex w-full justify-between'>
+                    <h1 className="text-xl mb-4">
+                        Subscribe to our weekly newsletter!
+                    </h1>
+                    <X
+                        className='rounded-md bg-brand/60 w-8 h-8 p-1 cursor-pointer'
+                        onClick={() => setVisible(false)}
+                    />
+                </div>
                 <div className="flex">
                     <input
                         className={`font-normal text-darkBlue grow items-center h-14 pr-0.5 rounded-l px-4 border-y-2 border-l-2 placeholder-transparent md:placeholder-gray-400 ${statusCode == 400 ? 'border-redBrand' : 'border-darkBlue'} `}
@@ -65,7 +71,7 @@ const Newsletter = () => {
                             <p className="text-redBrand font-bold">{responseMsg}</p>
                         ) : null}
                         <button 
-                            className='h-10 w-10 p-1 items-center justify-center rounded-sm bg-redBrand'
+                            className='h-10 w-10 p-1 items-center justify-center rounded-sm bg-redBrand text-white'
                             onClick={() => {setStatusMessageOpen(false)}}
                         >
                             <X />

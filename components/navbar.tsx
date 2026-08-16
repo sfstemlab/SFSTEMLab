@@ -9,14 +9,13 @@ import {
   Menu,
   X,
   HandHeart,
-  Bot,
-  UserRound,
-  User2,
+  CircleUserRound,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { cn } from "../lib/utils";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import ClerkAccountSettings from "./clerkAccountSettings";
 
 const Navbar = () => {
     const pathname = usePathname();
@@ -85,7 +84,7 @@ const Navbar = () => {
                     </motion.div>
 
                     {/* Desktop Navigation */}
-                    <div className="hidden md:flex md:justify-between w-3/5 lg:w-1/2 items-center">
+                    <div className="hidden md:flex md:justify-end w-full mr-8 space-x-4 items-center">
                         {links.map(({ href, label, icon: Icon }, i) => (
                             <motion.div
                                 key={href}
@@ -98,7 +97,7 @@ const Navbar = () => {
                                     className={cn(
                                         'flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-300',
                                         href == pathname
-                                            ? 'bg-[#1e439d] text-white px-4 py-3'
+                                            ? 'bg-darkBlue text-white px-4 py-3'
                                             : 'text-gray-600 bg-brand hover:bg-cardColor hover:text-white hover:scale-110 border-brand transition duration-400 ease-in-out'
                                     )}
                                 >
@@ -107,17 +106,6 @@ const Navbar = () => {
                                 </Link>
                             </motion.div>
                         ))}
-
-                        <UserButton/>
-                        <SignedOut>
-                            <SignInButton
-                                mode='modal'
-                            >
-                                <button>
-                                    Sign In
-                                </button>
-                            </SignInButton>
-                        </SignedOut>
                         
                         <Link
                             href="/donate"
@@ -161,6 +149,29 @@ const Navbar = () => {
                         <HandHeart className="w-5 h-5 mr-2" />
                         Donate
                     </Link>
+                    {/* custom clerk pages */}
+                    <div className='hidden md:flex'>
+
+                        <SignedIn>
+                            <ClerkAccountSettings />
+                        </SignedIn>
+
+                        <SignedOut>
+                            <SignInButton mode='modal'>
+                                <motion.button 
+                                    whileHover={{scale: 1.1}}
+                                    className='bg-cardColor border-2 border-brand text-white flex items-center justify-between text-center px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-300 w-36 h-10'
+                                >
+                                    <CircleUserRound />
+                                    <h2 className='flex'>
+                                        Sign In
+                                    </h2>
+                                </motion.button>
+                            </SignInButton>
+                        </SignedOut>
+                    </div>
+
+                    
                     {/* Mobile Menu Button */}
                     <button
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -207,6 +218,21 @@ const Navbar = () => {
                                         </Link>
                                     </motion.div>
                                 ))}
+                                <SignedIn>
+                                    <ClerkAccountSettings/>
+                                </SignedIn>
+                                <SignedOut>
+                                    <SignInButton
+                                        mode='modal'
+                                    >
+                                        <button 
+                                            className='bg-cardColor border-2 border-brand text-white flex items-center justify-between text-center px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-300 w-full h-10'
+                                        >
+                                            <CircleUserRound className="" />
+                                            Sign In
+                                        </button>
+                                    </SignInButton>
+                                </SignedOut>
                             </div>
                         </motion.div>
                     )}

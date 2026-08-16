@@ -25,19 +25,7 @@ const Account = () => {
         <ClerkProvider>
             <html lang="en">
                 <body className='antialiased'>
-                    <header className="flex justify-end items-center p-4 gap-4 h-16">
-                        <SignedOut>
-                        <SignInButton />
-                        <SignUpButton>
-                            <button className="bg-[#6c47ff] text-ceramic-white rounded-full font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 cursor-pointer">
-                            Sign Up
-                            </button>
-                        </SignUpButton>
-                        </SignedOut>
-                        <SignedIn>
-                        </SignedIn>
-                    </header>
-                    <div className="min-h-screen bg-gradient-to-r from-gray-900 to-indigo-900 text-white flex justify-center items-center">
+                    <div className="min-h-screen text-white flex justify-center items-center">
                         <div className="w-full max-w-4xl p-8 bg-gray-800 bg-opacity-80 rounded-lg shadow-lg">
                             <UserProfile>
                                 {/* Custom Pages */}
@@ -50,7 +38,7 @@ const Account = () => {
                                 </UserProfile.Page>
 
                                 <UserProfile.Page
-                                    label="Preferences "
+                                    label="Preferences"
                                     url="preferences"
                                     labelIcon={<SettingsIcon className="w-5 h-5" />}
                                 >

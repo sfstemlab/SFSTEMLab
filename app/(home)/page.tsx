@@ -71,7 +71,7 @@ export default function Home() {
 	};
 
 	return (
-		<motion.div className="main-section md:px-32 md:py-24">
+		<motion.div className="w-full h-1/2 bg-darkBlue px-6 md:px-20 py-12">
 			<div className="flex items-center justify-between md:space-x-8 mb-12">
 				<h1 className="text-xl md:text-4xl font-black text-center">
 					We are a{' '}
@@ -79,7 +79,7 @@ export default function Home() {
 						student-led
 					</mark>{' '}
 					collective of{' '}
-					<mark className="bg-cardColor  rounded-md pb-1 px-2 text-white underline decoration-dashed decoration-redBrand underline-offset-4 transition duration-300">
+					<mark className="bg-cardColor rounded-md pb-1 px-2 text-white underline decoration-dashed decoration-redBrand underline-offset-4 transition duration-300">
 						FIRST Robotics Competition
 					</mark>{' '}
 					(FRC) teams based out of{' '}
@@ -127,7 +127,6 @@ export default function Home() {
 					</motion.section>
                 ))}
                 </div>
-			<Newsletter />
 		</motion.div>
 	);
 }

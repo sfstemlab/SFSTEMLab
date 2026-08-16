@@ -1,113 +1,87 @@
 import {  PrismaClient } from "@prisma/client";
 
 const db = new PrismaClient();
-async function main() {
 
-    const eventSignup = await db.eventSignup.create({
-        data: {
-            event: 'TEST EVENT',
-            firstName: 'TEST FIRST NAME',
-            lastName: "TEST LAST NAME",
-            pronouns: 'TEST PRONOUNS',
-            accessSource: 'TEST ACCESS SOURCE',
-            reasonForAttending: 'TEST REASON',
-            school: 'TEST SCHOOL',
-            grade: 0
+async function main() {
+    
+    // clerk user 
+    const User = await db.user.upsert({
+        where: {
+            email: 'test@test.test',
+        },
+        update: {},
+        create: {
+            email: 'test@test.test',
+            name: 'test name',
+            clerkId: 'user_33RZjAOGNnifz2v1TPrge1IxvSL'
+            
         }
     })
 
+    const Event = await db.event.create({
+        data: {
+            title: "STEM Workshop #1", 
+            desc: "Learn about CAD & CNC machining in this hands on workshop", 
+            tags: ["CNC", "CAD", "CAM"],
+            difficulty: 3, 
+            materials: ["Water Bottle"], 
+            ageGroup: "14-18", 
+            startTime: 14, 
+            endTime: 16, 
+            day: 23, 
+            month: "Nov", 
+            year: 2025, 
+            date: new Date()
+        }
+    })
+    
+    const EventSignup = await db.eventSignup.create({
+        data: {
+            userId: User.id,
+            eventId: Event.id,
+            email: User.email,
+            firstName: 'August',
+            lastName: "White",
+            pronouns: 'he/him',
+            accessSource: 'the world wide web',
+            reasonForAttending: 'world domination',
+            school: 'SOTA',
+            grade: 10
+        }
+    })
+
+
     const Person = await db.person.create({
         data: {
-            name: 'TEST NAME',
-            picture: 'TEST PICTURE',
-            bio: 'TEST BIO',
-            titles: ['TEST', 'TITLES'],
-            email: 'TEST EMAIL',
+            name: 'August White',
+            picture: '@/../images/AugustBioPhoto.png',
+            bio: "Hi! I'm a 15-year-old high school student and lover of all things STEAM. WhenI can, I love to read, draw, and code websites, as well as play Dungeons and Dragons and other role-playing games with my friends. I'm excited to continue bringing STEM education to new places, and teaching the younger generation more about the wonders of computers and machines.",
+            titles: ['Software Development Lead - SOTA Cyberdragons'],
+            email: 'august@team5700.org',
         }
     })
 
     const Timeslot = await db.timeslot.create({
         data: {
-            title: 'TEST TITLE',
-            teamNum: 5700,
-            desc: 'TEST DESC',
+            userId: User.id,
+            teamNum: 4159,
+            contactEmail: 'coach@lowellhs.edu',
+            contactPerson: 'Coach Doe',
+            purpose: 'make cool stickers',
+            approved: true,
             startTime: 12,
-            endTime: 2,
-            date: new Date()
+            endTime: 14,
+            date: new Date("2025-02-21T12:00:00.000Z")
         }
     })
 
-    console.log("Seed Record: ", eventSignup, Person, Timeslot)
-    // let scouting5700 = await db.scoutingTeam.findUnique({
-    //     where: { teamNumber: 5700 }
-    // })
-
-    // if (!scouting5700) {
-    //     scouting5700 = await db.scoutingTeam.create({
-    //         data: { teamNumber: 5700 }
-    //     })
-    // }
-
-    // // perf. detail records for scouted team 1323
-    // const coralScoring = await db.coralScoring.create({
-    //     data: {
-    //         L1: true, 
-    //         L2: true, 
-    //         L3: true,
-    //         L4: true
-    //     }
-    // })
-    
-    // const coralIntake = await db.coralIntake.create({
-    //     data: {
-    //         floor: true,
-    //         source: true
-    //     }
-    // })
-
-    // const algaeScoring = await db.algaeScoring.create({
-    //     data: {
-    //         processor: true,
-    //         net: true
-    //     }
-    // })
-
-    // const algaeIntake = await db.algaeIntake.create({
-    //     data: {
-    //         reef: true,
-    //         floor: true,
-    //         dealgify: true
-    //     }
-    // })
-
-    // const auto = await db.auto.create({
-    //     data: {
-    //         start: 'center',
-    //         L1: 5,
-    //         L2: 0,
-    //         L3: 0,
-    //         L4: 0,
-    //         processor: 0,
-    //         net: 0
-    //     }
-    // })
-
-
-    // // create scouted team (1323) with all our models linked
-    // await db.scoutedTeam.create({
-    //     data: {
-    //         teamNumber: 1323, 
-    //         scoutingTeamId: scouting5700.id,
-    //         coralScoringId: coralScoring.id,
-    //         coralIntakeId: coralIntake.id,
-    //         algaeScoringId: algaeScoring.id,
-    //         algaeIntakeId: algaeIntake.id,
-    //         climb: 'deep',
-    //         autoId: auto.id,
-    //         driverExpComps: 12,
-    //         driverExpYears: 5
-    //     }
-    // })
+    console.table({
+        user: User.email, 
+        event: Event.title, 
+        signup: EventSignup.firstName, 
+        person: Person.name, 
+        timeslot: Timeslot.teamNum
+    })
     
     
     console.log("Seed data has been inserted successfully.");

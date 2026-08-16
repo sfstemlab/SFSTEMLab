@@ -113,22 +113,6 @@ const About = () => {
             open: false,
         },
         {
-            name: 'Benjamin Thayer',
-            picture: '',
-            bio: ``,
-            titles: ['President - Galileo Robotics', 'Project Leader'],
-            email: 'example2@sfstemlab.org',
-            open: false,
-        },
-        {
-            name: 'Katharine Kasperski',
-            picture: '',
-            bio: ``,
-            titles: ['Outreach - CardinalBotics', 'Project Leader'],
-            email: 'example3@sfstemlab.org',
-            open: false,
-        },
-        {
             name: 'Mario Romero Barbieri',
             picture: '',
             bio: '',
@@ -142,30 +126,6 @@ const About = () => {
             bio: '',
             titles: ['President - SOTA Cyberdragons'],
             email: 'santi@team5700.org',
-            open: false,
-        },
-        {
-            name: 'Tyler Chew',
-            picture: '',
-            bio: '',
-            titles: ['Member - SOTA Cyberdragons'],
-            email: 'tyler@team5700.org',
-            open: false,
-        },
-        {
-            name: 'Zoe Arkin',
-            picture: '',
-            bio: '',
-            titles: ['Member - SOTA Cyberdragons'],
-            email: 'zoe@team5700.org',
-            open: false,
-        },
-        {
-            name: 'Sam Lako-Cave',
-            picture: '',
-            bio: '',
-            titles: ['Member - SOTA Cyberdragons'],
-            email: 'sam@team5700.org',
             open: false,
         },
         {
@@ -190,14 +150,6 @@ const About = () => {
             bio: "I'm a 17 year old high school student and visual artist living in San Francisco, interested in pursuing robotics, science, math, programming and engineering opportunities. As an older sister and babysitter, I'm also super excited to bring more STEM education to elementary and middle schools in the district.",
             titles: ['Mechanical Engineering Lead - SOTA Cyberdragons'],
             email: 'ember@team5700.org',
-            open: false,
-        },
-        {
-            name: 'Maxwell Liu',
-            picture: '',
-            bio: '',
-            titles: ['President - CardinalBotics'],
-            email: '',
             open: false,
         },
         {
@@ -234,14 +186,6 @@ const About = () => {
         },
         {
             name: 'Roman Lopez',
-            picture: '',
-            bio: '',
-            titles: ['Member - Galileo Robotics'],
-            email: '',
-            open: false,
-        },
-        {
-            name: 'Davia Ferree',
             picture: '',
             bio: '',
             titles: ['Member - Galileo Robotics'],
@@ -290,7 +234,7 @@ const About = () => {
         },
     ];
 
-    const [expandedProfile, setExpandedProfile] = useState<Person>(people[0]);
+    const [expandedProfile, setExpandedProfile] = useState<Person | null>(null);
 
 
     const collaborators: Person[] = [
@@ -346,8 +290,7 @@ const About = () => {
     };
 
     return (
-
-            <div className="main-section">
+            <div className="w-full h-1/2 bg-darkBlue px-6 md:px-20 py-12">
                 <div className='flex flex-col md:flex-row'>
                     {/* 2/3 of screen */}
                     <div className='flex flex-col w-full md:w-2/3 md:pr-10'>
@@ -384,6 +327,7 @@ const About = () => {
                             className="rounded-md flex overflow-x-scroll no-scrollbar space-x-3 md:mx-8 py-4"
                             ref={teamContainerRef}
                         >
+                            {/* TODO: make scrool buttons for mobile */}
                             {people.length > 0 &&
                                 people.map((person, index) => (
                                     <button
@@ -412,7 +356,7 @@ const About = () => {
                                     </button>
                                 ))}
                         </div>
-                        {expandedProfile !== undefined && expandedProfile.bio && (
+                        {expandedProfile !== undefined && expandedProfile?.bio && (
                             /* Expanded Profile Section */
                             <div className="text-center mt-4 mb-9 items-center w-full flex flex-col p-4 md:p-0">
                                 <p className="text-lg text-center">{expandedProfile.bio}</p>
@@ -423,7 +367,7 @@ const About = () => {
                         )}
                         <div className="px-6 md:px-0"> { /* Mission section */}
                             <h3 className="text-left font-extrabold text-4xl mb-2">Our Mission</h3>
-                            <p className="text-left text-xl text-brand">
+                            <p className="text-left text-lg md:text-xl text-brand">
                                 Our mission is to provide a community STEM hub by hosting
                                 interactive robotics demonstrations and hands-on workshops that
                                 promote STEM education, drawing interest from students, families,

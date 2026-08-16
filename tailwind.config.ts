@@ -47,7 +47,8 @@ const config = {
                 },
                 darkBlue: {
                     light: '#3f5bb0',
-                    DEFAULT: '#1e439d',
+                    DEFAULT: '#204ab3',
+                    // 1e439d
                     dark: '#152f70',
                 },
                 cardColor: {

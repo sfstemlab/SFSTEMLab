@@ -170,6 +170,7 @@ export interface EventProps {
     title:string;
     day:number;
     month:string;
+    year: number;
     desc:string;
     tags?:string[];
     expandedContent:any;
@@ -177,6 +178,7 @@ export interface EventProps {
     startTime: number;
     duration: number;
     endTime: number;
+    ampm: string;
     materials?: string[];
     ageGroup?: string;
 }

@@ -1,42 +1,91 @@
 generator client {
-  provider = "prisma-client-js"
-  seed     = "./prisma/seed2.js"
+    provider = "prisma-client-js"
+    seed     = "./prisma/seed2.js"
 }
 
 datasource db {
-  provider     = "postgresql"
-  url          = env("DATABASE_URL")
-  relationMode = "foreignKeys"
+    provider     = "postgresql"
+    url          = env("DATABASE_URL")
+    relationMode = "foreignKeys"
 }
 
-model eventSignup {
-  id                 Int      @id @default(autoincrement())
-  event              String
-  firstName          String?
-  lastName           String?
-  pronouns           String?
-  accessSource       String?
-  reasonForAttending String?
-  school             String?
-  grade              Int?
-  createdAt          DateTime @default(now())
+model Event {
+    @@map("event")
+    id              Int           @id @default(autoincrement())
+    title           String
+    desc            String?
+    tags            String[]      @default([])
+    difficulty      Int?
+    materials       String[]      @default([])
+    ageGroup        String?
+    startTime       Int?
+    endTime         Int?
+    day             Int
+    month           String
+    year            Int
+    date            DateTime?
+    expandedContent String?
+    createdAt       DateTime      @default(now())
+    updatedAt       DateTime      @updatedAt()
+    eventSignups    EventSignup[]
+}
+
+model EventSignup {
+    @@map("eventSignup")
+    id Int @id @default(autoincrement())
+
+    userId  Int
+    eventId Int
+
+    email              String
+    firstName          String
+    lastName           String
+    pronouns           String?
+    accessSource       String?
+    reasonForAttending String?
+    school             String?
+    grade              Int?
+    createdAt          DateTime @default(now())
+
+    user  User?  @relation(fields: [userId], references: [id])
+    event Event? @relation(fields: [eventId], references: [id])
+}
+
+model User {
+    @@map("user")
+    id          Int           @id @default(autoincrement())
+    clerkId     String?       @unique
+    email       String        @unique
+    name        String?
+    createdAt   DateTime      @default(now())
+    eventSignup EventSignup[] //1:N relationship
+    Timeslot    Timeslot[]
 }
 
 model Person {
-  id      Int      @id @default(autoincrement())
-  name    String
-  picture String
-  bio     String?
-  titles  String[] @default([])
-  email   String?
+    @@map("person")
+    id      Int      @id @default(autoincrement())
+    name    String
+    picture String
+    bio     String?
+    titles  String[] @default([])
+    email   String?
 }
 
+// other frc teams booking times
 model Timeslot {
-  id           Int     @id @default(autoincrement())
-  title        String
-  teamNum      Int?
-  desc         String
-  startTime    Int
-  endTime      Int
-  date         DateTime
+    @@map("timeslot")
+    id            Int      @id @default(autoincrement())
+    userId        Int?
+    teamNum       Int?
+    contactEmail  String
+    contactPerson String?
+    purpose       String?
+    approved      Boolean
+    startTime     Int
+    endTime       Int
+    date          DateTime
+    createdAt     DateTime @default(now())
+    updatedAt     DateTime @default(now())
+    user          User?    @relation(fields: [userId], references: [id])
 }
