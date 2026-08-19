@@ -167,18 +167,17 @@ export interface Person {
 }
 
 export interface EventProps {
+    id: number;
     title:string;
     day:number;
     month:string;
     year: number;
     desc:string;
     tags?:string[];
-    expandedContent:any;
+    expandedContent: string | null;
     difficulty: number;
     startTime: number;
-    duration: number;
     endTime: number;
-    ampm: string;
     materials?: string[];
     ageGroup?: string;
 }
@@ -202,6 +201,3 @@ export interface MatchScoutingProps {
     setMatch: React.Dispatch<React.SetStateAction<MatchResults>>; // the function to change the matchResults vairalbe
     team: Team; // This should match the type of valid teams
 }
-
-export const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-export default months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']

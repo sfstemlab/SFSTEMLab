@@ -3,12 +3,9 @@ import Navbar from '@/components/navbar'
 import PageTitle from '@/components/pageTitle'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import React, { useEffect, useRef, useState } from 'react'
+import React from 'react'
 
 const RoboticsPage = () => {
-    const ref = useRef(null);
-    const [isInView, setIsInView] = useState(false);
-
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
@@ -19,26 +16,6 @@ const RoboticsPage = () => {
         y: -10,
         },
     };
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-        ([entry]) => {
-            if (entry.isIntersecting) {
-            setIsInView(true);
-            }
-        },
-        { threshold: 0.5 }
-        );
-
-        if (ref.current) {
-        observer.observe(ref.current);
-        }
-
-        return () => {
-        if (ref.current) {
-            observer.unobserve(ref.current);
-        }
-        };
-    }, []);
     return (
         <div>
             <Navbar />

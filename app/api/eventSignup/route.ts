@@ -1,22 +1,18 @@
-//import { db } from "@/database/prisma";
-import { PrismaClient } from "@prisma/client";
+import { db } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import { currentUser } from "@clerk/nextjs/server";
 import { z } from "zod"
 
-const db = new PrismaClient(); 
-
-
 const formSchema = z.object({
-    event: z.string().min(1, "Event is required"),
-    email: z.string().email('Invalid email').optional(),
-    firstName: z.string().min(1, 'Please enter your name'),
-    lastName: z.string().min(1, 'Please enter your name'),
+    eventId: z.coerce.number().int("Event is required"),
+    email: z.string().email('Please enter a valid email'),
+    firstName: z.string().min(1, 'Please enter your first name'),
+    lastName: z.string().min(1, 'Please enter your last name'),
     pronouns: z.string().optional(),
     accessSource: z.string().optional(),
     reasonForAttending: z.string().optional(),
     school: z.string().optional(),
-    grade: z.string().optional()
+    grade: z.coerce.number().int('Please enter a grade')
 })
 
 // POST: create a new event sign-up record
@@ -60,16 +56,16 @@ export async function POST (req: NextRequest) {
         
         const created = await db.eventSignup.create({
             data: {
-                userId: user?.id, 
+                userId: user?.id ?? null,
                 eventId: data.eventId,
-                email: data.email ?? 'test@test.test', 
-                firstName: data.firstName, 
-                lastName: data.lastName, 
-                pronouns: data.pronouns, 
-                accessSource: data.accessSource, 
-                reasonForAttending: data.reasonForAttending, 
-                school: data.school, 
-                grade: data.grade ? Number(data.grade) : null,
+                email: data.email,
+                firstName: data.firstName,
+                lastName: data.lastName,
+                pronouns: data.pronouns,
+                accessSource: data.accessSource,
+                reasonForAttending: data.reasonForAttending,
+                school: data.school,
+                grade: data.grade,
             },
             include: {event :true},
         })

@@ -1,9 +1,10 @@
 import { useUser } from '@clerk/nextjs';
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useRouter } from 'next/navigation';
+import { useToast } from '@/hooks/use-toast';
 
 interface Info {
-	event: string;
 	email?: string;
 	firstName?: string;
 	lastName?: string;
@@ -15,15 +16,22 @@ interface Info {
 }
 
 interface FormProps {
-	event: string;
+	eventId: number;
+	title: string;
 }
 
-const Form = ({ event }: FormProps) => {
+const Required = () => <span className="text-redBrand">&nbsp;*</span>;
+
+const Form = ({ eventId, title }: FormProps) => {
 	const [selectedPronoun, setSelectedPronoun] = useState('');
-	const [info, setInfo] = useState<Info>({ event });
+	const { user } = useUser();
+	const router = useRouter();
+	const { toast } = useToast();
+	const [info, setInfo] = useState<Info>({
+		email: user?.primaryEmailAddress?.emailAddress ?? '',
+	});
 	const [message, setMessage] = useState<string | null>(null);
 	const [loading, setLoading] = useState(false);
-	const { user } = useUser();
 
 	const changeInfo = (key: keyof Info, value: string) => {
 		setInfo((prev) => ({ ...prev, [key]: value }));
@@ -37,7 +45,7 @@ const Form = ({ event }: FormProps) => {
 		try {
 			const finalPayload = {
 				...info,
-				email: user?.primaryEmailAddress?.emailAddress ?? '',
+				eventId,
 			};
 
 			const res = await fetch('/api/eventSignup', {
@@ -49,8 +57,11 @@ const Form = ({ event }: FormProps) => {
 			const data = await res.json();
 			if (!res.ok) throw new Error(data.error || 'Something went wrong');
 
-			setMessage('Signup Successful!');
-			setInfo({ event });
+			toast({
+				title: 'Signup Successful!',
+				description: `You're registered for ${title}.`,
+			});
+			router.push('/events');
 		} catch (err: any) {
 			setMessage(err.message);
 		} finally {
@@ -65,15 +76,16 @@ const Form = ({ event }: FormProps) => {
 		>
 			<h2 className="text-2xl font-semibold text-center mb-2">Event Signup</h2>
 			<p className="text-sm text-center text-brand-dark mb-6">
-				Fill out the form below to reserve your spot for <span className="font-medium text-brand">{event}</span>.
+				Fill out the form below to reserve your spot for <span className="font-medium text-brand">{title}</span>.
 			</p>
 
 			{/* Row 1 */}
 			<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 				<div>
-					<label className="block mb-1 text-sm font-medium">First Name</label>
+					<label className="block mb-1 text-sm font-medium">First Name<Required /></label>
 					<input
 						type="text"
+						required
 						className="w-full rounded-lg border-2 border-brand bg-cardColor text-white px-3 py-2 placeholder-brand focus:outline-none focus:ring-2 focus:ring-brand-light transition-all"
 						onChange={(e) => changeInfo('firstName', e.target.value)}
                         defaultValue={user?.firstName || ''}
@@ -81,21 +93,24 @@ const Form = ({ event }: FormProps) => {
 					/>
 				</div>
 				<div>
-					<label className="block mb-1 text-sm font-medium">Last Name</label>
+					<label className="block mb-1 text-sm font-medium">Last Name<Required /></label>
 					<input
 						type="text"
+						required
 						className="w-full rounded-lg border-2 border-brand bg-cardColor text-white px-3 py-2 placeholder-brand focus:outline-none focus:ring-2 focus:ring-brand-light transition-all"
 						onChange={(e) => changeInfo('lastName', e.target.value)}
                         defaultValue={user?.lastName || ''}
 					/>
 				</div>
 				<div>
-					<label className="block mb-1 text-sm font-medium">Email</label>
+					<label className="block mb-1 text-sm font-medium">Email<Required /></label>
 					<input
 						type="email"
+						required
 						className="w-full rounded-lg border-2 border-brand bg-cardColor text-white px-3 py-2 placeholder-brand focus:outline-none focus:ring-2 focus:ring-brand-light transition-all"
-                        defaultValue={user?.primaryEmailAddress?.emailAddress || ''}
-                        />
+						value={info.email ?? ''}
+						onChange={(e) => changeInfo('email', e.target.value)}
+					/>
 				</div>
 			</div>
 
@@ -180,9 +195,10 @@ const Form = ({ event }: FormProps) => {
 					/>
 				</div>
 				<div>
-					<label className="block mb-1 text-sm font-medium">Grade</label>
+					<label className="block mb-1 text-sm font-medium">Grade<Required /></label>
 					<input
 						type="number"
+						required
 						className="w-full rounded-lg border-2 border-brand bg-cardColor px-3 py-2 placeholder-gray-300/60 focus:outline-none focus:ring-2 focus:ring-brand-light transition-all"
 						placeholder="9–12"
 						onChange={(e) => changeInfo('grade', e.target.value)}
@@ -201,16 +217,14 @@ const Form = ({ event }: FormProps) => {
 				</button>
 			</div>
 
-			{/* Message */}
+			{/* Error Message */}
 			<AnimatePresence>
 				{message && (
 					<motion.p
 						initial={{ opacity: 0, y: -5 }}
 						animate={{ opacity: 1, y: 0 }}
 						exit={{ opacity: 0, y: -5 }}
-						className={`text-center text-sm font-medium ${
-							message.startsWith('Signup Successful') ? 'text-green-400' : 'text-red-400'
-						}`}
+						className="text-center text-sm font-medium text-red-400"
 					>
 						{message}
 					</motion.p>

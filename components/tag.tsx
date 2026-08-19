@@ -9,7 +9,7 @@ interface TagProps {
 
 const Tag = ({ value, variant = "normal", className }: TagProps) => {
 
-  const baseStyles = "bg-redBrand text-white text-sm rounded-full px-3 py-1 flex text-center items-center justify-center"; 
+  const baseStyles = "bg-redBrand text-white text-sm rounded-full px-3 py-1 flex text-center items-center justify-center whitespace-nowrap";
   const variants = {
     normal: "bg-redBrand text-white", 
     frc: "bg-brand text-white",

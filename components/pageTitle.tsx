@@ -31,20 +31,27 @@ const PageTitle = () => {
       imgSrc: "/images/eventsPage_HeroSection.png",
       imgAlt: "Events Page Hero Image",
     },
-    "/signup/STEM%20Workshop%20": {
-      title: "Thank you for signing up!",
-      imgSrc: "/images/controllers.png",
-      imgAlt: "Signup Page Hero Image",
-    },
     "/donate": {
       title: "Fuel the Future of STEM",
       imgSrc: "/images/alliancePic.png",
       imgAlt: "Donate Page Hero Image",
     },
+    "/account": {
+      title: "My Account",
+      imgSrc: "/images/controllers.png",
+      imgAlt: "Account Page Hero Image",
+    },
   };
 
   const info =
     titleInfo[pathname] ??
+    (pathname.startsWith("/signup/")
+      ? {
+          title: "Sign Up",
+          imgSrc: "/images/controllers.png",
+          imgAlt: "Signup Page Hero Image",
+        }
+      : undefined) ??
     ({
       title: "Page Not Found",
       subtitle:
@@ -54,7 +61,7 @@ const PageTitle = () => {
     } as HeaderProps);
 
   return (
-    <div className="relative w-full h-[45vh] sm:h-[45vh] lg:h-[75vh] mt-12 overflow-hidden rounded-b-2xl shadow-md">
+    <div className="relative w-full h-[45vh] sm:h-[45vh] lg:h-[75vh] mt-20 overflow-hidden rounded-b-2xl shadow-md">
       {/* background image */}
       <img
         src={info.imgSrc}

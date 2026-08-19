@@ -34,7 +34,7 @@ model EventSignup {
     @@map("eventSignup")
     id Int @id @default(autoincrement())
 
-    userId  Int
+    userId  Int?
     eventId Int
 
     email              String
@@ -62,8 +62,8 @@ model User {
     Timeslot    Timeslot[]
 }
 
-model Person {
-    @@map("person")
+model TeamMember {
+    @@map("team_member")
     id      Int      @id @default(autoincrement())
     name    String
     picture String

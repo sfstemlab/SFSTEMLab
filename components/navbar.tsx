@@ -14,8 +14,7 @@ import {
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { cn } from "../lib/utils";
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
-import ClerkAccountSettings from "./clerkAccountSettings";
+import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 
 const Navbar = () => {
     const pathname = usePathname();
@@ -66,25 +65,25 @@ const Navbar = () => {
     return (
         <nav className="fixed top-0 z-50 bg-white backdrop-blur-lg shadow-lg shadow-gray-400/10 w-screen m-0 p-0">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between h-16 items-center">
+                <div className="flex justify-between h-20 items-center">
                     {/* Logo Section */}
                     <motion.div
                         whileHover={{ scale: 1.05 }}
                         className="flex-shrink-0 flex items-center"
                     >
-                        <Link className="flex items-center space-x-2" href="/">
+                        <Link className="flex items-center space-x-3" href="/">
                             <motion.img
                                 src="/images/Logo.png"
                                 alt="SF STEMLab Logo"
-                                className="h-12 w-12 hover:animate-spin"
+                                className="h-14 w-14 hover:animate-spin"
                                 transition={{ duration: 0.5 }}
                             />
-                            <span className="text-black font-bold text-xl">SF STEM Lab</span>
+                            <span className="text-black font-bold text-2xl">SF STEM Lab</span>
                         </Link>
                     </motion.div>
 
                     {/* Desktop Navigation */}
-                    <div className="hidden md:flex md:justify-end w-full mr-8 space-x-4 items-center">
+                    <div className="hidden md:flex md:justify-end w-full mr-6 space-x-5 items-center">
                         {links.map(({ href, label, icon: Icon }, i) => (
                             <motion.div
                                 key={href}
@@ -95,18 +94,18 @@ const Navbar = () => {
                                 <Link
                                     href={href}
                                     className={cn(
-                                        'flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-300',
+                                        'flex items-center px-5 py-2.5 rounded-lg text-base font-medium transition-colors duration-300',
                                         href == pathname
-                                            ? 'bg-darkBlue text-white px-4 py-3'
+                                            ? 'bg-darkBlue text-white px-5 py-3'
                                             : 'text-gray-600 bg-brand hover:bg-cardColor hover:text-white hover:scale-110 border-brand transition duration-400 ease-in-out'
                                     )}
                                 >
-                                    <Icon className="w-5 h-5 mr-2" />
+                                    <Icon className="w-6 h-6 mr-2" />
                                     {label}
                                 </Link>
                             </motion.div>
                         ))}
-                        
+
                         <Link
                             href="/donate"
                             //   styling for shine hover effect - dont change this code
@@ -125,9 +124,9 @@ const Navbar = () => {
                             onMouseLeave={(e) =>
                                 (e.currentTarget.style.backgroundPosition = '-100% 0')
                             }
-                            className="w-28 h-10 rounded-lg text-white font-bold flex items-center justify-center"
+                            className="w-32 h-12 rounded-lg text-white font-bold text-base flex items-center justify-center"
                         >
-                            <HandHeart className="w-5 h-5 mr-2" />
+                            <HandHeart className="w-6 h-6 mr-2" />
                             Donate
                         </Link>
                     </div>
@@ -144,7 +143,7 @@ const Navbar = () => {
                         }}
                         onMouseEnter={(e) => (e.currentTarget.style.backgroundPosition = '200% 0')}
                         onMouseLeave={(e) => (e.currentTarget.style.backgroundPosition = '-100% 0')}
-                        className={`md:hidden w-full h-10 ml-4 mr-2 rounded-lg text-white font-bold text-sm flex items-center justify-center ${pathname === '/donate' ? 'bg-redBrand-light' : 'bg-redBrand'}`}
+                        className={`md:hidden w-full h-11 ml-4 mr-2 rounded-lg text-white font-bold text-sm flex items-center justify-center ${pathname === '/donate' ? 'bg-redBrand-light' : 'bg-redBrand'}`}
                     >
                         <HandHeart className="w-5 h-5 mr-2" />
                         Donate
@@ -153,16 +152,23 @@ const Navbar = () => {
                     <div className='hidden md:flex'>
 
                         <SignedIn>
-                            <ClerkAccountSettings />
+                            <Link href="/account">
+                                <motion.button
+                                    whileHover={{scale: 1.1}}
+                                    className='bg-cardColor border-2 border-brand text-white flex items-center justify-center rounded-lg transition-colors duration-300 w-12 h-12'
+                                >
+                                    <CircleUserRound className="w-6 h-6" />
+                                </motion.button>
+                            </Link>
                         </SignedIn>
 
                         <SignedOut>
                             <SignInButton mode='modal'>
-                                <motion.button 
+                                <motion.button
                                     whileHover={{scale: 1.1}}
-                                    className='bg-cardColor border-2 border-brand text-white flex items-center justify-between text-center px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-300 w-36 h-10'
+                                    className='bg-cardColor border-2 border-brand text-white flex items-center justify-between text-center px-4 py-2 rounded-lg text-base font-medium transition-colors duration-300 w-40 h-12'
                                 >
-                                    <CircleUserRound />
+                                    <CircleUserRound className="w-6 h-6" />
                                     <h2 className='flex'>
                                         Sign In
                                     </h2>
@@ -171,7 +177,7 @@ const Navbar = () => {
                         </SignedOut>
                     </div>
 
-                    
+
                     {/* Mobile Menu Button */}
                     <button
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -179,9 +185,9 @@ const Navbar = () => {
                     >
                         <motion.div animate={isMobileMenuOpen ? 'open' : 'closed'}>
                             {isMobileMenuOpen ? (
-                                <X className="w-6 h-6" />
+                                <X className="w-7 h-7" />
                             ) : (
-                                <Menu className="w-6 h-6" />
+                                <Menu className="w-7 h-7" />
                             )}
                         </motion.div>
                     </button>
@@ -213,13 +219,20 @@ const Navbar = () => {
                                                     : 'text-gray-600 bg-brand hover:bg-white transition duration-300 ease-in-out'
                                             )}
                                         >
-                                            <Icon className="w-5 h-5 mr-3" />
+                                            <Icon className="w-6 h-6 mr-3" />
                                             {label}
                                         </Link>
                                     </motion.div>
                                 ))}
                                 <SignedIn>
-                                    <ClerkAccountSettings/>
+                                    <Link href="/account">
+                                        <button
+                                            className='bg-cardColor border-2 border-brand text-white flex items-center justify-between text-center px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-300 w-full h-10'
+                                        >
+                                            <CircleUserRound className="" />
+                                            My Account
+                                        </button>
+                                    </Link>
                                 </SignedIn>
                                 <SignedOut>
                                     <SignInButton

@@ -51,7 +51,7 @@ async function main() {
     })
 
 
-    const Person = await db.person.create({
+    const TeamMember = await db.teamMember.create({
         data: {
             name: 'August White',
             picture: '@/../images/AugustBioPhoto.png',
@@ -78,8 +78,8 @@ async function main() {
     console.table({
         user: User.email, 
         event: Event.title, 
-        signup: EventSignup.firstName, 
-        person: Person.name, 
+        signup: EventSignup.firstName,
+        teamMember: TeamMember.name,
         timeslot: Timeslot.teamNum
     })
     

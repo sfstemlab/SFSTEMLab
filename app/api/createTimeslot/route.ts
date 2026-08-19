@@ -1,140 +1,67 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/prisma";
+import { currentUser } from "@clerk/nextjs/server";
+import { z } from "zod";
 
- const availableHours: Record<string,  [number, number]> = {
-    Mon: [4, 6],
-    Tue: [4, 6],
-    Wed: [4, 6],
-    Thu: [4, 6],
-    Fri: [4, 6],
-    Sat: [11, 6],
-    Sun: [11, 6]
-}
-
-
+const formSchema = z.object({
+    teamNum: z.coerce.number().int().optional(),
+    contactEmail: z.string().email('Please enter a valid contact email'),
+    contactPerson: z.string().optional(),
+    purpose: z.string().optional(),
+    startTime: z.coerce.number().int('Please choose a start time'),
+    endTime: z.coerce.number().int('Please choose an end time'),
+    date: z.coerce.date({ errorMap: () => ({ message: 'Please choose a date' }) }),
+});
 
 export async function POST(req: NextRequest) {
-    console.log('running POST request')
     try {
-        const body = await req.json()
+        let body: any;
+        try {
+            body = await req.json();
+        } catch {
+            return NextResponse.json({ error: 'Invalid json request' }, { status: 400 });
+        }
 
-        console.log("[API:createTimeslot-Body: ", JSON.stringify(body, null, 2))
+        const result = formSchema.safeParse(body);
+        if (!result.success) {
+            const message = result.error.issues[0].message;
+            return NextResponse.json({ error: message }, { status: 400 });
+        }
 
-        const dateObj = new Date(body.date);
+        const data = result.data;
 
-        //basic input validation 
-        // if(
-        //     !body.title ||
-        //     !body.desc || 
-        //     typeof body.startTime !== "number" ||
-        //     typeof body.endTime !== "number" ||
-        //     !body.date
-        // ) {
-        //     return NextResponse.json({ error: "Missing required fields "}, { status: 422 })
-        // }
+        if (data.startTime >= data.endTime) {
+            return NextResponse.json(
+                { error: 'Start time must be before end time' },
+                { status: 422 }
+            );
+        }
 
-        
+        const clerkUser = await currentUser();
+        const user = clerkUser
+            ? await db.user.findUnique({
+                  where: { clerkId: clerkUser.id },
+                  select: { id: true },
+              })
+            : null;
 
-        // // check to make sure that the event starts before it ends
-        // if (body.startTime >= body.endTime) {
-        //     return NextResponse.json({ error: "Due to the laws of time, events must start before they end"}, { status: 422 })
-        // }
-        
-        // hours window validation
-        // find the day of the week (eg. Mon, Tue, so on)
-        // const dayOfWeek = dateObj.toLocaleString('en-US', {weekday: 'short'}).slice(0,3)
-        // const hours = availableHours[dayOfWeek]
-        // if (!hours) {
-        //     return NextResponse.json({ error: "Invalid day of week"}, { status: 422 })
-        // }
-        
-        // const [openTime, closingTime] = hours
-
-        // const withinHours = 
-        //     body.startTime >= openTime &&
-        //     body.endTime <= closingTime &&
-        //     body.startTime >= 0 && 
-        //     body.endTime <= 24
-
-        // if (!withinHours) {
-        //     return NextResponse.json({ error: "Event not within open hours"}, { status: 422 })
-        // }
-        
-        //Prisma query syntax options: lt, lte, gt, gte, equals, in, contains
-            
-        // check conflicts/overlap validation 
-        // const conflicting = await db.timeslot.findFirst({
-        //     where: {
-        //         date: dateObj,
-        //         AND: [
-        //             // events conflict at the end of the event that the user inputted
-        //             {startTime: {lt: body.endTime}},
-        //             {endTime: {gt: body.startTime}},
-        //         ],
-        //     },
-        //     // select: { id: true, title, true, startTime: true, endTime: true }
-        // })
-
-        // if (conflicting){
-        //     return NextResponse.json(
-        //         { 
-        //             error: "The event that you inputted conflicted with another event. Please enter another time",
-        //             conflict: conflicting, 
-        //         }, 
-        //         { status: 409 })
-        // } 
-
-        const created = await db.timeslot.create({ 
+        const created = await db.timeslot.create({
             data: {
-                title: body.title, 
-                desc: body.desc,
-                teamNum: Number(body.teamNum) || 0,
-                startTime: Number(body.startTime),
-                endTime: Number(body.endTime),
-                date: dateObj
-            }
-        })
-        
-        console.log("✅ Created Timeslot: ", created)
-        return NextResponse.json({created}, {status: 201})
+                userId: user?.id ?? null,
+                teamNum: data.teamNum,
+                contactEmail: data.contactEmail,
+                contactPerson: data.contactPerson,
+                purpose: data.purpose,
+                approved: true,
+                startTime: data.startTime,
+                endTime: data.endTime,
+                date: data.date,
+            },
+        });
 
-        // const intersects = currentTimeslots.forEach((slot:any) => {
-        //     if (body.startTime<=slot.endTime && body.startTime >= slot.startTime){ 
-        //         // the user is trying to enter an event that starts before another event ends but after that event starts
-        //         return true
-        //     }
-
-        //     if (body.endTime >= slot.startTime && body.endTime <= slot.endTime){ 
-        //         // the user is trying to enter an event that ends after another event starts but before that event ends
-        //         return true
-        //     }
-        // })
-        // if (
-        //     body.startTime >= availableHours[body.dayOfWeek][0] && 
-        //     body.endTime <= availableHours[body.dayOfWeek][1] &&
-        //     // check that the requested time starts after we open and before we close
-        //     !intersects
-        //     // check that the event does not intersect with any other events
-        // ){
-        //     const created = await db.timeslot.create({ 
-        //         data: {
-        //             title: body.title, 
-        //             desc: body.desc,
-        //             startTime: body.startTime,
-        //             endTime: body.endTime,
-        //             day: body.day,
-        //             dayOfWeek: body.dayOfWeek,
-        //             month: body.month
-        //         }
-        //     })
-        //     return NextResponse.json({created}, {status: 201})
-        // } else {
-        //     return NextResponse.json({error: 'Event is invalid'}, {status: 400})
-        // }
-
-    } catch (err) {
-        console.error('DB insert fail: '+err)
-        return NextResponse.json({error: `❌ db insert fail`}, {status: 500 })
+        return NextResponse.json({ created }, { status: 201 });
+    } catch (err: any) {
+        console.error('[API:createTimeslot] error', err);
+        return NextResponse.json({ error: 'Failed to create timeslot' }, { status: 500 });
     }
 }
-

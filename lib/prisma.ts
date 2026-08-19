@@ -4,6 +4,6 @@ const prisma = global as unknown as {prisma : PrismaClient }
 
 export const db = prisma.prisma || new PrismaClient({log: ['query', 'error', 'warn']})
 
-if (process.env.node_env !== 'production') {
+if (process.env.NODE_ENV !== 'production') {
     prisma.prisma = db  
 } 

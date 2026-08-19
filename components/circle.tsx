@@ -12,9 +12,6 @@ interface CircleProps {
 }
 
 const Circle = ({ color, title, content, y, color2, screenWidth, cutoff }: CircleProps) => {
-    const bgColor = `bg-${color}`
-    const colorClass = `bg-gradient-to-br from-${color} to-${color2}`;
-
     const positionMap: Record<typeof cutoff, number> = { // tested values: 30, -170
         l: -30,
         r: screenWidth-190,
@@ -32,8 +29,7 @@ const Circle = ({ color, title, content, y, color2, screenWidth, cutoff }: Circl
     return (
         <div
             className={cn(
-                `z-0 absolute rounded-full text-white w-52 sm:w-[225px] h-52 sm:h-[225px] flex justify-center items-center bg-gradient-to-br from-blue-500 to-green-500`,
-                // colorClass
+                `z-0 absolute rounded-full text-white w-52 sm:w-[225px] h-52 sm:h-[225px] flex justify-center items-center bg-gradient-to-br from-blue-500 to-green-500`
             )}
             style={{ top: y, left: x }}
         >
