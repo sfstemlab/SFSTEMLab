@@ -8,6 +8,7 @@ interface Info {
 	email?: string;
 	firstName?: string;
 	lastName?: string;
+	parentPhone?: string;
 	pronouns?: string;
 	accessSource?: string;
 	reasonForAttending?: string;
@@ -110,6 +111,20 @@ const Form = ({ eventId, title }: FormProps) => {
 						className="w-full rounded-lg border-2 border-brand bg-cardColor text-white px-3 py-2 placeholder-brand focus:outline-none focus:ring-2 focus:ring-brand-light transition-all"
 						value={info.email ?? ''}
 						onChange={(e) => changeInfo('email', e.target.value)}
+					/>
+				</div>
+			</div>
+
+			{/* Row 2 */}
+			<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+				<div>
+					<label className="block mb-1 text-sm font-medium">Parent/Guardian Phone Number<Required /></label>
+					<input
+						type="tel"
+						required
+						className="w-full rounded-lg border-2 border-brand bg-cardColor text-white px-3 py-2 placeholder-brand focus:outline-none focus:ring-2 focus:ring-brand-light transition-all"
+						placeholder="(555) 555-5555"
+						onChange={(e) => changeInfo('parentPhone', e.target.value)}
 					/>
 				</div>
 			</div>
