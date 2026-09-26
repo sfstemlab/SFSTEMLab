@@ -35,7 +35,7 @@ export default function DonatePage() {
                     Choose Your Donation Amount
                 </h2>
                 <p className="text-white/90 mb-6 max-w-xl mx-auto">
-                    Whether it's $10 or $100, your support fuels equipment, materials, and event
+                    Whether it&apos;s $10 or $100, your support fuels equipment, materials, and event
                     access. Pick a preset or enter your own amount.
                 </p>
 
