@@ -84,7 +84,7 @@ const people: HeartPerson[] = [
         name: 'August White',
         picture: '/images/AugustBioPhoto.png',
         bio: "Hi! I'm a 15-year-old high school student and lover of all things STEAM. When I can, I love to read, draw, and code websites, as well as play Dungeons and Dragons and other role-playing games with my friends. I'm excited to continue bringing STEM education to new places, and teaching the younger generation more about the wonders of computers and machines.",
-        titles: ['Software Development Lead - SOTA Cyberdragons'],
+        titles: ['President - SOTA Cyberdragons'],
         email: 'august@team5700.org',
     },
     {
@@ -108,7 +108,7 @@ const people: HeartPerson[] = [
     },
     {
         name: 'Faye Yang',
-        bio: "I am a junior at Lowell High School and passionate about robotics, piano, and journalism. I'm excited to teach and introduce students to STEM and help them discover their interests.",
+        bio: "I am a senior at Lowell High School and passionate about robotics, piano, and journalism. I'm excited to teach and introduce students to STEM and help them discover their interests.",
         titles: ['President - CardinalBotics'],
         email: 'faye.yang@team4159.org',
     },
