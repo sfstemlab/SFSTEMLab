@@ -47,7 +47,7 @@
     }
 
     .main-section {
-        @apply text-center w-full z-40 absolute top-[305px] md:top-[550px] bg-[#1e439d] text-brand px-4 py-8 md:px-12 md:py-12 items-center justify-center overflow-y-scroll;
+        @apply text-center w-full z-40 relative mt-[305px] md:mt-[550px] bg-[#1e439d] text-brand px-4 py-8 md:px-12 md:py-12 items-center justify-center;
     }
 
     .page-title {
