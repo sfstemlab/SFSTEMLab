@@ -33,7 +33,7 @@ const Newsletter = () => {
     return (
         <>
             <form
-                className={`${visible ? '' : 'hidden'} sticky bottom-4 left-4 bg-brand/80 backdrop-blur-sm border-2 border-brand text-darkBlue font-bold px-6 py-4 rounded-lg items-center mt-4 space-x-2 max-w-md shadow-lg shadow-black/50`}
+                className={`${visible ? '' : 'hidden'} sticky bottom-4 left-4 z-50 bg-brand/80 backdrop-blur-sm border-2 border-brand text-darkBlue font-bold px-6 py-4 rounded-lg items-center mt-4 space-x-2 max-w-md shadow-lg shadow-black/50`}
                 onSubmit={handleSubscribe}
             >
                 <div className='flex w-full justify-between'>
