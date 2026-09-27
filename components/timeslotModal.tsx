@@ -55,7 +55,10 @@ export function TimeslotModal({ onCreated }: TimeslotModalProps) {
         }
 
         window.addEventListener("keydown", onKeyDown);
-        return () => window.removeEventListener("keydown", onKeyDown);
+        return () => {
+            window.removeEventListener("keydown", onKeyDown);
+            document.body.style.overflow = "auto";
+        };
     }, [active]);
 
     useOutsideClick(ref, () => setActive(null));
