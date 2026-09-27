@@ -66,11 +66,11 @@ const PageTitle = () => {
       <img
         src={info.imgSrc}
         alt={info.imgAlt}
-        className="absolute inset-0 top-4 w-full h-full object-cover object-center"   
+        className="absolute inset-0 w-full h-full object-cover object-center"
       />
 
       {/* overlay */}
-      <div className="absolute inset-0 top-4 bg-black/45" />
+      <div className="absolute inset-0 bg-black/45" />
 
       {/* text container */}
       <div className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center">
