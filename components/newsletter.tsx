@@ -33,7 +33,7 @@ const Newsletter = () => {
     return (
         <>
             <form
-                className={`${visible ? '' : 'hidden'} sticky bottom-4 left-4 z-50 bg-brand/80 backdrop-blur-sm border-2 border-brand text-darkBlue font-bold px-6 py-4 rounded-lg items-center mt-4 space-x-2 max-w-md shadow-lg shadow-black/50`}
+                className={`${visible ? '' : 'hidden'} sticky bottom-4 mx-4 z-50 bg-brand/80 backdrop-blur-sm border-2 border-brand text-darkBlue font-bold px-4 py-4 sm:px-6 rounded-lg items-center mt-4 space-x-2 max-w-md shadow-lg shadow-black/50`}
                 onSubmit={handleSubscribe}
             >
                 <div className='flex w-full justify-between'>
@@ -47,7 +47,7 @@ const Newsletter = () => {
                 </div>
                 <div className="flex">
                     <input
-                        className={`font-normal text-darkBlue grow items-center h-14 pr-0.5 rounded-l px-4 border-y-2 border-l-2 placeholder-transparent md:placeholder-gray-400 ${statusCode == 400 ? 'border-redBrand' : 'border-darkBlue'} `}
+                        className={`font-normal text-darkBlue grow min-w-0 items-center h-14 pr-0.5 rounded-l px-4 border-y-2 border-l-2 placeholder-transparent md:placeholder-gray-400 ${statusCode == 400 ? 'border-redBrand' : 'border-darkBlue'} `}
                         type="email"
                         placeholder="Enter your email address here"
                         value={email}
