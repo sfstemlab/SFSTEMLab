@@ -41,6 +41,26 @@ const PageTitle = () => {
       imgSrc: "/images/controllers.png",
       imgAlt: "Account Page Hero Image",
     },
+    "/resources": {
+      title: "Resources",
+      imgSrc: "/images/mentorship.png",
+      imgAlt: "Resources Page Hero Image",
+    },
+    "/robotics": {
+      title: "Robotics",
+      imgSrc: "/images/gears.png",
+      imgAlt: "Robotics Page Hero Image",
+    },
+    "/robotics/scouting/match": {
+      title: "Match Scouting",
+      imgSrc: "/images/wiring.png",
+      imgAlt: "Match Scouting Page Hero Image",
+    },
+    "/robotics/scouting/pit": {
+      title: "Pit Scouting",
+      imgSrc: "/images/tools.png",
+      imgAlt: "Pit Scouting Page Hero Image",
+    },
   };
 
   const info =
@@ -50,6 +70,13 @@ const PageTitle = () => {
           title: "Sign Up",
           imgSrc: "/images/controllers.png",
           imgAlt: "Signup Page Hero Image",
+        }
+      : undefined) ??
+    (pathname.startsWith("/sign-in")
+      ? {
+          title: "Sign In",
+          imgSrc: "/images/drillPress.png",
+          imgAlt: "Sign In Page Hero Image",
         }
       : undefined) ??
     ({
