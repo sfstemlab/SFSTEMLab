@@ -147,7 +147,7 @@ const PitScoutingPage = () => {
             Pit Scouting for FRC
           </h1>
 
-          <div className="flex flex-col space-y-4 justify-center mt-4 items-center">
+          <div className="flex flex-col w-full space-y-4 justify-center mt-4 items-center">
             <input
               className="my-4 placeholder-white text-white rounded-md py-2 px-4 w-72 border-2 border-brand bg-brand/50 hover:bg-[#8db5e3]/90 transition duration-70 ease-in-out"
               type="number"
@@ -155,6 +155,7 @@ const PitScoutingPage = () => {
               onChange={(e) => setYourTeamNumber(Number(e.target.value))}
             />
 
+            <div className="w-full min-w-0">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -196,6 +197,7 @@ const PitScoutingPage = () => {
                 ))}
               </TableBody>
             </Table>
+            </div>
 
             <h3 className="mt-4 text-2xl text-white font-semibold text-center">
               Pit Scouting Questions

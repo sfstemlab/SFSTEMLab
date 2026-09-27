@@ -8,7 +8,6 @@ import {
   Calendar,
   Menu,
   X,
-  HandHeart,
   CircleUserRound,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
@@ -105,49 +104,7 @@ const Navbar = () => {
                                 </Link>
                             </motion.div>
                         ))}
-
-                        <Link
-                            href="/donate"
-                            //   styling for shine hover effect - dont change this code
-                            style={{
-                                backgroundColor: '#cc1616',
-                                backgroundImage:
-                                    'linear-gradient(90deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.8) 100%)',
-                                backgroundSize: '200% 100%',
-                                backgroundPosition: '-100% 0',
-                                backgroundRepeat: 'no-repeat',
-                                transition: 'background-position 0.5s ease',
-                            }}
-                            onMouseEnter={(e) =>
-                                (e.currentTarget.style.backgroundPosition = '200% 0')
-                            }
-                            onMouseLeave={(e) =>
-                                (e.currentTarget.style.backgroundPosition = '-100% 0')
-                            }
-                            className="w-32 h-12 rounded-lg text-white font-bold text-base flex items-center justify-center"
-                        >
-                            <HandHeart className="w-6 h-6 mr-2" />
-                            Donate
-                        </Link>
                     </div>
-                    <Link
-                        href="/donate"
-                        //   styling for shine hover effect - dont change this code
-                        style={{
-                            backgroundImage:
-                                'linear-gradient(90deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.8) 100%)',
-                            backgroundSize: '200% 100%',
-                            backgroundPosition: '-100% 0',
-                            backgroundRepeat: 'no-repeat',
-                            transition: 'background-position 0.5s ease',
-                        }}
-                        onMouseEnter={(e) => (e.currentTarget.style.backgroundPosition = '200% 0')}
-                        onMouseLeave={(e) => (e.currentTarget.style.backgroundPosition = '-100% 0')}
-                        className={`md:hidden w-full h-11 ml-4 mr-2 rounded-lg text-white font-bold text-sm flex items-center justify-center ${pathname === '/donate' ? 'bg-redBrand-light' : 'bg-redBrand'}`}
-                    >
-                        <HandHeart className="w-5 h-5 mr-2" />
-                        Donate
-                    </Link>
                     {/* custom clerk pages */}
                     <div className='hidden md:flex'>
 

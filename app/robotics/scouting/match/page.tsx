@@ -226,9 +226,9 @@ const MatchScoutingPage = () => {
           <h1 className="text-center w-full text-3xl font-bold text-white underline">
             Match Scouting for FRC
           </h1>
-          <div className="flex space-x-4 justify-center mt-4 px-4 items-center">
+          <div className="flex flex-wrap space-x-0 gap-4 justify-center mt-4 px-4 items-center">
             <input
-              className="my-4 placeholder-white text-white rounded-md py-2 px-4 w-64 border-2 border-brand bg-brand/50 hover:bg-[#8db5e3]/90 transition duration-700 ease-in-out"
+              className="my-4 placeholder-white text-white rounded-md py-2 px-4 w-full sm:w-64 border-2 border-brand bg-brand/50 hover:bg-[#8db5e3]/90 transition duration-700 ease-in-out"
               type="number"
               placeholder="   Your Team Number"
               onChange={(e) => {
@@ -236,28 +236,28 @@ const MatchScoutingPage = () => {
               }}
             />
             <input
-              className="my-4 placeholder-white text-white rounded-md py-2 px-4 w-64 border-2 border-brand bg-brand/50 hover:bg-[#8db5e3]/90 transition duration-700 ease-in-out"
+              className="my-4 placeholder-white text-white rounded-md py-2 px-4 w-full sm:w-64 border-2 border-brand bg-brand/50 hover:bg-[#8db5e3]/90 transition duration-700 ease-in-out"
               type="text"
               placeholder="   Match Type"
               onChange={(e) => handleInputChange("matchType", e.target.value)}
             />
             <input
-              className="my-4 placeholder-white text-white rounded-md py-2 px-4 w-64 border-2 border-brand bg-brand/50 hover:bg-[#8db5e3]/90 transition duration-700 ease-in-out"
+              className="my-4 placeholder-white text-white rounded-md py-2 px-4 w-full sm:w-64 border-2 border-brand bg-brand/50 hover:bg-[#8db5e3]/90 transition duration-700 ease-in-out"
               type="number"
               placeholder="   Match Number"
               onChange={(e) => handleInputChange("matchNumber", e.target.value)}
             />
             <input
-              className="my-4 placeholder-white text-white rounded-md py-2 px-4 w-64 border-2 border-brand bg-brand/50 hover:bg-[#8db5e3]/90 transition duration-700 ease-in-out"
+              className="my-4 placeholder-white text-white rounded-md py-2 px-4 w-full sm:w-64 border-2 border-brand bg-brand/50 hover:bg-[#8db5e3]/90 transition duration-700 ease-in-out"
               type="text"
               placeholder="   Event"
               onChange={(e) => handleInputChange("event", e.target.value)}
             />
           </div>
           <h2 className="text-2xl text-center text-white font-bold">Scores</h2>
-          <div className="mt-2">
+          <div className="mt-2 w-full min-w-0 overflow-x-auto">
             {/* Scores section */}
-            <div className="grid grid-cols-7 gap-2 mr-4 justify-center mb-4">
+            <div className="grid grid-cols-[150px_repeat(6,minmax(80px,1fr))] gap-2 mr-4 justify-center mb-4 min-w-[660px]">
               {/* Table Headers */}
               <h3 className="py-1 rounded-md text-center text-xl text-white w-[150px]">
                 Team Name
@@ -351,7 +351,7 @@ const MatchScoutingPage = () => {
           </div>
           <div className="mt-2">
             <Tabs defaultValue="r1" className="">
-                <TabsList className="w-[500px] justify-around mx-auto bg-brand">
+                <TabsList className="w-full max-w-[500px] flex-wrap h-auto justify-around mx-auto bg-brand">
                     {teams.map(
                         ({team, setTeam}) => (
                             <TabsTrigger key={team.id} value={String(team.id)} className='bg-brand'>
