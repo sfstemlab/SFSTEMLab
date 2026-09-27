@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useOutsideClick } from '../hooks/use-outside-click';
-import { Calendar, Clock, MoveRight, X } from 'lucide-react';
+import { Calendar, MoveRight, X } from 'lucide-react';
 import Link from 'next/link';
 import Tag from './tag';
 import { EventProps } from '@/types/types';
@@ -78,12 +78,7 @@ export function Card({ event }: CardProps) {
 									<div className="flex flex-wrap gap-2">
 										<div className="rounded-md bg-brand/60 text-redBrand py-1 px-3 items-center text-center flex cursor-default whitespace-nowrap">
 											<h2 className="font-extrabold text-lg tracking-wide">
-												{event.month} {event.day}
-											</h2>
-										</div>
-										<div className="rounded-md bg-brand/60 text-redBrand py-1 px-3 items-center text-center flex cursor-default whitespace-nowrap">
-											<h2 className="font-extrabold text-lg tracking-wide">
-												{formatTime(event.startTime)} - {formatTime(event.endTime)}
+												{event.month} {event.day} - {formatTime(event.startTime)} - {formatTime(event.endTime)}
 											</h2>
 										</div>
 										<button
@@ -148,11 +143,7 @@ export function Card({ event }: CardProps) {
                 <div className='flex flex-wrap gap-2'>
                     <span className="flex text-sm text-redBrand gap-2 bg-brand/60 rounded-md px-2 py-2 font-bold h-8 text-center items-center whitespace-nowrap">
                         <Calendar className="w-4 h-4" />
-                        {event.month} {event.day}
-                    </span>
-                    <span className="flex text-sm text-redBrand gap-2 bg-brand/60 rounded-md px-2 py-2 font-bold h-8 text-center items-center whitespace-nowrap">
-                        <Clock className="w-4 h-4" />
-                        {formatTime(event.startTime)} - {formatTime(event.endTime)}
+                        {event.month} {event.day} - {formatTime(event.startTime)} - {formatTime(event.endTime)}
                     </span>
                 </div>
 			</motion.div>
